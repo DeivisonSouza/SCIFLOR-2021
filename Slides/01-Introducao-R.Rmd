@@ -100,11 +100,11 @@ layout: true
 
 ## Objetivos
 <br><br>
-Ao final desta aula espera-se que o discente seja capaz de...
+Ao final desta primeira parte (Introdução à Linguagem de Programação R) espera-se que os participantes possam alcançar conhecimentos para...
 
-* Entender a importância e reconhecer a praticidade de uso de linguagem de programação;
+* Entender a importância e reconhecer a praticidade de uso de Linguagem de Programação;
 * Realizar o download e a instalação do RGui e IDE Rstudio;
-* Compreender as principais estruturas de dados na linguagem R e aprender a criá-las usando as funções do R-base;
+* Compreender e construir as principais estruturas de dados na Linguagem R;
 * Realizar indexação de diferentes estruturas de dados no R; e
 * Compreender e desenvolver suas próprias funções no R.
 <!-- * Compreender e aprender a usar estruturas de controle no R; -->
@@ -194,10 +194,10 @@ Ao final desta aula espera-se que o discente seja capaz de...
 layout: false
 name: conc
 class: inverse, top, right
-background-image: url(fig/part1/inv1.jpg)
+background-image: url(fig/part1/arara.jpg)
 background-size: cover
 
-.font200[**Parte 1 <br> .red[Conhecendo o R e <br> o IDE Rstudio]**]
+.font200[**.white[Parte 1] <br> .yellow[Conhecendo o R e <br> o IDE Rstudio]**]
 
 ---
 layout: true
@@ -423,10 +423,10 @@ knitr::include_graphics('fig/part1/RstudioIG.svg')
 layout: false
 name: conc
 class: inverse, top, right
-background-image: url(fig/part1/inv1.jpg)
+background-image: url(fig/part1/arara2.jpg)
 background-size: cover
 
-.font200[**Parte 2 <br> .red[Estrutura de dados <br> na linguagem R]**]
+.font200[**.white[Parte 2] <br> .yellow[Estrutura de dados <br> na linguagem R]**]
 
 ---
 layout: true
@@ -1114,10 +1114,10 @@ as.data.frame(list4)
 layout: false
 name: conc
 class: inverse, top, right
-background-image: url(fig/part1/inv1.jpg)
+background-image: url(fig/part1/arara2.jpg)
 background-size: cover
 
-.font200[**Parte 3 <br> .red[Indexação no R]**]
+.font200[**.white[Parte 3] <br> .yellow[Indexação no R]**]
 
 ---
 layout: true
@@ -1781,10 +1781,10 @@ list$Inventario[diametro > 50 & cortar == "Sim", ]
 layout: false
 name: conc
 class: inverse, top, right
-background-image: url(fig/part1/inv1.jpg)
+background-image: url(fig/part1/arara.jpg)
 background-size: cover
 
-.font200[**Parte 5 <br> .red[Um pouco mais <br> sobre o R]**]
+.font200[**.white[Parte 5] <br> .yellow[Um pouco mais <br> sobre o R]**]
 
 ---
 layout: true
@@ -2339,7 +2339,7 @@ background-image: url(fig/part1/arara2.jpg)
 background-size: cover
 
 .font300[
-.white[Obrigado!]
+.yellow[Obrigado!]
 ]
 <br><br>
 
