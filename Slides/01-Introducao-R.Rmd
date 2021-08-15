@@ -103,10 +103,9 @@ layout: true
 Ao final desta primeira parte (Introdução à Linguagem de Programação R) espera-se que os participantes possam alcançar conhecimentos para...
 
 * Entender a importância e reconhecer a praticidade de uso de Linguagem de Programação;
-* Realizar o download e a instalação do RGui e IDE Rstudio;
 * Compreender e construir as principais estruturas de dados na Linguagem R;
 * Realizar indexação de diferentes estruturas de dados no R; e
-* Compreender e desenvolver suas próprias funções no R.
+* .red[Compreender e desenvolver suas próprias funções no R.]
 <!-- * Compreender e aprender a usar estruturas de controle no R; -->
 <!-- * Criar gráficos usando funções de pacotes do R-base; e -->
 <!-- * Realizar uma análise exploratória de dados. -->
