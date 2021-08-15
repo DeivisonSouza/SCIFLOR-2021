@@ -237,7 +237,21 @@ class: with-logo logo-ufpa
 
 ---
 
-## Importação de dados com readr
+## Importação de dados no R
+<br>
+
+.font90[
+- A etapa de importação de dados para o R precede a análise de dados.
+- Os dados podem ser exportados: i) diretamente para a memória (RAM); ou ii) acessados remotamente.
+- O mecanismo de importação depende do formato dos dados.
+- Por exemplo, é possível exportar dados nos formatos: .txt, .csv, .xlsx, .ods, SAS, SPSS, etc.
+- O R-base possui funções para importação de dados: .green[**read.csv()**] e .green[**read.table()**] (Pacote .blue[**utils**]).
+- O tidyverse incorpora o pacote .blue[**readr**], que possui várias funções para importação de dados.
+]
+<br><br>
+
+.center[**O pacote .blue[readr] será o nosso objeto de estudo!**]
+
 
 
 ---
