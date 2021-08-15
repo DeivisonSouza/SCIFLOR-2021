@@ -1,5 +1,5 @@
 ---
-title: "Minicurso: Introdução ao R para análise de dados"
+title: "Minicurso: Introdução ao R para Análise de Dados"
 subtitle: "Parte 1 - Introdução à Linguagem de Programação R"
 author: "Prof. Dr. Deivison Venicio Souza"
 institute: "Universidade Federal do Pará (UFPA)"
@@ -92,6 +92,7 @@ use_clipboard()
 ##### `r format(Sys.Date(),"%d/%B/%Y")`
 
 ---
+
 layout: true
 <div class="my-header"></div>
 <div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Minicurso: Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
