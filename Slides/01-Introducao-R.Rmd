@@ -95,7 +95,7 @@ use_clipboard()
 
 layout: true
 <div class="my-header"></div>
-<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Minicurso: Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
 
 ---
 
@@ -200,9 +200,10 @@ background-size: cover
 .font200[**.white[Parte 1] <br> .yellow[Conhecendo o R e <br> o IDE Rstudio]**]
 
 ---
+
 layout: true
 <div class="my-header"></div>
-<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Minicurso: Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
 
 ---
 name: R
@@ -429,9 +430,10 @@ background-size: cover
 .font200[**.white[Parte 2] <br> .yellow[Estrutura de dados <br> na linguagem R]**]
 
 ---
+
 layout: true
 <div class="my-header"></div>
-<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Minicurso: Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
 
 ---
 
@@ -1120,9 +1122,10 @@ background-size: cover
 .font200[**.white[Parte 3] <br> .yellow[Indexação no R]**]
 
 ---
+
 layout: true
 <div class="my-header"></div>
-<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Minicurso: Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
 
 ---
 name: Ind
@@ -1787,9 +1790,10 @@ background-size: cover
 .font200[**.white[Parte 5] <br> .yellow[Um pouco mais <br> sobre o R]**]
 
 ---
+
 layout: true
 <div class="my-header"></div>
-<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Minicurso: Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
 
 ---
 name: Sint
