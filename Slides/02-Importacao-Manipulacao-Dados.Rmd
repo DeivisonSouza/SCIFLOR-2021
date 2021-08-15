@@ -252,10 +252,29 @@ class: with-logo logo-ufpa
 
 .center[**O pacote .blue[readr] será o nosso objeto de estudo!**]
 
-
-
 ---
 
+## Pacote readr (tidyverse)
+<br>
+
+- O pacote .blue[readr] está incorporado no tidyverse.
+- Algumas das principais funções são:
+<br><br>
+
+.left[
+.font90[
+**read_csv()** - Importar um arquivo de valores separados por .blue[vírgula] (*Comma-Separated Values*)
+
+**read_csv2()** - Importar um arquivo de valores separados por .blue[ponto e vírgula] (*Semicolon-Separated Values*)
+
+**read_tsv()** - Importar um arquivo de valores separados por .blue[tabulação] (*Tab-Separated Values*)
+
+**read_delim()**
+
+**read_table()**
+]
+
+]
 
 ---
 
