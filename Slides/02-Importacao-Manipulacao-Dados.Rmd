@@ -69,18 +69,6 @@ library(readr)
 .logo-ufpa::before {
 	background-image: url(fig/slide-title/ufpa.png);
 }
-
-.logo-dplyr::before {
-	background-image: url(https://github.com/rstudio/hex-stickers/raw/master/PNG/dplyr.png);
-}
-
-.logo-purrr::before {
-	background-image: url(https://github.com/rstudio/hex-stickers/raw/master/PNG/purrr.png);
-}
-
-.logo-plumber::before {
-	background-image: url(https://github.com/rstudio/hex-stickers/raw/master/PNG/plumber.png);
-}
 ```
 
 ```{r xaringan-logo, echo=FALSE}
@@ -369,7 +357,7 @@ Para aprender a intuição de algumas funções **dplyr** usaremos uma pequena a
 
 layout: false
 name: select
-class: inverse, middle, left
+class: inverse, bottom, right
 background-image: url(fig/part1/arara.jpg)
 background-size: cover
 
@@ -925,7 +913,7 @@ data %>%
 
 layout: false
 name: arrange
-class: inverse, middle, left
+class: inverse, bottom, right
 background-image: url(fig/part1/arara.jpg)
 background-size: cover
 
@@ -1070,7 +1058,7 @@ data %>%
 
 layout: false
 name: filter
-class: inverse, middle, left
+class: inverse, top, right
 background-image: url(fig/part1/arara2.jpg)
 background-size: cover
 
@@ -1300,7 +1288,7 @@ data %>%
 
 layout: false
 name: mutate
-class: inverse, middle, left
+class: inverse, bottom, right
 background-image: url(fig/part1/arara.jpg)
 background-size: cover
 
@@ -1593,7 +1581,7 @@ data %>%
 
 layout: false
 name: groupby
-class: inverse, middle, left
+class: inverse, top, right
 background-image: url(fig/part1/arara2.jpg)
 background-size: cover
 
@@ -1603,7 +1591,7 @@ background-size: cover
 
 .font150[**.yellow[Função summarise()]**]
 
-.white[Criar um novo quadro de dados com estatísticas de resumo <br> de variáveis selecionadas]
+.white[Criar um novo quadro de dados<br> com estatísticas de resumo <br> de variáveis selecionadas]
 
 ---
 
@@ -1792,11 +1780,13 @@ background-image: url(fig/part1/arara2.jpg)
 background-size: cover
 
 .font300[
-Obrigado!
+.yellow[Obrigado!]
 ]
-<br><br><br><br><br><br>
+<br><br>
 
-**Email**: <a href="mailto:deivisonvs@ufpa.br">deivisonvs@ufpa.br</a>
+.white[**Email**:] <a href="mailto:deivisonvs@ufpa.br">.white[deivisonvs@ufpa.br]</a>
 
-**Github**: <a href="https://github.com/DeivisonSouza">@DeivisonSouza</a>
+.white[**Github**:] <a href="https://github.com/DeivisonSouza">.white[@DeivisonSouza]</a>
+
+.left[.footnote[.white[Créditos: Imagem de ljwong por Pixabay].]]
 
