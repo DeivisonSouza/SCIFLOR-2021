@@ -7,7 +7,7 @@
     <script src="02-Importacao-Manipulacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="02-Importacao-Manipulacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="02-Importacao-Manipulacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"da187dc96eed4eca80704c4f3b4efbcc","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xe4716ecd08541669295cf8a0badb613","expires":1}</script>
     <script src="02-Importacao-Manipulacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="02-Importacao-Manipulacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="02-Importacao-Manipulacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -18,6 +18,15 @@
     <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
     <link href="02-Importacao-Manipulacao-Dados_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
     <script src="02-Importacao-Manipulacao-Dados_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <script src="02-Importacao-Manipulacao-Dados_files/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="02-Importacao-Manipulacao-Dados_files/jquery-3.5.1/jquery.min.js"></script>
+    <link href="02-Importacao-Manipulacao-Dados_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="02-Importacao-Manipulacao-Dados_files/datatables-binding-0.17/datatables.js"></script>
+    <link href="02-Importacao-Manipulacao-Dados_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="02-Importacao-Manipulacao-Dados_files/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="02-Importacao-Manipulacao-Dados_files/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+    <link href="02-Importacao-Manipulacao-Dados_files/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+    <script src="02-Importacao-Manipulacao-Dados_files/crosstalk-1.1.1/js/crosstalk.min.js"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         TeX: { equationNumbers: { autoNumber: "AMS" } },
@@ -223,7 +232,7 @@ background-size: cover
 layout: true
 class: with-logo logo-ufpa
 &lt;div class="my-header"&gt;&lt;/div&gt;
-&lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt;
+&lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp; &lt;div3&gt;Introdução ao R para Análise de Dados&lt;/div3&gt;/ &lt;div2&gt;Parte 2 - Importação e Manipulação de Dados: readr e dplyr&lt;/div2&gt; &lt;/div&gt;
 
 
 
@@ -252,7 +261,7 @@ background-size: cover
 layout: true
 class: with-logo logo-ufpa
 &lt;div class="my-header"&gt;&lt;/div&gt;
-&lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt;
+&lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp; &lt;div3&gt;Introdução ao R para Análise de Dados&lt;/div3&gt;/ &lt;div2&gt;Parte 2 - Importação e Manipulação de Dados: readr e dplyr&lt;/div2&gt; &lt;/div&gt;
 
 ---
 
@@ -314,1460 +323,1338 @@ Atualmente são 290 funções projetadas para manipulação de dados.
 
 ]
 
-&lt;!-- --- --&gt;
+---
 
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
+## Manipulação de dados com dplyr
+&lt;br&gt;
 
-&lt;!-- ### Uma pequena amostra para praticar... --&gt;
+### Uma pequena amostra para praticar...
 
-&lt;!-- .font90[ --&gt;
-&lt;!-- .pull-left-9[ --&gt;
+.font90[
+.pull-left-9[
 
-&lt;!-- ```{r tibble, echo=T, eval=F} --&gt;
-&lt;!-- data &lt;- readr::read_csv("data/data.csv") --&gt;
 
-&lt;!-- data %&gt;% CustomDT # Apenas para customizar a tabela --&gt;
-&lt;!-- ``` --&gt;
+```r
+data &lt;- readr::read_csv("data/data.csv")
 
-&lt;!-- .font90[ --&gt;
-&lt;!-- Para aprender a intuição de algumas funções **dplyr** usaremos uma pequena amostra de dados de IF100%. --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+data %&gt;% CustomDT # Apenas para customizar a tabela
+```
 
-&lt;!-- **A base completa pode ser acessada em**: [IF100%](https://deivisonsouza.github.io/FL03034-EF/Slides/data/UPA07DVS.csv) --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
+.font90[
+Para aprender a intuição de algumas funções **dplyr** usaremos uma pequena amostra de dados de IF100%.
+&lt;br&gt;&lt;br&gt;
 
-&lt;!-- .pull-right-9[ --&gt;
-&lt;!-- ```{r ref.label="tibble", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- layout: false --&gt;
-&lt;!-- name: select --&gt;
-&lt;!-- class: inverse, middle, left --&gt;
-&lt;!-- background-image: url(fig/class3/Inv2.png) --&gt;
-&lt;!-- background-size: cover --&gt;
-
-
-&lt;!-- .font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .font150[**.yellow[Função select()]**] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- layout: true --&gt;
-&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
-&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-11[ --&gt;
-&lt;!-- .blue[**Seleção de uma coluna...**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Alternativa 1**: --&gt;
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- select(data, Nome_Especie) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- **Alternativa 2** --&gt;
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(Nome_Especie) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r sel, echo=F, eval=F} --&gt;
-&lt;!-- select(data, Nome_Especie) %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-11[ --&gt;
-&lt;!-- ```{r ref.label="sel", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-11[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- .blue[**Seleção de várias coluna...**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- **Alternativa 1** (sem %&gt;%) --&gt;
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- select( --&gt;
-&lt;!--   data, CAP, HC, QF --&gt;
-&lt;!--   ) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- **Alternativa 2** (com %&gt;%) --&gt;
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(CAP, HC, QF) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- **Alternativa 3** (%&gt;% + :) --&gt;
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(CAP:QF) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r sel2, echo=F, eval=F} --&gt;
-&lt;!-- select(data, CAP, HC, QF) %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-11[ --&gt;
-&lt;!-- ```{r ref.label="sel2", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- name: startwith --&gt;
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-11[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .green[**starts_with()**] --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- .font80[ --&gt;
-&lt;!-- Função usada para selecionar colunas cujos nomes .green[iniciam] com um texto padrão. --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- select( --&gt;
-&lt;!--   data, starts_with("N") --&gt;
-&lt;!--   ) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r sel3, echo=F, eval=F} --&gt;
-&lt;!-- select(data, starts_with("N")) %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-11[ --&gt;
-&lt;!-- ```{r ref.label="sel3", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-
-&lt;!-- --- --&gt;
-&lt;!-- name: endswith --&gt;
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-11[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .green[**ends_with()**] --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- .font80[ --&gt;
-&lt;!-- Função usada para selecionar colunas cujos nomes .green[terminam] com um texto padrão. --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- select( --&gt;
-&lt;!--   data, ends_with("e") --&gt;
-&lt;!--   ) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r sel4, echo=F, eval=F} --&gt;
-&lt;!-- select(data, ends_with("e")) %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-11[ --&gt;
-&lt;!-- ```{r ref.label="sel4", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- name: contains --&gt;
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-11[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .green[**contains()**] --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- .font80[ --&gt;
-&lt;!-- Função usada para selecionar colunas cujos nomes tenham algum texto padrão. --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- select( --&gt;
-&lt;!--   data, contains("e") --&gt;
-&lt;!--   ) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r sel5, echo=F, eval=F} --&gt;
-&lt;!-- select(data, contains("e")) %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-11[ --&gt;
-&lt;!-- ```{r ref.label="sel5", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- name: matches --&gt;
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-11[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .green[**matches()**] --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- .font80[ --&gt;
-&lt;!-- Função usada para selecionar colunas que contenham nomes correspondentes à alguma expressão regular. --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- select( --&gt;
-&lt;!--   data, matches('No|cao|F') --&gt;
-&lt;!--   ) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r sel6, echo=F, eval=F} --&gt;
-&lt;!-- select(data, matches('No|cao|F')) %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-11[ --&gt;
-&lt;!-- ```{r ref.label="sel6", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- name: everything --&gt;
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-5[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .green[**everything()**] --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- .font80[ --&gt;
-&lt;!-- Seleciona todas as variáveis. É útil para reordenar algumas colunas, sem se importar com a ordem das demais. --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select( --&gt;
-&lt;!--     Nome_Especie, --&gt;
-&lt;!--     Selecao, --&gt;
-&lt;!--     everything()) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r sel11, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(Nome_Especie, --&gt;
-&lt;!--          Selecao, --&gt;
-&lt;!--          everything()) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-5[ --&gt;
-&lt;!-- ```{r ref.label="sel11", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- name: where --&gt;
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .green[**where()**] --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- .font80[ --&gt;
-&lt;!-- Aplica uma função à todas as variáveis e seleciona aquelas para as quais a resposta é TRUE. --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(where(is.character)) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r sel12, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(where(is.character)) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- ```{r ref.label="sel12", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-11[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- .blue[**Combinando funções auxiliares e operadores lógicos...**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select( --&gt;
-&lt;!--     starts_with("N") &amp; --&gt;
-&lt;!--       !ends_with("Arvore")) --&gt;
-&lt;!-- ``` --&gt;
-
-
-&lt;!-- <span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando** --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select( --&gt;
-&lt;!--     starts_with("N") | --&gt;
-&lt;!--       ends_with("Arvore")) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r sel8, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select( --&gt;
-&lt;!--     starts_with("N") &amp; --&gt;
-&lt;!--       !ends_with("Arvore")) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-11[ --&gt;
-&lt;!-- ```{r ref.label="sel8", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-11[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- .blue[**Função concatenate**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(CAP:Selecao)) --&gt;
-&lt;!-- ``` --&gt;
-
-
-&lt;!-- <span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando** --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(!(CAP:Selecao)) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r sel9, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(CAP:Selecao)) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-11[ --&gt;
-&lt;!-- ```{r ref.label="sel9", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-1[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- .blue[**Reordenar colunas**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(Nome_Especie, --&gt;
-&lt;!--          Selecao, CAP, --&gt;
-&lt;!--          QF, HC) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r sel10, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(Nome_Especie, Selecao, CAP, QF, HC) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-2[ --&gt;
-&lt;!-- ```{r ref.label="sel10", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- layout: false --&gt;
-&lt;!-- name: arrange --&gt;
-&lt;!-- class: inverse, middle, left --&gt;
-&lt;!-- background-image: url(fig/class3/Inv2.png) --&gt;
-&lt;!-- background-size: cover --&gt;
-
-
-&lt;!-- .font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .font150[**.yellow[Função arrange()]**] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- layout: true --&gt;
-&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
-&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **arrange()** - .black[Ordenar linhas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-12[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Ordem crescente de uma variável** --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   arrange(HC) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r arr1, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   arrange(HC) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-12[ --&gt;
-&lt;!-- ```{r ref.label="arr1", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **arrange()** - .black[Ordenar linhas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-12[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Ordem decrescente de uma variável** --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   arrange( --&gt;
-&lt;!--     desc(HC) --&gt;
-&lt;!--     ) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r arr2, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   arrange(desc(HC)) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-12[ --&gt;
-&lt;!-- ```{r ref.label="arr2", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **arrange()** - .black[Ordenar linhas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-left-12[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Ordenar em função de duas ou mais variáveis** --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   arrange( --&gt;
-&lt;!--     CAP, HC --&gt;
-&lt;!--     ) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r arr3, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   arrange(CAP, HC) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-12[ --&gt;
-&lt;!-- ```{r ref.label="arr3", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- layout: false --&gt;
-&lt;!-- name: filter --&gt;
-&lt;!-- class: inverse, middle, left --&gt;
-&lt;!-- background-image: url(fig/class3/Inv2.png) --&gt;
-&lt;!-- background-size: cover --&gt;
-
-
-&lt;!-- .font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .font150[**.yellow[Função filter()]**] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- layout: true --&gt;
-&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
-&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **filter()** - .black[Filtrar linhas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-top[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Filtrar linhas em função de alguma variável** --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   filter(HC &gt; 15) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r fil1, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   filter(HC &gt; 15) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-bottom[ --&gt;
-&lt;!-- ```{r ref.label="fil1", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **filter()** - .black[Filtrar linhas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-top[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Filtrar linhas para algum intervalo da variável** --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   filter(HC &gt; 10 &amp; HC &lt;= 15) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r fil2, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   filter(HC &gt; 10 &amp; HC &lt;= 15) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-bottom[ --&gt;
-&lt;!-- ```{r ref.label="fil2", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **filter()** - .black[Filtrar linhas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-top[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Filtrar linhas em função de duas ou mais variáveis** --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   filter(HC &gt; 10, Selecao == "Explorar") --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r fil3, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   filter(HC &gt; 10, Selecao == "Explorar") %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-bottom[ --&gt;
-&lt;!-- ```{r ref.label="fil3", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **filter()** - .black[Filtrar linhas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
+**A base completa pode ser acessada em**: [IF100%](https://deivisonsouza.github.io/FL03034-EF/Slides/data/UPA07DVS.csv)
+]
+]
+]
 
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-top[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Filtrar linhas usando operador .green[%in%]** - Variáveis categóricas --&gt;
-
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   filter(Nome_Especie %in% c('Acapu', 'Tauari')) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r fil4, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   filter(Nome_Especie %in% c('Acapu', 'Tauari')) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-bottom[ --&gt;
-&lt;!-- ```{r ref.label="fil4", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **filter()** - .black[Filtrar linhas]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-top[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Filtrar linhas com várias condições** --&gt;
-
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   filter(Nome_Especie %in% c('Acapu', 'Tauari'), --&gt;
-&lt;!--          HC &gt;= 12, QF == 1) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r fil5, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   filter(Nome_Especie %in% c('Acapu', 'Tauari'), --&gt;
-&lt;!--          HC &gt;= 12, QF == 1) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-bottom[ --&gt;
-&lt;!-- ```{r ref.label="fil5", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- layout: false --&gt;
-&lt;!-- name: mutate --&gt;
-&lt;!-- class: inverse, middle, left --&gt;
-&lt;!-- background-image: url(fig/class3/Inv2.png) --&gt;
-&lt;!-- background-size: cover --&gt;
-
-
-&lt;!-- .font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .font150[**.yellow[Função mutate()]**] --&gt;
-
-&lt;!-- .white[Criar (ou modificar) variáveis e manter as existentes.] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- layout: true --&gt;
-&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
-&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **mutate()** - .black[Modificar e criar variáveis]] --&gt;
-
-&lt;!-- .pull-left-12[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-12[ --&gt;
-&lt;!-- .pull-left-1[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Criar uma nova variável e adicioná-la à tabela** --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   mutate(DAP = CAP/pi) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- <span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando** --&gt;
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   mutate(DAP = round(CAP/pi, 2)) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r mut1, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
-&lt;!--   mutate(DAP = CAP/pi) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-2[ --&gt;
-&lt;!-- ```{r ref.label="mut1", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **mutate()** - .black[Modificar e criar variáveis]] --&gt;
-
-&lt;!-- .pull-left-12[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-12[ --&gt;
-&lt;!-- .pull-left-1[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Modificar uma variável na tabela** --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   mutate(CAP = CAP/100) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- <span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando** --&gt;
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   mutate(CAP = round(CAP/100, 2)) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r mut2, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
-&lt;!--   mutate(CAP = CAP/100) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-2[ --&gt;
-&lt;!-- ```{r ref.label="mut2", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **mutate()** - .black[Modificar e criar variáveis]] --&gt;
-
-&lt;!-- .pull-left-12[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-12[ --&gt;
-&lt;!-- .pull-left-1[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **Modificar/criar múltiplas variáveis no mesmo mutate()** --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   mutate(DAP = CAP/pi, --&gt;
-&lt;!--          CAP = CAP/100, --&gt;
-&lt;!--          gi = (DAP^2*pi)/40000)) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- <span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando** --&gt;
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   mutate(DAP = CAP/pi, --&gt;
-&lt;!--          CAP = CAP/100, --&gt;
-&lt;!--          gi = (DAP^2*pi)/40000, --&gt;
-&lt;!--          vi = gi*HC*0.7) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r mut3, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
-&lt;!--   mutate(DAP = CAP/pi, --&gt;
-&lt;!--          CAP = CAP/100, --&gt;
-&lt;!--          gi = (DAP^2*pi)/40000) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-2[ --&gt;
-&lt;!-- ```{r ref.label="mut3", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- name: ifelse --&gt;
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **mutate()** - .black[Modificar e criar variáveis]] --&gt;
-
-&lt;!-- .pull-left-12[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-12[ --&gt;
-&lt;!-- .pull-left-11[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **.blue[Usando funções auxiliares...]** --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- **.green[if_else()]** --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   mutate(Selecao = if_else( --&gt;
-&lt;!--     CAP &gt;= 600, "Matriz", "Não Matriz" --&gt;
-&lt;!--     )) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r mut4, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
-&lt;!--   mutate(Selecao = if_else( --&gt;
-&lt;!--     CAP &gt;= 600, "Matriz", "Não Matriz")) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-11[ --&gt;
-&lt;!-- ```{r ref.label="mut4", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-
-&lt;!-- --- --&gt;
-&lt;!-- name: casewhen --&gt;
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **mutate()** - .black[Modificar e criar variáveis]] --&gt;
-
-&lt;!-- .pull-left-12[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-12[ --&gt;
-&lt;!-- .pull-left-2[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **.blue[Usando funções auxiliares...]** --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- **.green[case_when()]** --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- Permite vetorizar várias instruções .green[if_else()]. É um equivalente R da instrução SQL CASE WHEN. --&gt;
-
-&lt;!-- Criar uma nova coluna por múltiplas condições mutuamente exclusivas. --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   mutate( --&gt;
-&lt;!--     Selecao = --&gt;
-&lt;!--       case_when( --&gt;
-&lt;!--         (CAP &gt;= 600) ~ "Matriz", --&gt;
-&lt;!--         (Nome_Especie == "Acapu") ~ "Protegida", --&gt;
-&lt;!--         (CAP &gt;= 158 &amp; Nome_Especie != "Acapu") ~ "Explorar", --&gt;
-&lt;!--     )) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- ```{r mut5, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
-&lt;!--   mutate(Selecao = --&gt;
-&lt;!--            case_when( --&gt;
-&lt;!--              (CAP &gt;= 600) ~ "Matriz", --&gt;
-&lt;!--              (Nome_Especie == "Acapu") ~ "Protegida", --&gt;
-&lt;!--              (CAP &gt;= 158 &amp; Nome_Especie != "Acapu") ~ "Explorar", --&gt;
-&lt;!--     )) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right-1[ --&gt;
-&lt;!-- ```{r ref.label="mut5", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- layout: false --&gt;
-&lt;!-- name: groupby --&gt;
-&lt;!-- class: inverse, middle, left --&gt;
-&lt;!-- background-image: url(fig/class3/Inv2.png) --&gt;
-&lt;!-- background-size: cover --&gt;
-
-
-&lt;!-- .font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .font150[**.yellow[Função summarise()]**] --&gt;
-
-&lt;!-- .white[Criar um novo quadro de dados com estatísticas de resumo &lt;br&gt; de variáveis selecionadas] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- layout: true --&gt;
-&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
-&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- name: summarise --&gt;
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **summarise()** - .black[Sumarizar dados]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-top[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **.blue[Uma única estatística de sumarização...]** --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE)) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ```{r sumr1, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE)) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ```{r ref.label="sumr1", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-bottom[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **.blue[Várias estatísticas na mesma summarise()...]** --&gt;
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE), --&gt;
-&lt;!--             sd_HC = mean(HC, na.rm = TRUE), --&gt;
-&lt;!--             min_HC = min(HC, na.rm = TRUE), --&gt;
-&lt;!--             max_HC = max(HC, na.rm = TRUE)) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ```{r sumr2, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE), --&gt;
-&lt;!--             sd_HC = mean(HC, na.rm = TRUE), --&gt;
-&lt;!--             min_HC = min(HC, na.rm = TRUE), --&gt;
-&lt;!--             max_HC = max(HC, na.rm = TRUE)) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ```{r ref.label="sumr2", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **summarise()** - .black[Sumarizar dados]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-top[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **.blue[Sumarizando diversas variáveis...]** --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE), --&gt;
-&lt;!--             sd_HC = sd(HC, na.rm = TRUE), --&gt;
-&lt;!--             media_CAP = mean(CAP, na.rm = TRUE), --&gt;
-&lt;!--             sd_CAP = sd(CAP, na.rm = TRUE)) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ```{r sumr3, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE), --&gt;
-&lt;!--           sd_HC = sd(HC, na.rm = TRUE), --&gt;
-&lt;!--           media_CAP = mean(CAP, na.rm = TRUE), --&gt;
-&lt;!--           sd_CAP = sd(CAP, na.rm = TRUE)) %&gt;% --&gt;
-&lt;!-- CustomDT --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ```{r ref.label="sumr3", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- --- --&gt;
-&lt;!-- name: across --&gt;
-&lt;!-- ## Manipulação de dados com dplyr --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- ### .font90[Função **summarise()** - .black[Sumarizar dados]] --&gt;
-
-&lt;!-- .pull-left-10[ --&gt;
-&lt;!-- ```{r echo=F, eval=T} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- -- --&gt;
-
-&lt;!-- .pull-right-10[ --&gt;
-&lt;!-- .pull-top[ --&gt;
-&lt;!-- .font80[ --&gt;
-&lt;!-- **.blue[Sumarizando diversas variáveis...]** --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- .green[**across()**] --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- Aplicar uma função (ou funções) em várias colunas. --&gt;
-
-&lt;!-- A função .green[across()] substitui a família de verbos **summarise** com sufixos:.green[_if, _at, _all]. --&gt;
-
-&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   summarise(across( --&gt;
-&lt;!--     .cols = c(HC, CAP), --&gt;
-&lt;!--     .fns = mean, --&gt;
-&lt;!--     na.rm = TRUE, --&gt;
-&lt;!--     .names = "mean_{.col}" --&gt;
-&lt;!--   )) --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ```{r sumr4, echo=F, eval=F} --&gt;
-&lt;!-- data %&gt;% --&gt;
-&lt;!--   summarise(across( --&gt;
-&lt;!--     .cols = c(HC, CAP), --&gt;
-&lt;!--     .fns = mean, --&gt;
-&lt;!--     na.rm = TRUE, --&gt;
-&lt;!--     .names = "mean_{.col}" --&gt;
-&lt;!--   )) %&gt;% --&gt;
-&lt;!--   CustomDT --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ```{r ref.label="sumr4", echo=FALSE, eval=TRUE, collapse=T} --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-
-
-&lt;!-- --- --&gt;
-
-
-&lt;!-- &lt;!--Slide XX --&gt; --&gt;
-&lt;!-- --- --&gt;
-&lt;!-- layout: false --&gt;
-&lt;!-- class: inverse, top, right --&gt;
-&lt;!-- background-image: url(fig/class1/imgC.jpg) --&gt;
-&lt;!-- background-size: cover --&gt;
-
-&lt;!-- .font300[ --&gt;
-&lt;!-- Obrigado! --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt; --&gt;
-
-&lt;!-- **Email**: &lt;a href="mailto:deivisonvs@ufpa.br"&gt;deivisonvs@ufpa.br&lt;/a&gt; --&gt;
-
-&lt;!-- **Github**: &lt;a href="https://github.com/DeivisonSouza"&gt;@DeivisonSouza&lt;/a&gt; --&gt;
+.pull-right-9[
+<div id="htmlwidget-ca725d7fb2d208c8b7e7" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ca725d7fb2d208c8b7e7">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+---
+
+layout: false
+name: select
+class: inverse, middle, left
+background-image: url(fig/part1/arara.jpg)
+background-size: cover
+
+
+.font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**]
+&lt;br&gt;&lt;br&gt;
+
+.font150[**.yellow[Função select()]**]
+
+---
+
+layout: true
+class: with-logo logo-ufpa
+&lt;div class="my-header"&gt;&lt;/div&gt;
+&lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp; &lt;div3&gt;Introdução ao R para Análise de Dados&lt;/div3&gt;/ &lt;div2&gt;Parte 2 - Importação e Manipulação de Dados: readr e dplyr&lt;/div2&gt; &lt;/div&gt;
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **select()** - .black[selecionar colunas]]
+
+.pull-left-10[
+<div id="htmlwidget-12596231a7a4b623566d" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-12596231a7a4b623566d">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-11[
+.blue[**Seleção de uma coluna...**]
+&lt;br&gt;&lt;br&gt;
+.font80[
+**Alternativa 1**:
+
+```r
+select(data, Nome_Especie)
+```
+
+**Alternativa 2**
+
+```r
+data %&gt;%
+  select(Nome_Especie)
+```
+]
+
+
+]
+
+.pull-right-11[
+<div id="htmlwidget-270bcf6ca8779969719d" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-270bcf6ca8779969719d">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **select()** - .black[selecionar colunas]]
+
+.pull-left-10[
+<div id="htmlwidget-d0feac4f9eeb1fa3f91a" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d0feac4f9eeb1fa3f91a">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-11[
+.font80[
+.blue[**Seleção de várias coluna...**]
+&lt;br&gt;&lt;br&gt;
+
+**Alternativa 1** (sem %&gt;%)
+
+```r
+select(
+  data, CAP, HC, QF
+  )
+```
+
+**Alternativa 2** (com %&gt;%)
+
+```r
+data %&gt;%
+  select(CAP, HC, QF)
+```
+
+**Alternativa 3** (%&gt;% + :)
+
+```r
+data %&gt;%
+  select(CAP:QF)
+```
+
+]
+
+
+]
+
+.pull-right-11[
+<div id="htmlwidget-d28c53a2e7a2d3dac1bc" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d28c53a2e7a2d3dac1bc">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,1,2]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+name: startwith
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **select()** - .black[selecionar colunas]]
+
+.pull-left-10[
+<div id="htmlwidget-47e7a35df2fa22981d99" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-47e7a35df2fa22981d99">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-11[
+.font80[
+.blue[**Usando funções auxiliares...**]
+&lt;br&gt;&lt;br&gt;
+
+.green[**starts_with()**]
+&lt;br&gt;
+
+.font80[
+Função usada para selecionar colunas cujos nomes .green[iniciam] com um texto padrão.
+]
+
+
+```r
+select(
+  data, starts_with("N")
+  )
+```
+
+]
+
+
+]
+
+.pull-right-11[
+<div id="htmlwidget-ac0c8b46ee24ea1b8eae" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ac0c8b46ee24ea1b8eae">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":0}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+
+---
+name: endswith
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **select()** - .black[selecionar colunas]]
+
+.pull-left-10[
+<div id="htmlwidget-40dd5544239760cfcc36" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-40dd5544239760cfcc36">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-11[
+.font80[
+.blue[**Usando funções auxiliares...**]
+&lt;br&gt;&lt;br&gt;
+
+.green[**ends_with()**]
+&lt;br&gt;
+
+.font80[
+Função usada para selecionar colunas cujos nomes .green[terminam] com um texto padrão.
+]
+
+
+```r
+select(
+  data, ends_with("e")
+  )
+```
+
+]
+
+
+]
+
+.pull-right-11[
+<div id="htmlwidget-2e5f68b33ae23e83b168" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2e5f68b33ae23e83b168">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":0}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+name: contains
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **select()** - .black[selecionar colunas]]
+
+.pull-left-10[
+<div id="htmlwidget-14e601cbc9c2f14db8ad" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-14e601cbc9c2f14db8ad">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-11[
+.font80[
+.blue[**Usando funções auxiliares...**]
+&lt;br&gt;&lt;br&gt;
+
+.green[**contains()**]
+&lt;br&gt;
+
+.font80[
+Função usada para selecionar colunas cujos nomes tenham algum texto padrão.
+]
+
+
+```r
+select(
+  data, contains("e")
+  )
+```
+
+]
+
+
+]
+
+.pull-right-11[
+<div id="htmlwidget-fd94af608ab941132d01" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fd94af608ab941132d01">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":0}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+name: matches
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **select()** - .black[selecionar colunas]]
+
+.pull-left-10[
+<div id="htmlwidget-c609768c8288405b4088" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c609768c8288405b4088">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-11[
+.font80[
+.blue[**Usando funções auxiliares...**]
+&lt;br&gt;&lt;br&gt;
+
+.green[**matches()**]
+&lt;br&gt;
+
+.font80[
+Função usada para selecionar colunas que contenham nomes correspondentes à alguma expressão regular.
+]
+
+
+```r
+select(
+  data, matches('No|cao|F')
+  )
+```
+
+]
+
+
+]
+
+.pull-right-11[
+<div id="htmlwidget-6aaf58917e1cd63e7f31" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6aaf58917e1cd63e7f31">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":1}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+name: everything
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **select()** - .black[selecionar colunas]]
+
+.pull-left-10[
+<div id="htmlwidget-fcc627cb1e92a7b97024" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fcc627cb1e92a7b97024">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-5[
+.font80[
+.blue[**Usando funções auxiliares...**]
+&lt;br&gt;&lt;br&gt;
+
+.green[**everything()**]
+&lt;br&gt;
+
+.font80[
+Seleciona todas as variáveis. É útil para reordenar algumas colunas, sem se importar com a ordem das demais.
+]
+
+
+```r
+data %&gt;%
+  select(
+    Nome_Especie,
+    Selecao,
+    everything())
+```
+
+]
+
+
+]
+
+.pull-right-5[
+<div id="htmlwidget-5113d045ac5fb7f32651" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5113d045ac5fb7f32651">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"],[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>Selecao<\/th>\n      <th>N_Arvore<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[2,3,4,5]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+name: where
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **select()** - .black[selecionar colunas]]
+
+.pull-left-10[
+<div id="htmlwidget-72b2f46c5fd3e71e6342" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-72b2f46c5fd3e71e6342">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-10[
+.font80[
+.blue[**Usando funções auxiliares...**]
+&lt;br&gt;&lt;br&gt;
+
+.green[**where()**]
+&lt;br&gt;
+
+.font80[
+Aplica uma função à todas as variáveis e seleciona aquelas para as quais a resposta é TRUE.
+]
+
+
+```r
+data %&gt;%
+  select(where(is.character))
+```
+
+]
+
+
+]
+
+.pull-right-10[
+<div id="htmlwidget-64aa912a5e5f9607f378" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-64aa912a5e5f9607f378">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **select()** - .black[selecionar colunas]]
+
+.pull-left-10[
+<div id="htmlwidget-acda0bf6ea1248a4d631" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-acda0bf6ea1248a4d631">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-11[
+.font80[
+.blue[**Combinando funções auxiliares e operadores lógicos...**]
+&lt;br&gt;&lt;br&gt;
+
+
+```r
+data %&gt;%
+  select(
+    starts_with("N") &amp;
+      !ends_with("Arvore"))
+```
+
+
+<span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando**
+&lt;br&gt;
+
+
+```r
+data %&gt;%
+  select(
+    starts_with("N") |
+      ends_with("Arvore"))
+```
+
+]
+
+
+]
+
+.pull-right-11[
+<div id="htmlwidget-28434e426daf627d601f" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-28434e426daf627d601f">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **select()** - .black[selecionar colunas]]
+
+.pull-left-10[
+<div id="htmlwidget-daa824592ee64d845cad" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-daa824592ee64d845cad">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-11[
+.font80[
+.blue[**Função concatenate**]
+&lt;br&gt;&lt;br&gt;
+
+
+```r
+data %&gt;%
+  select(-c(CAP:Selecao))
+```
+
+
+<span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando**
+&lt;br&gt;
+
+
+```r
+data %&gt;%
+  select(!(CAP:Selecao))
+```
+
+]
+
+
+]
+
+.pull-right-11[
+<div id="htmlwidget-4069943eb498b37e5d01" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4069943eb498b37e5d01">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":0}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **select()** - .black[selecionar colunas]]
+
+.pull-left-10[
+<div id="htmlwidget-618dea8bfc58a460b86a" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-618dea8bfc58a460b86a">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-1[
+.font80[
+.blue[**Reordenar colunas**]
+&lt;br&gt;&lt;br&gt;
+
+
+```r
+data %&gt;%
+  select(Nome_Especie,
+         Selecao, CAP,
+         QF, HC)
+```
+
+]
+
+
+]
+
+.pull-right-2[
+<div id="htmlwidget-067de77b9068f87bf2cf" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-067de77b9068f87bf2cf">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"],[186,157,178,540,190,700,200,162,210,600,161,240],[1,2,1,1,1,3,1,1,1,2,1,1],[13,10,12,15,14,19,18,17,14,17,16,18]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>Selecao<\/th>\n      <th>CAP<\/th>\n      <th>QF<\/th>\n      <th>HC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+layout: false
+name: arrange
+class: inverse, middle, left
+background-image: url(fig/part1/arara.jpg)
+background-size: cover
+
+
+.font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**]
+&lt;br&gt;&lt;br&gt;
+
+.font150[**.yellow[Função arrange()]**]
+
+---
+
+layout: true
+class: with-logo logo-ufpa
+&lt;div class="my-header"&gt;&lt;/div&gt;
+&lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp; &lt;div3&gt;Introdução ao R para Análise de Dados&lt;/div3&gt;/ &lt;div2&gt;Parte 2 - Importação e Manipulação de Dados: readr e dplyr&lt;/div2&gt; &lt;/div&gt;
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **arrange()** - .black[Ordenar linhas]]
+
+.pull-left-10[
+<div id="htmlwidget-49d81458cf76dfb606b8" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-49d81458cf76dfb606b8">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-12[
+.font80[
+**Ordem crescente de uma variável**
+
+
+```r
+data %&gt;%
+  arrange(HC)
+```
+
+]
+
+
+]
+
+.pull-right-12[
+<div id="htmlwidget-4b55505f495338370451" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4b55505f495338370451">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[256,1329,258,63,494,18,558,1878,1248,2890,2672,1548],["Acapu","Acapu","Acapu","Angelim vermelho","Maparajuba","Angelim vermelho","Tauari","Maparajuba","Tauari","Maparajuba","Tauari","Angelim vermelho"],[157,178,186,190,210,540,161,162,600,200,240,700],[10,12,13,14,14,15,16,17,17,18,18,19],[2,1,1,1,1,1,1,1,2,1,1,3],["Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Remanescente","Explorar","Explorar","Explorar","Remanescente"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **arrange()** - .black[Ordenar linhas]]
+
+.pull-left-10[
+<div id="htmlwidget-bdfcf286be70aa66a018" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bdfcf286be70aa66a018">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-12[
+.font80[
+**Ordem decrescente de uma variável**
+
+
+```r
+data %&gt;%
+  arrange(
+    desc(HC)
+    )
+```
+
+]
+
+
+]
+
+.pull-right-12[
+<div id="htmlwidget-af4112f4fc237d4f76d1" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-af4112f4fc237d4f76d1">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[1548,2890,2672,1878,1248,558,18,63,494,258,1329,256],["Angelim vermelho","Maparajuba","Tauari","Maparajuba","Tauari","Tauari","Angelim vermelho","Angelim vermelho","Maparajuba","Acapu","Acapu","Acapu"],[700,200,240,162,600,161,540,190,210,186,178,157],[19,18,18,17,17,16,15,14,14,13,12,10],[3,1,1,1,2,1,1,1,1,1,1,2],["Remanescente","Explorar","Explorar","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Remanescente"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **arrange()** - .black[Ordenar linhas]]
+
+.pull-left-10[
+<div id="htmlwidget-87b292f6a8d4561cfaf0" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-87b292f6a8d4561cfaf0">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-left-12[
+.font80[
+**Ordenar em função de duas ou mais variáveis**
+
+
+```r
+data %&gt;%
+  arrange(
+    CAP, HC
+    )
+```
+
+]
+
+
+]
+
+.pull-right-12[
+<div id="htmlwidget-af75b4c859b3d3aad06f" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-af75b4c859b3d3aad06f">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[256,558,1878,1329,258,63,2890,494,2672,18,1248,1548],["Acapu","Tauari","Maparajuba","Acapu","Acapu","Angelim vermelho","Maparajuba","Maparajuba","Tauari","Angelim vermelho","Tauari","Angelim vermelho"],[157,161,162,178,186,190,200,210,240,540,600,700],[10,16,17,12,13,14,18,14,18,15,17,19],[2,1,1,1,1,1,1,1,1,1,2,3],["Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Explorar","Explorar","Explorar","Remanescente"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+layout: false
+name: filter
+class: inverse, middle, left
+background-image: url(fig/part1/arara2.jpg)
+background-size: cover
+
+
+.font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**]
+&lt;br&gt;&lt;br&gt;
+
+.font150[**.yellow[Função filter()]**]
+
+---
+
+layout: true
+class: with-logo logo-ufpa
+&lt;div class="my-header"&gt;&lt;/div&gt;
+&lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp; &lt;div3&gt;Introdução ao R para Análise de Dados&lt;/div3&gt;/ &lt;div2&gt;Parte 2 - Importação e Manipulação de Dados: readr e dplyr&lt;/div2&gt; &lt;/div&gt;
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **filter()** - .black[Filtrar linhas]]
+
+.pull-left-10[
+<div id="htmlwidget-6746d339be08cf2a8800" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6746d339be08cf2a8800">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**Filtrar linhas em função de alguma variável**
+
+
+```r
+data %&gt;%
+  filter(HC &gt; 15)
+```
+
+]
+
+
+]
+
+.pull-bottom[
+<div id="htmlwidget-cc822cb721bb088e0936" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cc822cb721bb088e0936">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[1548,2890,1878,1248,558,2672],["Angelim vermelho","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[700,200,162,600,161,240],[19,18,17,17,16,18],[3,1,1,2,1,1],["Remanescente","Explorar","Remanescente","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **filter()** - .black[Filtrar linhas]]
+
+.pull-left-10[
+<div id="htmlwidget-796fe51a8f138f1f2f01" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-796fe51a8f138f1f2f01">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**Filtrar linhas para algum intervalo da variável**
+
+
+```r
+data %&gt;%
+  filter(HC &gt; 10 &amp; HC &lt;= 15)
+```
+
+]
+
+
+]
+
+.pull-bottom[
+<div id="htmlwidget-b8c75e524d6d33093a27" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b8c75e524d6d33093a27">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,1329,18,63,494],["Acapu","Acapu","Angelim vermelho","Angelim vermelho","Maparajuba"],[186,178,540,190,210],[13,12,15,14,14],[1,1,1,1,1],["Remanescente","Remanescente","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **filter()** - .black[Filtrar linhas]]
+
+.pull-left-10[
+<div id="htmlwidget-8aefeb4bb80e45d1ae54" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8aefeb4bb80e45d1ae54">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**Filtrar linhas em função de duas ou mais variáveis**
+
+
+```r
+data %&gt;%
+  filter(HC &gt; 10, Selecao == "Explorar")
+```
+
+]
+
+
+]
+
+.pull-bottom[
+<div id="htmlwidget-462516d67d339ed21c11" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-462516d67d339ed21c11">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[18,2890,494,1248,2672],["Angelim vermelho","Maparajuba","Maparajuba","Tauari","Tauari"],[540,200,210,600,240],[15,18,14,17,18],[1,1,1,2,1],["Explorar","Explorar","Explorar","Explorar","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **filter()** - .black[Filtrar linhas]]
+
+.pull-left-10[
+<div id="htmlwidget-71c6bb16896d3ee1a958" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-71c6bb16896d3ee1a958">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**Filtrar linhas usando operador .green[%in%]** - Variáveis categóricas
+
+
+
+```r
+data %&gt;%
+  filter(Nome_Especie %in% c('Acapu', 'Tauari'))
+```
+
+]
+
+
+]
+
+.pull-bottom[
+<div id="htmlwidget-ef22a0f78612ee23fab8" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ef22a0f78612ee23fab8">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,1248,558,2672],["Acapu","Acapu","Acapu","Tauari","Tauari","Tauari"],[186,157,178,600,161,240],[13,10,12,17,16,18],[1,2,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **filter()** - .black[Filtrar linhas]]
+
+.pull-left-10[
+<div id="htmlwidget-7f03f88b6922bc3a4451" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7f03f88b6922bc3a4451">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**Filtrar linhas com várias condições**
+
+
+
+```r
+data %&gt;%
+  filter(Nome_Especie %in% c('Acapu', 'Tauari'),
+         HC &gt;= 12, QF == 1)
+```
+
+]
+
+
+]
+
+.pull-bottom[
+<div id="htmlwidget-403a7922294dd40fd5df" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-403a7922294dd40fd5df">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,1329,558,2672],["Acapu","Acapu","Tauari","Tauari"],[186,178,161,240],[13,12,16,18],[1,1,1,1],["Remanescente","Remanescente","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+
+]
+]
+
+---
+
+layout: false
+name: mutate
+class: inverse, middle, left
+background-image: url(fig/part1/arara.jpg)
+background-size: cover
+
+
+.font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**]
+&lt;br&gt;&lt;br&gt;
+
+.font150[**.yellow[Função mutate()]**]
+
+.white[Criar (ou modificar) variáveis e manter as existentes.]
+
+---
+
+layout: true
+class: with-logo logo-ufpa
+&lt;div class="my-header"&gt;&lt;/div&gt;
+&lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp; &lt;div3&gt;Introdução ao R para Análise de Dados&lt;/div3&gt;/ &lt;div2&gt;Parte 2 - Importação e Manipulação de Dados: readr e dplyr&lt;/div2&gt; &lt;/div&gt;
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **mutate()** - .black[Modificar e criar variáveis]]
+
+.pull-left-12[
+<div id="htmlwidget-edfda3f12e32ff566fec" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-edfda3f12e32ff566fec">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-12[
+.pull-left-1[
+.font80[
+**Criar uma nova variável e adicioná-la à tabela**
+
+
+```r
+data %&gt;%
+  mutate(DAP = CAP/pi)
+```
+&lt;br&gt;&lt;br&gt;
+
+<span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando**
+
+```r
+data %&gt;%
+  mutate(DAP = round(CAP/pi, 2))
+```
+
+]
+
+
+]
+
+.pull-right-2[
+<div id="htmlwidget-f1d570bbdf9fd962cecf" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f1d570bbdf9fd962cecf">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[59.2056388301851,49.9746521308551,56.6591597407147,171.887338539247,60.4788783749202,222.816920328653,63.6619772367581,51.5662015617741,66.845076098596,190.985931710274,51.2478916755903,76.3943726841098]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>DAP<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2,3]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **mutate()** - .black[Modificar e criar variáveis]]
+
+.pull-left-12[
+<div id="htmlwidget-c5d1f32fdf960d01db4e" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c5d1f32fdf960d01db4e">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-12[
+.pull-left-1[
+.font80[
+**Modificar uma variável na tabela**
+
+
+```r
+data %&gt;%
+  mutate(CAP = CAP/100)
+```
+&lt;br&gt;&lt;br&gt;
+
+<span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando**
+
+```r
+data %&gt;%
+  mutate(CAP = round(CAP/100, 2))
+```
+
+]
+
+
+]
+
+.pull-right-2[
+<div id="htmlwidget-6a5c335ebd6755f6abc1" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6a5c335ebd6755f6abc1">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[1.86,1.57,1.78,5.4,1.9,7,2,1.62,2.1,6,1.61,2.4],[13,10,12,15,14,19,18,17,14,17,16,18]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **mutate()** - .black[Modificar e criar variáveis]]
+
+.pull-left-12[
+<div id="htmlwidget-42c99a8e00af785fd3a9" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-42c99a8e00af785fd3a9">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-12[
+.pull-left-1[
+.font80[
+**Modificar/criar múltiplas variáveis no mesmo mutate()**
+
+
+```r
+data %&gt;%
+  mutate(DAP = CAP/pi,
+         CAP = CAP/100,
+         gi = (DAP^2*pi)/40000))
+```
+&lt;br&gt;&lt;br&gt;
+
+<span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando**
+
+```r
+data %&gt;%
+  mutate(DAP = CAP/pi,
+         CAP = CAP/100,
+         gi = (DAP^2*pi)/40000,
+         vi = gi*HC*0.7)
+```
+
+]
+
+
+]
+
+.pull-right-2[
+<div id="htmlwidget-2ed17bf60465b499be8e" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2ed17bf60465b499be8e">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[1.86,1.57,1.78,5.4,1.9,7,2,1.62,2.1,6,1.61,2.4],[13,10,12,15,14,19,18,17,14,17,16,18],[59.2056388301851,49.9746521308551,56.6591597407147,171.887338539247,60.4788783749202,222.816920328653,63.6619772367581,51.5662015617741,66.845076098596,190.985931710274,51.2478916755903,76.3943726841098],[0.275306220560361,0.196150509613606,0.252133260846181,2.32047907027983,0.287274672280871,3.89929610575144,0.318309886183791,0.208843116325185,0.350936649517629,2.86478897565412,0.206272763994251,0.458366236104659]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>DAP<\/th>\n      <th>gi<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+name: ifelse
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **mutate()** - .black[Modificar e criar variáveis]]
+
+.pull-left-12[
+<div id="htmlwidget-b25fbe881b2764a65181" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b25fbe881b2764a65181">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-12[
+.pull-left-11[
+.font80[
+**.blue[Usando funções auxiliares...]**
+&lt;br&gt;&lt;br&gt;
+
+**.green[if_else()]**
+&lt;br&gt;
+
+
+```r
+data %&gt;%
+  mutate(Selecao = if_else(
+    CAP &gt;= 600, "Matriz", "Não Matriz"
+    ))
+```
+
+]
+
+
+]
+
+.pull-right-11[
+<div id="htmlwidget-fc4f07d246c5c7dc505f" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fc4f07d246c5c7dc505f">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],["Não Matriz","Não Matriz","Não Matriz","Não Matriz","Não Matriz","Matriz","Não Matriz","Não Matriz","Não Matriz","Matriz","Não Matriz","Não Matriz"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+
+---
+name: casewhen
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **mutate()** - .black[Modificar e criar variáveis]]
+
+.pull-left-12[
+<div id="htmlwidget-a485707ca42efcc51517" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a485707ca42efcc51517">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-12[
+.pull-left-2[
+.font80[
+**.blue[Usando funções auxiliares...]**
+&lt;br&gt;&lt;br&gt;
+
+**.green[case_when()]**
+&lt;br&gt;
+
+Permite vetorizar várias instruções .green[if_else()]. É um equivalente R da instrução SQL CASE WHEN.
+
+Criar uma nova coluna por múltiplas condições mutuamente exclusivas.
+
+
+```r
+data %&gt;%
+  mutate(
+    Selecao =
+      case_when(
+        (CAP &gt;= 600) ~ "Matriz",
+        (Nome_Especie == "Acapu") ~ "Protegida",
+        (CAP &gt;= 158 &amp; Nome_Especie != "Acapu") ~ "Explorar",
+    ))
+```
+
+]
+
+
+]
+
+.pull-right-1[
+<div id="htmlwidget-cc9c8cfdfd1b1f08f1a1" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cc9c8cfdfd1b1f08f1a1">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],["Protegida","Protegida","Protegida","Explorar","Explorar","Matriz","Explorar","Explorar","Explorar","Matriz","Explorar","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+layout: false
+name: groupby
+class: inverse, middle, left
+background-image: url(fig/part1/arara2.jpg)
+background-size: cover
+
+
+.font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**]
+&lt;br&gt;&lt;br&gt;
+
+.font150[**.yellow[Função summarise()]**]
+
+.white[Criar um novo quadro de dados com estatísticas de resumo &lt;br&gt; de variáveis selecionadas]
+
+---
+
+layout: true
+class: with-logo logo-ufpa
+&lt;div class="my-header"&gt;&lt;/div&gt;
+&lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp; &lt;div3&gt;Introdução ao R para Análise de Dados&lt;/div3&gt;/ &lt;div2&gt;Parte 2 - Importação e Manipulação de Dados: readr e dplyr&lt;/div2&gt; &lt;/div&gt;
+
+---
+
+name: summarise
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **summarise()** - .black[Sumarizar dados]]
+
+.pull-left-10[
+<div id="htmlwidget-d0b948f8088c3616e08f" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d0b948f8088c3616e08f">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**.blue[Uma única estatística de sumarização...]**
+
+
+```r
+data %&gt;%
+  summarise(media_HC = mean(HC, na.rm = TRUE))
+```
+
+
+
+<div id="htmlwidget-3490158bd7b97de6a483" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3490158bd7b97de6a483">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[15.25]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>media_HC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":0}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+
+]
+]
+
+.pull-bottom[
+.font80[
+**.blue[Várias estatísticas na mesma summarise()...]**
+
+```r
+data %&gt;%
+  summarise(media_HC = mean(HC, na.rm = TRUE),
+            sd_HC = mean(HC, na.rm = TRUE),
+            min_HC = min(HC, na.rm = TRUE),
+            max_HC = max(HC, na.rm = TRUE))
+```
+
+
+
+<div id="htmlwidget-836d5de09c8eb583277f" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-836d5de09c8eb583277f">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[15.25],[15.25],[10],[19]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>media_HC<\/th>\n      <th>sd_HC<\/th>\n      <th>min_HC<\/th>\n      <th>max_HC<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,1,2,3]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+
+]
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **summarise()** - .black[Sumarizar dados]]
+
+.pull-left-10[
+<div id="htmlwidget-2c95f46b2911a675229f" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2c95f46b2911a675229f">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**.blue[Sumarizando diversas variáveis...]**
+
+
+```r
+data %&gt;%
+  summarise(media_HC = mean(HC, na.rm = TRUE),
+            sd_HC = sd(HC, na.rm = TRUE),
+            media_CAP = mean(CAP, na.rm = TRUE),
+            sd_CAP = sd(CAP, na.rm = TRUE))
+```
+
+
+
+<div id="htmlwidget-cf623973c911df0e31dc" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cf623973c911df0e31dc">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[15.25],[2.73446022594455],[293.666666666667],[197.164598211441]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>media_HC<\/th>\n      <th>sd_HC<\/th>\n      <th>media_CAP<\/th>\n      <th>sd_CAP<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,1,2,3]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+
+]
+]
+]
+
+---
+name: across
+## Manipulação de dados com dplyr
+&lt;br&gt;
+
+### .font90[Função **summarise()** - .black[Sumarizar dados]]
+
+.pull-left-10[
+<div id="htmlwidget-16bbafecf465e21ed138" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-16bbafecf465e21ed138">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[258,256,1329,18,63,1548,2890,1878,494,1248,558,2672],["Acapu","Acapu","Acapu","Angelim vermelho","Angelim vermelho","Angelim vermelho","Maparajuba","Maparajuba","Maparajuba","Tauari","Tauari","Tauari"],[186,157,178,540,190,700,200,162,210,600,161,240],[13,10,12,15,14,19,18,17,14,17,16,18],[1,2,1,1,1,3,1,1,1,2,1,1],["Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>N_Arvore<\/th>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,2,3,4]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**.blue[Sumarizando diversas variáveis...]**
+&lt;br&gt;&lt;br&gt;
+
+.green[**across()**]
+&lt;br&gt;
+
+Aplicar uma função (ou funções) em várias colunas.
+
+A função .green[across()] substitui a família de verbos **summarise** com sufixos:.green[_if, _at, _all].
+
+
+```r
+data %&gt;%
+  summarise(across(
+    .cols = c(HC, CAP),
+    .fns = mean,
+    na.rm = TRUE,
+    .names = "mean_{.col}"
+  ))
+```
+
+
+
+<div id="htmlwidget-3c266e7d0ccf824360d1" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3c266e7d0ccf824360d1">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[[15.25],[293.666666666667]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>mean_HC<\/th>\n      <th>mean_CAP<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"t","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[0,1]}],"order":[],"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+
+]
+]
+]
+
+
+---
+
+
+&lt;!--Slide XX --&gt;
+---
+layout: false
+class: inverse, top, right
+background-image: url(fig/part1/arara2.jpg)
+background-size: cover
+
+.font300[
+Obrigado!
+]
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+**Email**: &lt;a href="mailto:deivisonvs@ufpa.br"&gt;deivisonvs@ufpa.br&lt;/a&gt;
+
+**Github**: &lt;a href="https://github.com/DeivisonSouza"&gt;@DeivisonSouza&lt;/a&gt;
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
