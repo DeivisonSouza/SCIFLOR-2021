@@ -271,11 +271,45 @@ class: with-logo logo-ufpa
 
 **read_tsv()** - Importar um arquivo de valores separados por .blue[tabulação] (*Tab-Separated Values*)
 
-**read_delim()** - Importar um arquivo de texto com um .blue[delimitador incomum]
+**read_delim()** - Importar um arquivo de valores separados por um .blue[delimitador incomum]
 
 ]
 
 ]
+
+---
+
+## Pacote readr (tidyverse)
+<br>
+
+### Arquivo de valores separados por vírgula
+
+
+---
+
+## Pacote readr (tidyverse)
+<br>
+
+### Arquivo de valores separados por ponto e vírgula
+
+
+---
+
+## Pacote readr (tidyverse)
+<br>
+
+### Arquivo de valores separados por tabulação
+
+---
+
+## Pacote readr (tidyverse)
+<br>
+
+### Arquivo de valores separados por um delimitador incomum
+
+
+
+
 
 ---
 
