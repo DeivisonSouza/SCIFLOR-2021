@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Experimentação Florestal (FL03034 - EF)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prof. Dr. Deivison Venicio Souza" />
+    <script src="02-Importacao-Manipulacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
+    <link href="02-Importacao-Manipulacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="02-Importacao-Manipulacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xf45195fdeee42bb81b44dd2c911c1bb","expires":1}</script>
+    <script src="02-Importacao-Manipulacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
+    <script src="02-Importacao-Manipulacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
+    <link href="02-Importacao-Manipulacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
+    <script src="02-Importacao-Manipulacao-Dados_files/editable-0.2.6/editable.js"></script>
+    <script src="02-Importacao-Manipulacao-Dados_files/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="02-Importacao-Manipulacao-Dados_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="02-Importacao-Manipulacao-Dados_files/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <link href="02-Importacao-Manipulacao-Dados_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
+    <script src="02-Importacao-Manipulacao-Dados_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="assets/sydney-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="assets/slide-title/sydney-title.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide, center, middle
+background-image: url(fig/slide-title/ufpa2.png), url(fig/slide-title/sciflor.png), url(fig/slide-title/ufes.png), url(fig/slide-title/img3.png)
+background-position: 90% 90%, 50% 10%, 10% 90%
+background-size: 250px, 300px, 100px, cover
+
+
+
+
+
+<div>
+<style type="text/css">.xaringan-extra-logo {
+width: 140px;
+height: 140px;
+z-index: 0;
+background-image: url(fig/slide-title/ufpa.png);
+background-size: contain;
+background-repeat: no-repeat;
+position: absolute;
+top:.8em;right:-.5em;
+}
+</style>
+<script>(function () {
+  let tries = 0
+  function addLogo () {
+    if (typeof slideshow === 'undefined') {
+      tries += 1
+      if (tries < 10) {
+        setTimeout(addLogo, 100)
+      }
+    } else {
+      document.querySelectorAll('.remark-slide-content:not(.title-slide):not(.inverse):not(.hide_logo)')
+        .forEach(function (slide) {
+          const logo = document.createElement('div')
+          logo.classList = 'xaringan-extra-logo'
+          logo.href = null
+          slide.appendChild(logo)
+        })
+    }
+  }
+  document.addEventListener('DOMContentLoaded', addLogo)
+})()</script>
+</div>
+
+
+
+
+
+
+&lt;!-- title-slide --&gt;
+# Minicurso: Introdução ao R para Análise de Dados
+
+## .font90[Parte 2 - Importação e Manipulação &lt;br&gt; de Dados: readr e dplyr] <span>&lt;i class="fab  fa-pagelines faa-horizontal animated " style=" color:green;"&gt;&lt;/i&gt;</span>
+
+#### **Prof. Dr. Deivison Venicio Souza**
+##### Universidade Federal do Pará (UFPA) 
+##### Faculdade de Engenharia Florestal
+##### E-mail: deivisonvs@ufpa.br
+&lt;br&gt;
+##### 15/agosto/2021
+
+---
+layout: true
+&lt;div class="my-header"&gt;&lt;/div&gt;
+&lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de Dados: readr e dplyr&lt;/div&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Objetivos --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+&lt;!-- Ao final desta aula espera-se que o discente seja capaz de... --&gt;
+
+
+&lt;!-- * Conhecer o tidyverse e os principais pacotes associados. --&gt;
+&lt;!-- * Conhecer e aprender a usar as principais funções do pacote **readr** para importação de dados. --&gt;
+&lt;!-- * Conhecer e aprender a usar as principais funções do pacote **dplyr** para manipulação de dados. --&gt;
+
+&lt;!-- .pull-left-7[ --&gt;
+&lt;!-- ```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600} --&gt;
+&lt;!-- knitr::include_graphics("https://tidyverse.tidyverse.org/articles/tidyverse-logo.png") --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-left-7[ --&gt;
+&lt;!-- ```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600} --&gt;
+&lt;!-- knitr::include_graphics("https://readr.tidyverse.org/logo.png") --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-left-7[ --&gt;
+&lt;!-- ```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600} --&gt;
+&lt;!-- knitr::include_graphics("https://dplyr.tidyverse.org/logo.png") --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Conteúdo --&gt;
+
+&lt;!-- .pull-left-4[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Parte 1 - Importação de dados com .orange[readr]** --&gt;
+
+&lt;!-- [1- YYYYY](#R) --&gt;
+
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-4[ --&gt;
+&lt;!-- .pull-down[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Parte 2 - Manipulação de dados com .orange[dplyr]** --&gt;
+
+&lt;!-- [1 - Função select() e suas auxiliares](#select) --&gt;
+
+&lt;!-- &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[1.1 - Função starts_with()](#startwith) --&gt;
+
+&lt;!-- &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[1.2 - Função ends_with()](#endswith) --&gt;
+
+&lt;!-- &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[1.3 - Função contains()](#contains) --&gt;
+
+&lt;!-- &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[1.4 - Função matches()](#matches) --&gt;
+
+&lt;!-- &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[1.5 - Função everything()](#everything) --&gt;
+
+&lt;!-- &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[1.6 - Função where()](#where) --&gt;
+
+&lt;!-- [2 - Função arrange()](#arrange) --&gt;
+
+&lt;!-- [3 - Função filter()](#filter) --&gt;
+
+&lt;!-- [4 - Função mutate() e suas auxiliares](#mutate) --&gt;
+
+&lt;!-- &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[4.1 - Função if_else()](#ifelse) --&gt;
+
+&lt;!-- &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[4.2 - Função case_when()](#casewhen) --&gt;
+
+&lt;!-- [5 - Função summarise()](#summarise) --&gt;
+
+&lt;!-- &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.1 - Função across()](#across) --&gt;
+
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- layout: false --&gt;
+&lt;!-- name: conc --&gt;
+&lt;!-- class: inverse, top, right --&gt;
+&lt;!-- background-image: url(fig/class3/arara.jpg) --&gt;
+&lt;!-- background-size: cover --&gt;
+
+&lt;!-- .font200[**.yellow[Parte 1] &lt;br&gt; .white[Importação de dados &lt;br&gt; com readr]**]  --&gt;
+
+&lt;!-- .left[.footnote[.white[Créditos: Imagem de IvaCastro por Pixabay].]] --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- layout: true --&gt;
+&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
+&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
+
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Importação de dados com readr --&gt;
+
+
+&lt;!-- --- --&gt;
+
+
+&lt;!-- --- --&gt;
+
+&lt;!-- layout: false --&gt;
+&lt;!-- name: conc --&gt;
+&lt;!-- class: inverse, top, right --&gt;
+&lt;!-- background-image: url(fig/class3/arara2.jpg) --&gt;
+&lt;!-- background-size: cover --&gt;
+
+&lt;!-- .font200[**.yellow[Parte 2] &lt;br&gt; .white[Manipulação de dados &lt;br&gt; com dplyr]**]  --&gt;
+
+&lt;!-- .left[.footnote[.white[Créditos: Imagem de ljwong por Pixabay].]] --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- layout: true --&gt;
+&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
+&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### Sobre o pacote **dplyr**... --&gt;
+
+&lt;!-- .font90[ --&gt;
+&lt;!-- - Um dos principais pacotes do .green[tidyverse]. --&gt;
+&lt;!-- - O pacote dplyr é essencialmente um conjunto consistente de funções projetadas para resolver os desafios mais comuns de **manipulação de dados**. --&gt;
+&lt;!-- - Foi projetado para ser simples, intuitivo, amigável e elegante.  --&gt;
+&lt;!-- - O encadeamento de comandos é facilitado pelo emprego do operador **%&gt;%** (pipe). --&gt;
+&lt;!-- - Códigos em R que fazem uso dos verbos dplyr são mais elegantes, compeeensíveis e intuitivos. --&gt;
+&lt;!-- - **Cheatsheet do RStudio** (folhas de resumo): Help `\(\rightarrow\)` Cheatsheets `\(\rightarrow\)` Data Transformation with dplyr --&gt;
+&lt;!-- - No site da RStudio pode-se encontrar algumas Cheatsheet traduzidas: [cheatsheets-translations](https://www.rstudio.com/resources/cheatsheets/#translations) --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r echo=FALSE, out.width='10%', fig.align='center', fig.cap='', dpi=600} --&gt;
+&lt;!-- knitr::include_graphics("https://dplyr.tidyverse.org/logo.png") --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### Verbos **dplyr** --&gt;
+
+&lt;!-- .pull-left-4[ --&gt;
+&lt;!-- - O **dplyr** possui diversos verbos (funções). A seguir são listadas algumas das mais usuais: --&gt;
+
+&lt;!-- .center[ --&gt;
+&lt;!-- mutate() --&gt;
+
+&lt;!-- select() --&gt;
+
+&lt;!-- filter() --&gt;
+
+&lt;!-- arrange() --&gt;
+
+&lt;!-- group_by() --&gt;
+
+&lt;!-- summarise() --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-4[ --&gt;
+&lt;!-- Lista de funções do pacote **dplyr**: --&gt;
+
+&lt;!-- ```{r, echo=T, eval=F} --&gt;
+&lt;!-- ls("package:dplyr") --&gt;
+&lt;!-- #length(ls("package:dplyr")) --&gt;
+&lt;!-- #lsf.str("package:dplyr") --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- Ou simplesmente digite .green[`dplyr::`]. --&gt;
+
+&lt;!-- Atualmente são 290 funções projetadas para manipulação de dados. --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### Uma pequena amostra para praticar... --&gt;
+
+&lt;!-- .font90[ --&gt;
+&lt;!-- .pull-left-9[ --&gt;
+
+&lt;!-- ```{r tibble, echo=T, eval=F} --&gt;
+&lt;!-- data &lt;- readr::read_csv("data/data.csv") --&gt;
+
+&lt;!-- data %&gt;% CustomDT # Apenas para customizar a tabela --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- .font90[ --&gt;
+&lt;!-- Para aprender a intuição de algumas funções **dplyr** usaremos uma pequena amostra de dados de IF100%. --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- **A base completa pode ser acessada em**: [IF100%](https://deivisonsouza.github.io/FL03034-EF/Slides/data/UPA07DVS.csv) --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-9[ --&gt;
+&lt;!-- ```{r ref.label="tibble", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- layout: false --&gt;
+&lt;!-- name: select --&gt;
+&lt;!-- class: inverse, middle, left --&gt;
+&lt;!-- background-image: url(fig/class3/Inv2.png) --&gt;
+&lt;!-- background-size: cover --&gt;
+
+
+&lt;!-- .font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**]  --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .font150[**.yellow[Função select()]**]  --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- layout: true --&gt;
+&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
+&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-11[ --&gt;
+&lt;!-- .blue[**Seleção de uma coluna...**] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Alternativa 1**:  --&gt;
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- select(data, Nome_Especie) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- **Alternativa 2** --&gt;
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;%  --&gt;
+&lt;!--   select(Nome_Especie) --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r sel, echo=F, eval=F} --&gt;
+&lt;!-- select(data, Nome_Especie) %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-11[ --&gt;
+&lt;!-- ```{r ref.label="sel", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-11[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- .blue[**Seleção de várias coluna...**] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- **Alternativa 1** (sem %&gt;%)  --&gt;
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- select( --&gt;
+&lt;!--   data, CAP, HC, QF --&gt;
+&lt;!--   ) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- **Alternativa 2** (com %&gt;%) --&gt;
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;%  --&gt;
+&lt;!--   select(CAP, HC, QF) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- **Alternativa 3** (%&gt;% + :) --&gt;
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;%  --&gt;
+&lt;!--   select(CAP:QF) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r sel2, echo=F, eval=F} --&gt;
+&lt;!-- select(data, CAP, HC, QF) %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-11[ --&gt;
+&lt;!-- ```{r ref.label="sel2", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- name: startwith --&gt;
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-11[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .green[**starts_with()**] --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- .font80[ --&gt;
+&lt;!-- Função usada para selecionar colunas cujos nomes .green[iniciam] com um texto padrão. --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- select( --&gt;
+&lt;!--   data, starts_with("N") --&gt;
+&lt;!--   ) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r sel3, echo=F, eval=F} --&gt;
+&lt;!-- select(data, starts_with("N")) %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-11[ --&gt;
+&lt;!-- ```{r ref.label="sel3", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+
+&lt;!-- --- --&gt;
+&lt;!-- name: endswith  --&gt;
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-11[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .green[**ends_with()**] --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- .font80[ --&gt;
+&lt;!-- Função usada para selecionar colunas cujos nomes .green[terminam] com um texto padrão. --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- select( --&gt;
+&lt;!--   data, ends_with("e") --&gt;
+&lt;!--   ) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r sel4, echo=F, eval=F} --&gt;
+&lt;!-- select(data, ends_with("e")) %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-11[ --&gt;
+&lt;!-- ```{r ref.label="sel4", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- name: contains --&gt;
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-11[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .green[**contains()**] --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- .font80[ --&gt;
+&lt;!-- Função usada para selecionar colunas cujos nomes tenham algum texto padrão. --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- select( --&gt;
+&lt;!--   data, contains("e") --&gt;
+&lt;!--   ) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r sel5, echo=F, eval=F} --&gt;
+&lt;!-- select(data, contains("e")) %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-11[ --&gt;
+&lt;!-- ```{r ref.label="sel5", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- name: matches --&gt;
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-11[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .green[**matches()**] --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- .font80[ --&gt;
+&lt;!-- Função usada para selecionar colunas que contenham nomes correspondentes à alguma expressão regular. --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- select( --&gt;
+&lt;!--   data, matches('No|cao|F') --&gt;
+&lt;!--   ) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r sel6, echo=F, eval=F} --&gt;
+&lt;!-- select(data, matches('No|cao|F')) %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-11[ --&gt;
+&lt;!-- ```{r ref.label="sel6", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- name: everything --&gt;
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-5[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .green[**everything()**] --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- .font80[ --&gt;
+&lt;!-- Seleciona todas as variáveis. É útil para reordenar algumas colunas, sem se importar com a ordem das demais. --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select( --&gt;
+&lt;!--     Nome_Especie, --&gt;
+&lt;!--     Selecao, --&gt;
+&lt;!--     everything()) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r sel11, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(Nome_Especie,  --&gt;
+&lt;!--          Selecao, --&gt;
+&lt;!--          everything()) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-5[ --&gt;
+&lt;!-- ```{r ref.label="sel11", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- name: where --&gt;
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- .blue[**Usando funções auxiliares...**] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .green[**where()**] --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- .font80[ --&gt;
+&lt;!-- Aplica uma função à todas as variáveis e seleciona aquelas para as quais a resposta é TRUE. --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(where(is.character)) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r sel12, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(where(is.character)) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- ```{r ref.label="sel12", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-11[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- .blue[**Combinando funções auxiliares e operadores lógicos...**] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select( --&gt;
+&lt;!--     starts_with("N") &amp; --&gt;
+&lt;!--       !ends_with("Arvore"))  --&gt;
+&lt;!-- ``` --&gt;
+
+
+&lt;!-- <span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando** --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select( --&gt;
+&lt;!--     starts_with("N") | --&gt;
+&lt;!--       ends_with("Arvore")) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r sel8, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;%  --&gt;
+&lt;!--   select( --&gt;
+&lt;!--     starts_with("N") &amp; --&gt;
+&lt;!--       !ends_with("Arvore")) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-11[ --&gt;
+&lt;!-- ```{r ref.label="sel8", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-11[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- .blue[**Função concatenate**] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(-c(CAP:Selecao)) --&gt;
+&lt;!-- ``` --&gt;
+
+
+&lt;!-- <span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando** --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(!(CAP:Selecao)) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r sel9, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(-c(CAP:Selecao)) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-11[ --&gt;
+&lt;!-- ```{r ref.label="sel9", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **select()** - .black[selecionar colunas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-1[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- .blue[**Reordenar colunas**] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(Nome_Especie,  --&gt;
+&lt;!--          Selecao, CAP,  --&gt;
+&lt;!--          QF, HC) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r sel10, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(Nome_Especie, Selecao, CAP, QF, HC) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-2[ --&gt;
+&lt;!-- ```{r ref.label="sel10", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- layout: false --&gt;
+&lt;!-- name: arrange --&gt;
+&lt;!-- class: inverse, middle, left --&gt;
+&lt;!-- background-image: url(fig/class3/Inv2.png) --&gt;
+&lt;!-- background-size: cover --&gt;
+
+
+&lt;!-- .font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**]  --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .font150[**.yellow[Função arrange()]**]  --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- layout: true --&gt;
+&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
+&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **arrange()** - .black[Ordenar linhas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-12[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Ordem crescente de uma variável** --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   arrange(HC) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r arr1, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   arrange(HC) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-12[ --&gt;
+&lt;!-- ```{r ref.label="arr1", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **arrange()** - .black[Ordenar linhas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-12[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Ordem decrescente de uma variável** --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   arrange( --&gt;
+&lt;!--     desc(HC) --&gt;
+&lt;!--     ) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r arr2, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   arrange(desc(HC)) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-12[ --&gt;
+&lt;!-- ```{r ref.label="arr2", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **arrange()** - .black[Ordenar linhas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-left-12[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Ordenar em função de duas ou mais variáveis** --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   arrange( --&gt;
+&lt;!--     CAP, HC --&gt;
+&lt;!--     ) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r arr3, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   arrange(CAP, HC) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-12[ --&gt;
+&lt;!-- ```{r ref.label="arr3", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- layout: false --&gt;
+&lt;!-- name: filter --&gt;
+&lt;!-- class: inverse, middle, left --&gt;
+&lt;!-- background-image: url(fig/class3/Inv2.png) --&gt;
+&lt;!-- background-size: cover --&gt;
+
+
+&lt;!-- .font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**]  --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .font150[**.yellow[Função filter()]**]  --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- layout: true --&gt;
+&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
+&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **filter()** - .black[Filtrar linhas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-top[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Filtrar linhas em função de alguma variável** --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   filter(HC &gt; 15) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r fil1, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   filter(HC &gt; 15) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-bottom[ --&gt;
+&lt;!-- ```{r ref.label="fil1", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **filter()** - .black[Filtrar linhas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-top[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Filtrar linhas para algum intervalo da variável** --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   filter(HC &gt; 10 &amp; HC &lt;= 15) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r fil2, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   filter(HC &gt; 10 &amp; HC &lt;= 15) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-bottom[ --&gt;
+&lt;!-- ```{r ref.label="fil2", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **filter()** - .black[Filtrar linhas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-top[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Filtrar linhas em função de duas ou mais variáveis** --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   filter(HC &gt; 10, Selecao == "Explorar") --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r fil3, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   filter(HC &gt; 10, Selecao == "Explorar") %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-bottom[ --&gt;
+&lt;!-- ```{r ref.label="fil3", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **filter()** - .black[Filtrar linhas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-top[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Filtrar linhas usando operador .green[%in%]** - Variáveis categóricas --&gt;
+
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   filter(Nome_Especie %in% c('Acapu', 'Tauari')) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r fil4, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   filter(Nome_Especie %in% c('Acapu', 'Tauari')) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-bottom[ --&gt;
+&lt;!-- ```{r ref.label="fil4", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **filter()** - .black[Filtrar linhas]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-top[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Filtrar linhas com várias condições** --&gt;
+
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   filter(Nome_Especie %in% c('Acapu', 'Tauari'), --&gt;
+&lt;!--          HC &gt;= 12, QF == 1) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r fil5, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   filter(Nome_Especie %in% c('Acapu', 'Tauari'), --&gt;
+&lt;!--          HC &gt;= 12, QF == 1) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-bottom[ --&gt;
+&lt;!-- ```{r ref.label="fil5", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- layout: false --&gt;
+&lt;!-- name: mutate --&gt;
+&lt;!-- class: inverse, middle, left --&gt;
+&lt;!-- background-image: url(fig/class3/Inv2.png) --&gt;
+&lt;!-- background-size: cover --&gt;
+
+
+&lt;!-- .font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**]  --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .font150[**.yellow[Função mutate()]**] --&gt;
+
+&lt;!-- .white[Criar (ou modificar) variáveis e manter as existentes.] --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- layout: true --&gt;
+&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
+&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **mutate()** - .black[Modificar e criar variáveis]] --&gt;
+
+&lt;!-- .pull-left-12[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;%  --&gt;
+&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-12[ --&gt;
+&lt;!-- .pull-left-1[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Criar uma nova variável e adicioná-la à tabela** --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   mutate(DAP = CAP/pi) --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- <span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando** --&gt;
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   mutate(DAP = round(CAP/pi, 2)) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r mut1, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;%  --&gt;
+&lt;!--   mutate(DAP = CAP/pi) %&gt;% --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-2[ --&gt;
+&lt;!-- ```{r ref.label="mut1", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **mutate()** - .black[Modificar e criar variáveis]] --&gt;
+
+&lt;!-- .pull-left-12[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;%  --&gt;
+&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-12[ --&gt;
+&lt;!-- .pull-left-1[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Modificar uma variável na tabela** --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   mutate(CAP = CAP/100) --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- <span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando** --&gt;
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   mutate(CAP = round(CAP/100, 2)) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r mut2, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;%  --&gt;
+&lt;!--   mutate(CAP = CAP/100) %&gt;% --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-2[ --&gt;
+&lt;!-- ```{r ref.label="mut2", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **mutate()** - .black[Modificar e criar variáveis]] --&gt;
+
+&lt;!-- .pull-left-12[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;%  --&gt;
+&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-12[ --&gt;
+&lt;!-- .pull-left-1[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **Modificar/criar múltiplas variáveis no mesmo mutate()** --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   mutate(DAP = CAP/pi,  --&gt;
+&lt;!--          CAP = CAP/100, --&gt;
+&lt;!--          gi = (DAP^2*pi)/40000)) --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- <span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente o comando** --&gt;
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   mutate(DAP = CAP/pi,  --&gt;
+&lt;!--          CAP = CAP/100, --&gt;
+&lt;!--          gi = (DAP^2*pi)/40000, --&gt;
+&lt;!--          vi = gi*HC*0.7) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r mut3, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
+&lt;!--   mutate(DAP = CAP/pi,  --&gt;
+&lt;!--          CAP = CAP/100, --&gt;
+&lt;!--          gi = (DAP^2*pi)/40000) %&gt;% --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-2[ --&gt;
+&lt;!-- ```{r ref.label="mut3", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- name: ifelse --&gt;
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **mutate()** - .black[Modificar e criar variáveis]] --&gt;
+
+&lt;!-- .pull-left-12[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;%  --&gt;
+&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-12[ --&gt;
+&lt;!-- .pull-left-11[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **.blue[Usando funções auxiliares...]** --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- **.green[if_else()]** --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   mutate(Selecao = if_else( --&gt;
+&lt;!--     CAP &gt;= 600, "Matriz", "Não Matriz" --&gt;
+&lt;!--     )) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r mut4, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
+&lt;!--   mutate(Selecao = if_else( --&gt;
+&lt;!--     CAP &gt;= 600, "Matriz", "Não Matriz")) %&gt;% --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-11[ --&gt;
+&lt;!-- ```{r ref.label="mut4", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+
+&lt;!-- --- --&gt;
+&lt;!-- name: casewhen --&gt;
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **mutate()** - .black[Modificar e criar variáveis]] --&gt;
+
+&lt;!-- .pull-left-12[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;%  --&gt;
+&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-12[ --&gt;
+&lt;!-- .pull-left-2[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **.blue[Usando funções auxiliares...]** --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- **.green[case_when()]** --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- Permite vetorizar várias instruções .green[if_else()]. É um equivalente R da instrução SQL CASE WHEN.  --&gt;
+
+&lt;!-- Criar uma nova coluna por múltiplas condições mutuamente exclusivas. --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   mutate( --&gt;
+&lt;!--     Selecao = --&gt;
+&lt;!--       case_when( --&gt;
+&lt;!--         (CAP &gt;= 600) ~ "Matriz", --&gt;
+&lt;!--         (Nome_Especie == "Acapu") ~ "Protegida", --&gt;
+&lt;!--         (CAP &gt;= 158 &amp; Nome_Especie != "Acapu") ~ "Explorar", --&gt;
+&lt;!--     )) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+
+&lt;!-- ```{r mut5, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   select(-c(N_Arvore, QF, Selecao)) %&gt;% --&gt;
+&lt;!--   mutate(Selecao =  --&gt;
+&lt;!--            case_when( --&gt;
+&lt;!--              (CAP &gt;= 600) ~ "Matriz", --&gt;
+&lt;!--              (Nome_Especie == "Acapu") ~ "Protegida", --&gt;
+&lt;!--              (CAP &gt;= 158 &amp; Nome_Especie != "Acapu") ~ "Explorar", --&gt;
+&lt;!--     )) %&gt;% --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right-1[ --&gt;
+&lt;!-- ```{r ref.label="mut5", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- layout: false --&gt;
+&lt;!-- name: groupby --&gt;
+&lt;!-- class: inverse, middle, left --&gt;
+&lt;!-- background-image: url(fig/class3/Inv2.png) --&gt;
+&lt;!-- background-size: cover --&gt;
+
+
+&lt;!-- .font200[**.white[Manipulação de dados &lt;br&gt; com dplyr]**]  --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .font150[**.yellow[Função summarise()]**] --&gt;
+
+&lt;!-- .white[Criar um novo quadro de dados com estatísticas de resumo &lt;br&gt; de variáveis selecionadas] --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- layout: true --&gt;
+&lt;!-- &lt;div class="my-header"&gt;&lt;/div&gt; --&gt;
+&lt;!-- &lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr&lt;/div&gt; --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- name: summarise --&gt;
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **summarise()** - .black[Sumarizar dados]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-top[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **.blue[Uma única estatística de sumarização...]** --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE)) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ```{r sumr1, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE)) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ```{r ref.label="sumr1", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-bottom[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **.blue[Várias estatísticas na mesma summarise()...]** --&gt;
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE), --&gt;
+&lt;!--             sd_HC = mean(HC, na.rm = TRUE), --&gt;
+&lt;!--             min_HC = min(HC, na.rm = TRUE), --&gt;
+&lt;!--             max_HC = max(HC, na.rm = TRUE)) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ```{r sumr2, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE), --&gt;
+&lt;!--             sd_HC = mean(HC, na.rm = TRUE), --&gt;
+&lt;!--             min_HC = min(HC, na.rm = TRUE), --&gt;
+&lt;!--             max_HC = max(HC, na.rm = TRUE)) %&gt;%  --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ```{r ref.label="sumr2", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **summarise()** - .black[Sumarizar dados]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-top[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **.blue[Sumarizando diversas variáveis...]** --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE), --&gt;
+&lt;!--             sd_HC = sd(HC, na.rm = TRUE), --&gt;
+&lt;!--             media_CAP = mean(CAP, na.rm = TRUE), --&gt;
+&lt;!--             sd_CAP = sd(CAP, na.rm = TRUE)) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ```{r sumr3, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   summarise(media_HC = mean(HC, na.rm = TRUE), --&gt;
+&lt;!--           sd_HC = sd(HC, na.rm = TRUE), --&gt;
+&lt;!--           media_CAP = mean(CAP, na.rm = TRUE), --&gt;
+&lt;!--           sd_CAP = sd(CAP, na.rm = TRUE)) %&gt;% --&gt;
+&lt;!-- CustomDT --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ```{r ref.label="sumr3", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- --- --&gt;
+&lt;!-- name: across --&gt;
+&lt;!-- ## Manipulação de dados com dplyr --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- ### .font90[Função **summarise()** - .black[Sumarizar dados]] --&gt;
+
+&lt;!-- .pull-left-10[ --&gt;
+&lt;!-- ```{r echo=F, eval=T} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- -- --&gt;
+
+&lt;!-- .pull-right-10[ --&gt;
+&lt;!-- .pull-top[ --&gt;
+&lt;!-- .font80[ --&gt;
+&lt;!-- **.blue[Sumarizando diversas variáveis...]**  --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- .green[**across()**] --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- Aplicar uma função (ou funções) em várias colunas. --&gt;
+
+&lt;!-- A função .green[across()] substitui a família de verbos **summarise** com sufixos:.green[_if, _at, _all]. --&gt;
+
+&lt;!-- ```{r echo=TRUE, eval=FALSE} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   summarise(across( --&gt;
+&lt;!--     .cols = c(HC, CAP), --&gt;
+&lt;!--     .fns = mean,  --&gt;
+&lt;!--     na.rm = TRUE, --&gt;
+&lt;!--     .names = "mean_{.col}" --&gt;
+&lt;!--   )) --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ```{r sumr4, echo=F, eval=F} --&gt;
+&lt;!-- data %&gt;% --&gt;
+&lt;!--   summarise(across( --&gt;
+&lt;!--     .cols = c(HC, CAP), --&gt;
+&lt;!--     .fns = mean,  --&gt;
+&lt;!--     na.rm = TRUE, --&gt;
+&lt;!--     .names = "mean_{.col}" --&gt;
+&lt;!--   )) %&gt;% --&gt;
+&lt;!--   CustomDT --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ```{r ref.label="sumr4", echo=FALSE, eval=TRUE, collapse=T} --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+
+
+&lt;!-- --- --&gt;
+
+
+&lt;!-- &lt;!--Slide XX --&gt; --&gt;
+&lt;!-- --- --&gt;
+&lt;!-- layout: false --&gt;
+&lt;!-- class: inverse, top, right --&gt;
+&lt;!-- background-image: url(fig/class1/imgC.jpg) --&gt;
+&lt;!-- background-size: cover --&gt;
+
+&lt;!-- .font300[ --&gt;
+&lt;!-- Obrigado! --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt; --&gt;
+
+&lt;!-- **Email**: &lt;a href="mailto:deivisonvs@ufpa.br"&gt;deivisonvs@ufpa.br&lt;/a&gt; --&gt;
+
+&lt;!-- **Github**: &lt;a href="https://github.com/DeivisonSouza"&gt;@DeivisonSouza&lt;/a&gt; --&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"highlightLanguage": ["r", "css", "yaml"],
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
