@@ -44,6 +44,36 @@ knitr::opts_chunk$set(
   dpi = 600)
 ```
 
+```{css, echo=FALSE}
+.with-logo::before {
+	content: '';
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	bottom: 1.3em;
+	right: -0.3em;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.logo-ufpa::before {
+	background-image: url(fig/slide-title/ufpa.png);
+}
+
+.logo-dplyr::before {
+	background-image: url(https://github.com/rstudio/hex-stickers/raw/master/PNG/dplyr.png);
+}
+
+.logo-purrr::before {
+	background-image: url(https://github.com/rstudio/hex-stickers/raw/master/PNG/purrr.png);
+}
+
+.logo-plumber::before {
+	background-image: url(https://github.com/rstudio/hex-stickers/raw/master/PNG/plumber.png);
+}
+```
+
+
 ```{r packages, include=FALSE}
 # remotes::install_github("dill/emoGG")
 library(ggplot2)
@@ -55,10 +85,10 @@ library(kableExtra)
 ```{r xaringan-logo, echo=FALSE}
 library(xaringanExtra)
 use_logo(
-  image_url = "fig/slide-title/ufpa.png",
-  position = css_position(top = ".8em", right = "-.5em"),
-  width = "140px",
-  height = "140px"
+  image_url = "fig/slide-title/sciflor.png",
+  position = css_position(top = "1.5em", right = "0.6em"),
+  width = "210px",
+  height = "210px"
 )
 
 use_extra_styles(
@@ -94,10 +124,12 @@ use_clipboard()
 ---
 
 layout: true
+class: with-logo logo-ufpa
 <div class="my-header"></div>
 <div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
 
 ---
+
 
 ## Objetivos
 <br><br>
@@ -202,6 +234,7 @@ background-size: cover
 ---
 
 layout: true
+class: with-logo logo-ufpa
 <div class="my-header"></div>
 <div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
 
@@ -432,6 +465,7 @@ background-size: cover
 ---
 
 layout: true
+class: with-logo logo-ufpa
 <div class="my-header"></div>
 <div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
 
@@ -1124,6 +1158,7 @@ background-size: cover
 ---
 
 layout: true
+class: with-logo logo-ufpa
 <div class="my-header"></div>
 <div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
 
@@ -1792,6 +1827,7 @@ background-size: cover
 ---
 
 layout: true
+class: with-logo logo-ufpa
 <div class="my-header"></div>
 <div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 1 - Introdução à Linguagem de Programação R</div2> </div>
 
