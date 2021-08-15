@@ -1,5 +1,5 @@
 ---
-title: "Experimentação Florestal (FL03034 - EF)"
+title: "Minicurso: Introdução ao R para Análise de Dados"
 subtitle: "Importação e Manipulação de Dados: readr e dplyr"
 author: "Prof. Dr. Deivison Venicio Souza"
 institute: "Universidade Federal do Pará (UFPA)"
@@ -54,13 +54,42 @@ library(kableExtra)
 library(readr)
 ```
 
+```{css, echo=FALSE}
+.with-logo::before {
+	content: '';
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	bottom: 1.3em;
+	right: -0.3em;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.logo-ufpa::before {
+	background-image: url(fig/slide-title/ufpa.png);
+}
+
+.logo-dplyr::before {
+	background-image: url(https://github.com/rstudio/hex-stickers/raw/master/PNG/dplyr.png);
+}
+
+.logo-purrr::before {
+	background-image: url(https://github.com/rstudio/hex-stickers/raw/master/PNG/purrr.png);
+}
+
+.logo-plumber::before {
+	background-image: url(https://github.com/rstudio/hex-stickers/raw/master/PNG/plumber.png);
+}
+```
+
 ```{r xaringan-logo, echo=FALSE}
 library(xaringanExtra)
 use_logo(
-  image_url = "fig/slide-title/ufpa.png",
-  position = css_position(top = ".8em", right = "-.5em"),
-  width = "140px",
-  height = "140px"
+  image_url = "fig/slide-title/sciflor.png",
+  position = css_position(top = "1.5em", right = "0.6em"),
+  width = "210px",
+  height = "210px"
 )
 
 use_extra_styles(
@@ -111,195 +140,200 @@ CustomDT <- function(data){
 ##### `r format(Sys.Date(),"%d/%B/%Y")`
 
 ---
+
 layout: true
+class: with-logo logo-ufpa
 <div class="my-header"></div>
-<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de Dados: readr e dplyr</div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 2 - Importação e Manipulação de Dados: readr e dplyr</div2> </div>
 
+---
 
-<!-- --- -->
+## Objetivos
+<br><br>
+Ao final desta segunda parte (.blue[Importação e Manipulação de Dados: readr e dplyr]) espera-se que os participantes possam alcançar conhecimentos para...
+<br><br>
 
-<!-- ## Objetivos -->
-<!-- <br><br> -->
-<!-- Ao final desta aula espera-se que o discente seja capaz de... -->
+* Importar e exportar dados no R usando funções do pacote **readr**; e
+* Manipular dados no R usando funções do pacote **dplyr**.
+<br><br>
 
+.pull-left-7[
+```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://tidyverse.tidyverse.org/articles/tidyverse-logo.png")
+```
+]
 
-<!-- * Conhecer o tidyverse e os principais pacotes associados. -->
-<!-- * Conhecer e aprender a usar as principais funções do pacote **readr** para importação de dados. -->
-<!-- * Conhecer e aprender a usar as principais funções do pacote **dplyr** para manipulação de dados. -->
+.pull-left-7[
+```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://readr.tidyverse.org/logo.png")
+```
+]
 
-<!-- .pull-left-7[ -->
-<!-- ```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600} -->
-<!-- knitr::include_graphics("https://tidyverse.tidyverse.org/articles/tidyverse-logo.png") -->
-<!-- ``` -->
-<!-- ] -->
+.pull-left-7[
+```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
+```
+]
 
-<!-- .pull-left-7[ -->
-<!-- ```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600} -->
-<!-- knitr::include_graphics("https://readr.tidyverse.org/logo.png") -->
-<!-- ``` -->
-<!-- ] -->
 
-<!-- .pull-left-7[ -->
-<!-- ```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600} -->
-<!-- knitr::include_graphics("https://dplyr.tidyverse.org/logo.png") -->
-<!-- ``` -->
-<!-- ] -->
+---
 
+## Conteúdo
 
-<!-- --- -->
+.pull-left-10[
+.font80[
+**Parte 1 - Importação de dados com .orange[readr]**
 
-<!-- ## Conteúdo -->
+[1- YYYYY](#R)
 
-<!-- .pull-left-4[ -->
-<!-- .font80[ -->
-<!-- **Parte 1 - Importação de dados com .orange[readr]** -->
+]
+]
 
-<!-- [1- YYYYY](#R) -->
+.pull-right-10[
+.pull-down[
+.font80[
+**Parte 2 - Manipulação de dados com .orange[dplyr]**
 
-<!-- ] -->
-<!-- ] -->
+[1 - Função select() e suas auxiliares](#select)
 
-<!-- .pull-right-4[ -->
-<!-- .pull-down[ -->
-<!-- .font80[ -->
-<!-- **Parte 2 - Manipulação de dados com .orange[dplyr]** -->
+&nbsp;&nbsp;&nbsp;&nbsp;[1.1 - Função starts_with()](#startwith)
 
-<!-- [1 - Função select() e suas auxiliares](#select) -->
+&nbsp;&nbsp;&nbsp;&nbsp;[1.2 - Função ends_with()](#endswith)
 
-<!-- &nbsp;&nbsp;&nbsp;&nbsp;[1.1 - Função starts_with()](#startwith) -->
+&nbsp;&nbsp;&nbsp;&nbsp;[1.3 - Função contains()](#contains)
 
-<!-- &nbsp;&nbsp;&nbsp;&nbsp;[1.2 - Função ends_with()](#endswith) -->
+&nbsp;&nbsp;&nbsp;&nbsp;[1.4 - Função matches()](#matches)
 
-<!-- &nbsp;&nbsp;&nbsp;&nbsp;[1.3 - Função contains()](#contains) -->
+&nbsp;&nbsp;&nbsp;&nbsp;[1.5 - Função everything()](#everything)
 
-<!-- &nbsp;&nbsp;&nbsp;&nbsp;[1.4 - Função matches()](#matches) -->
+&nbsp;&nbsp;&nbsp;&nbsp;[1.6 - Função where()](#where)
 
-<!-- &nbsp;&nbsp;&nbsp;&nbsp;[1.5 - Função everything()](#everything) -->
+[2 - Função arrange()](#arrange)
 
-<!-- &nbsp;&nbsp;&nbsp;&nbsp;[1.6 - Função where()](#where) -->
+[3 - Função filter()](#filter)
 
-<!-- [2 - Função arrange()](#arrange) -->
+[4 - Função mutate() e suas auxiliares](#mutate)
 
-<!-- [3 - Função filter()](#filter) -->
+&nbsp;&nbsp;&nbsp;&nbsp;[4.1 - Função if_else()](#ifelse)
 
-<!-- [4 - Função mutate() e suas auxiliares](#mutate) -->
+&nbsp;&nbsp;&nbsp;&nbsp;[4.2 - Função case_when()](#casewhen)
 
-<!-- &nbsp;&nbsp;&nbsp;&nbsp;[4.1 - Função if_else()](#ifelse) -->
+[5 - Função summarise()](#summarise)
 
-<!-- &nbsp;&nbsp;&nbsp;&nbsp;[4.2 - Função case_when()](#casewhen) -->
+&nbsp;&nbsp;&nbsp;&nbsp;[5.1 - Função across()](#across)
 
-<!-- [5 - Função summarise()](#summarise) -->
+]
+]
+]
 
-<!-- &nbsp;&nbsp;&nbsp;&nbsp;[5.1 - Função across()](#across) -->
+---
 
-<!-- ] -->
-<!-- ] -->
-<!-- ] -->
+layout: false
+name: conc
+class: inverse, top, right
+background-image: url(fig/part1/arara.jpg)
+background-size: cover
 
-<!-- --- -->
+.font200[**.yellow[Parte 1] <br> .white[Importação de dados <br> com readr]**]
 
-<!-- layout: false -->
-<!-- name: conc -->
-<!-- class: inverse, top, right -->
-<!-- background-image: url(fig/class3/arara.jpg) -->
-<!-- background-size: cover -->
+.left[.footnote[.white[Créditos: Imagem de IvaCastro por Pixabay].]]
 
-<!-- .font200[**.yellow[Parte 1] <br> .white[Importação de dados <br> com readr]**]  -->
+---
 
-<!-- .left[.footnote[.white[Créditos: Imagem de IvaCastro por Pixabay].]] -->
+layout: true
+class: with-logo logo-ufpa
+<div class="my-header"></div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr</div>
 
-<!-- --- -->
-<!-- layout: true -->
-<!-- <div class="my-header"></div> -->
-<!-- <div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr</div> -->
 
 
+---
 
-<!-- --- -->
+## Importação de dados com readr
 
-<!-- ## Importação de dados com readr -->
 
+---
 
-<!-- --- -->
 
+---
 
-<!-- --- -->
+layout: false
+name: conc
+class: inverse, top, right
+background-image: url(fig/part1/arara2.jpg)
+background-size: cover
 
-<!-- layout: false -->
-<!-- name: conc -->
-<!-- class: inverse, top, right -->
-<!-- background-image: url(fig/class3/arara2.jpg) -->
-<!-- background-size: cover -->
+.font200[**.yellow[Parte 2] <br> .white[Manipulação de dados <br> com dplyr]**]
 
-<!-- .font200[**.yellow[Parte 2] <br> .white[Manipulação de dados <br> com dplyr]**]  -->
+.left[.footnote[.white[Créditos: Imagem de ljwong por Pixabay].]]
 
-<!-- .left[.footnote[.white[Créditos: Imagem de ljwong por Pixabay].]] -->
+---
 
-<!-- --- -->
-<!-- layout: true -->
-<!-- <div class="my-header"></div> -->
-<!-- <div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr</div> -->
+layout: true
+class: with-logo logo-ufpa
+<div class="my-header"></div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp;Experimentação Florestal (FL03034 - EF) - Importação e Manipulação de dados: readr e dplyr</div>
 
-<!-- --- -->
+---
 
-<!-- ## Manipulação de dados com dplyr -->
-<!-- <br> -->
+## Manipulação de dados com dplyr
+<br>
 
-<!-- ### Sobre o pacote **dplyr**... -->
+### Sobre o pacote **dplyr**...
 
-<!-- .font90[ -->
-<!-- - Um dos principais pacotes do .green[tidyverse]. -->
-<!-- - O pacote dplyr é essencialmente um conjunto consistente de funções projetadas para resolver os desafios mais comuns de **manipulação de dados**. -->
-<!-- - Foi projetado para ser simples, intuitivo, amigável e elegante.  -->
-<!-- - O encadeamento de comandos é facilitado pelo emprego do operador **%>%** (pipe). -->
-<!-- - Códigos em R que fazem uso dos verbos dplyr são mais elegantes, compeeensíveis e intuitivos. -->
-<!-- - **Cheatsheet do RStudio** (folhas de resumo): Help $\rightarrow$ Cheatsheets $\rightarrow$ Data Transformation with dplyr -->
-<!-- - No site da RStudio pode-se encontrar algumas Cheatsheet traduzidas: [cheatsheets-translations](https://www.rstudio.com/resources/cheatsheets/#translations) -->
-<!-- ] -->
+.font90[
+- Um dos principais pacotes do .green[tidyverse].
+- O pacote dplyr é essencialmente um conjunto consistente de funções projetadas para resolver os desafios mais comuns de **manipulação de dados**.
+- Foi projetado para ser simples, intuitivo, amigável e elegante.
+- O encadeamento de comandos é facilitado pelo emprego do operador **%>%** (pipe).
+- Códigos em R que fazem uso dos verbos dplyr são mais elegantes, compeeensíveis e intuitivos.
+- **Cheatsheet do RStudio** (folhas de resumo): Help $\rightarrow$ Cheatsheets $\rightarrow$ Data Transformation with dplyr
+- No site da RStudio pode-se encontrar algumas Cheatsheet traduzidas: [cheatsheets-translations](https://www.rstudio.com/resources/cheatsheets/#translations)
+]
 
-<!-- ```{r echo=FALSE, out.width='10%', fig.align='center', fig.cap='', dpi=600} -->
-<!-- knitr::include_graphics("https://dplyr.tidyverse.org/logo.png") -->
-<!-- ``` -->
+```{r echo=FALSE, out.width='10%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
+```
 
-<!-- --- -->
+---
 
-<!-- ## Manipulação de dados com dplyr -->
-<!-- <br> -->
+## Manipulação de dados com dplyr
+<br>
 
-<!-- ### Verbos **dplyr** -->
+### Verbos **dplyr**
 
-<!-- .pull-left-4[ -->
-<!-- - O **dplyr** possui diversos verbos (funções). A seguir são listadas algumas das mais usuais: -->
+.pull-left-4[
+- O **dplyr** possui diversos verbos (funções). A seguir são listadas algumas das mais usuais:
 
-<!-- .center[ -->
-<!-- mutate() -->
+.center[
+mutate()
 
-<!-- select() -->
+select()
 
-<!-- filter() -->
+filter()
 
-<!-- arrange() -->
+arrange()
 
-<!-- group_by() -->
+group_by()
 
-<!-- summarise() -->
-<!-- ] -->
-<!-- ] -->
+summarise()
+]
+]
 
-<!-- .pull-right-4[ -->
-<!-- Lista de funções do pacote **dplyr**: -->
+.pull-right-4[
+Lista de funções do pacote **dplyr**:
 
-<!-- ```{r, echo=T, eval=F} -->
-<!-- ls("package:dplyr") -->
-<!-- #length(ls("package:dplyr")) -->
-<!-- #lsf.str("package:dplyr") -->
-<!-- ``` -->
+```{r, echo=T, eval=F}
+ls("package:dplyr")
+#length(ls("package:dplyr"))
+#lsf.str("package:dplyr")
+```
 
-<!-- Ou simplesmente digite .green[`dplyr::`]. -->
+Ou simplesmente digite .green[`dplyr::`].
 
-<!-- Atualmente são `r length(ls("package:dplyr"))` funções projetadas para manipulação de dados. -->
+Atualmente são `r length(ls("package:dplyr"))` funções projetadas para manipulação de dados.
 
-<!-- ] -->
+]
 
 <!-- --- -->
 
@@ -340,10 +374,10 @@ layout: true
 <!-- background-size: cover -->
 
 
-<!-- .font200[**.white[Manipulação de dados <br> com dplyr]**]  -->
+<!-- .font200[**.white[Manipulação de dados <br> com dplyr]**] -->
 <!-- <br><br> -->
 
-<!-- .font150[**.yellow[Função select()]**]  -->
+<!-- .font150[**.yellow[Função select()]**] -->
 
 <!-- --- -->
 <!-- layout: true -->
@@ -370,14 +404,14 @@ layout: true
 <!-- .blue[**Seleção de uma coluna...**] -->
 <!-- <br><br> -->
 <!-- .font80[ -->
-<!-- **Alternativa 1**:  -->
+<!-- **Alternativa 1**: -->
 <!-- ```{r echo=TRUE, eval=FALSE} -->
 <!-- select(data, Nome_Especie) -->
 <!-- ``` -->
 
 <!-- **Alternativa 2** -->
 <!-- ```{r echo=TRUE, eval=FALSE} -->
-<!-- data %>%  -->
+<!-- data %>% -->
 <!--   select(Nome_Especie) -->
 <!-- ``` -->
 <!-- ] -->
@@ -414,7 +448,7 @@ layout: true
 <!-- .blue[**Seleção de várias coluna...**] -->
 <!-- <br><br> -->
 
-<!-- **Alternativa 1** (sem %>%)  -->
+<!-- **Alternativa 1** (sem %>%) -->
 <!-- ```{r echo=TRUE, eval=FALSE} -->
 <!-- select( -->
 <!--   data, CAP, HC, QF -->
@@ -423,13 +457,13 @@ layout: true
 
 <!-- **Alternativa 2** (com %>%) -->
 <!-- ```{r echo=TRUE, eval=FALSE} -->
-<!-- data %>%  -->
+<!-- data %>% -->
 <!--   select(CAP, HC, QF) -->
 <!-- ``` -->
 
 <!-- **Alternativa 3** (%>% + :) -->
 <!-- ```{r echo=TRUE, eval=FALSE} -->
-<!-- data %>%  -->
+<!-- data %>% -->
 <!--   select(CAP:QF) -->
 <!-- ``` -->
 
@@ -495,7 +529,7 @@ layout: true
 
 
 <!-- --- -->
-<!-- name: endswith  -->
+<!-- name: endswith -->
 <!-- ## Manipulação de dados com dplyr -->
 <!-- <br> -->
 
@@ -675,9 +709,9 @@ layout: true
 
 <!-- ```{r sel11, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   select(Nome_Especie,  -->
+<!--   select(Nome_Especie, -->
 <!--          Selecao, -->
-<!--          everything()) %>%  -->
+<!--          everything()) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -725,7 +759,7 @@ layout: true
 
 <!-- ```{r sel12, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   select(where(is.character)) %>%  -->
+<!--   select(where(is.character)) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -761,7 +795,7 @@ layout: true
 <!-- data %>% -->
 <!--   select( -->
 <!--     starts_with("N") & -->
-<!--       !ends_with("Arvore"))  -->
+<!--       !ends_with("Arvore")) -->
 <!-- ``` -->
 
 
@@ -778,10 +812,10 @@ layout: true
 <!-- ] -->
 
 <!-- ```{r sel8, echo=F, eval=F} -->
-<!-- data %>%  -->
+<!-- data %>% -->
 <!--   select( -->
 <!--     starts_with("N") & -->
-<!--       !ends_with("Arvore")) %>%  -->
+<!--       !ends_with("Arvore")) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -831,7 +865,7 @@ layout: true
 
 <!-- ```{r sel9, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   select(-c(CAP:Selecao)) %>%  -->
+<!--   select(-c(CAP:Selecao)) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -865,8 +899,8 @@ layout: true
 
 <!-- ```{r echo=TRUE, eval=FALSE} -->
 <!-- data %>% -->
-<!--   select(Nome_Especie,  -->
-<!--          Selecao, CAP,  -->
+<!--   select(Nome_Especie, -->
+<!--          Selecao, CAP, -->
 <!--          QF, HC) -->
 <!-- ``` -->
 
@@ -874,7 +908,7 @@ layout: true
 
 <!-- ```{r sel10, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   select(Nome_Especie, Selecao, CAP, QF, HC) %>%  -->
+<!--   select(Nome_Especie, Selecao, CAP, QF, HC) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -894,10 +928,10 @@ layout: true
 <!-- background-size: cover -->
 
 
-<!-- .font200[**.white[Manipulação de dados <br> com dplyr]**]  -->
+<!-- .font200[**.white[Manipulação de dados <br> com dplyr]**] -->
 <!-- <br><br> -->
 
-<!-- .font150[**.yellow[Função arrange()]**]  -->
+<!-- .font150[**.yellow[Função arrange()]**] -->
 
 <!-- --- -->
 <!-- layout: true -->
@@ -933,7 +967,7 @@ layout: true
 
 <!-- ```{r arr1, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   arrange(HC) %>%  -->
+<!--   arrange(HC) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -975,7 +1009,7 @@ layout: true
 
 <!-- ```{r arr2, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   arrange(desc(HC)) %>%  -->
+<!--   arrange(desc(HC)) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1017,7 +1051,7 @@ layout: true
 
 <!-- ```{r arr3, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   arrange(CAP, HC) %>%  -->
+<!--   arrange(CAP, HC) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1037,10 +1071,10 @@ layout: true
 <!-- background-size: cover -->
 
 
-<!-- .font200[**.white[Manipulação de dados <br> com dplyr]**]  -->
+<!-- .font200[**.white[Manipulação de dados <br> com dplyr]**] -->
 <!-- <br><br> -->
 
-<!-- .font150[**.yellow[Função filter()]**]  -->
+<!-- .font150[**.yellow[Função filter()]**] -->
 
 <!-- --- -->
 <!-- layout: true -->
@@ -1076,7 +1110,7 @@ layout: true
 
 <!-- ```{r fil1, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   filter(HC > 15) %>%  -->
+<!--   filter(HC > 15) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1117,7 +1151,7 @@ layout: true
 
 <!-- ```{r fil2, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   filter(HC > 10 & HC <= 15) %>%  -->
+<!--   filter(HC > 10 & HC <= 15) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1158,7 +1192,7 @@ layout: true
 
 <!-- ```{r fil3, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   filter(HC > 10, Selecao == "Explorar") %>%  -->
+<!--   filter(HC > 10, Selecao == "Explorar") %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1200,7 +1234,7 @@ layout: true
 
 <!-- ```{r fil4, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   filter(Nome_Especie %in% c('Acapu', 'Tauari')) %>%  -->
+<!--   filter(Nome_Especie %in% c('Acapu', 'Tauari')) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1244,7 +1278,7 @@ layout: true
 <!-- ```{r fil5, echo=F, eval=F} -->
 <!-- data %>% -->
 <!--   filter(Nome_Especie %in% c('Acapu', 'Tauari'), -->
-<!--          HC >= 12, QF == 1) %>%  -->
+<!--          HC >= 12, QF == 1) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1265,7 +1299,7 @@ layout: true
 <!-- background-size: cover -->
 
 
-<!-- .font200[**.white[Manipulação de dados <br> com dplyr]**]  -->
+<!-- .font200[**.white[Manipulação de dados <br> com dplyr]**] -->
 <!-- <br><br> -->
 
 <!-- .font150[**.yellow[Função mutate()]**] -->
@@ -1286,8 +1320,8 @@ layout: true
 
 <!-- .pull-left-12[ -->
 <!-- ```{r echo=F, eval=T} -->
-<!-- data %>%  -->
-<!--   select(-c(N_Arvore, QF, Selecao)) %>%  -->
+<!-- data %>% -->
+<!--   select(-c(N_Arvore, QF, Selecao)) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1315,7 +1349,7 @@ layout: true
 
 <!-- ```{r mut1, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   select(-c(N_Arvore, QF, Selecao)) %>%  -->
+<!--   select(-c(N_Arvore, QF, Selecao)) %>% -->
 <!--   mutate(DAP = CAP/pi) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
@@ -1336,8 +1370,8 @@ layout: true
 
 <!-- .pull-left-12[ -->
 <!-- ```{r echo=F, eval=T} -->
-<!-- data %>%  -->
-<!--   select(-c(N_Arvore, QF, Selecao)) %>%  -->
+<!-- data %>% -->
+<!--   select(-c(N_Arvore, QF, Selecao)) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1365,7 +1399,7 @@ layout: true
 
 <!-- ```{r mut2, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   select(-c(N_Arvore, QF, Selecao)) %>%  -->
+<!--   select(-c(N_Arvore, QF, Selecao)) %>% -->
 <!--   mutate(CAP = CAP/100) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
@@ -1386,8 +1420,8 @@ layout: true
 
 <!-- .pull-left-12[ -->
 <!-- ```{r echo=F, eval=T} -->
-<!-- data %>%  -->
-<!--   select(-c(N_Arvore, QF, Selecao)) %>%  -->
+<!-- data %>% -->
+<!--   select(-c(N_Arvore, QF, Selecao)) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1401,7 +1435,7 @@ layout: true
 
 <!-- ```{r echo=TRUE, eval=FALSE} -->
 <!-- data %>% -->
-<!--   mutate(DAP = CAP/pi,  -->
+<!--   mutate(DAP = CAP/pi, -->
 <!--          CAP = CAP/100, -->
 <!--          gi = (DAP^2*pi)/40000)) -->
 <!-- ``` -->
@@ -1410,7 +1444,7 @@ layout: true
 <!-- `r anicon::faa("hand-point-down", animate="vertical")` **Experimente o comando** -->
 <!-- ```{r echo=TRUE, eval=FALSE} -->
 <!-- data %>% -->
-<!--   mutate(DAP = CAP/pi,  -->
+<!--   mutate(DAP = CAP/pi, -->
 <!--          CAP = CAP/100, -->
 <!--          gi = (DAP^2*pi)/40000, -->
 <!--          vi = gi*HC*0.7) -->
@@ -1421,7 +1455,7 @@ layout: true
 <!-- ```{r mut3, echo=F, eval=F} -->
 <!-- data %>% -->
 <!--   select(-c(N_Arvore, QF, Selecao)) %>% -->
-<!--   mutate(DAP = CAP/pi,  -->
+<!--   mutate(DAP = CAP/pi, -->
 <!--          CAP = CAP/100, -->
 <!--          gi = (DAP^2*pi)/40000) %>% -->
 <!--   CustomDT -->
@@ -1443,8 +1477,8 @@ layout: true
 
 <!-- .pull-left-12[ -->
 <!-- ```{r echo=F, eval=T} -->
-<!-- data %>%  -->
-<!--   select(-c(N_Arvore, QF, Selecao)) %>%  -->
+<!-- data %>% -->
+<!--   select(-c(N_Arvore, QF, Selecao)) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1494,8 +1528,8 @@ layout: true
 
 <!-- .pull-left-12[ -->
 <!-- ```{r echo=F, eval=T} -->
-<!-- data %>%  -->
-<!--   select(-c(N_Arvore, QF, Selecao)) %>%  -->
+<!-- data %>% -->
+<!--   select(-c(N_Arvore, QF, Selecao)) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 <!-- ] -->
@@ -1511,7 +1545,7 @@ layout: true
 <!-- **.green[case_when()]** -->
 <!-- <br> -->
 
-<!-- Permite vetorizar várias instruções .green[if_else()]. É um equivalente R da instrução SQL CASE WHEN.  -->
+<!-- Permite vetorizar várias instruções .green[if_else()]. É um equivalente R da instrução SQL CASE WHEN. -->
 
 <!-- Criar uma nova coluna por múltiplas condições mutuamente exclusivas. -->
 
@@ -1531,7 +1565,7 @@ layout: true
 <!-- ```{r mut5, echo=F, eval=F} -->
 <!-- data %>% -->
 <!--   select(-c(N_Arvore, QF, Selecao)) %>% -->
-<!--   mutate(Selecao =  -->
+<!--   mutate(Selecao = -->
 <!--            case_when( -->
 <!--              (CAP >= 600) ~ "Matriz", -->
 <!--              (Nome_Especie == "Acapu") ~ "Protegida", -->
@@ -1556,7 +1590,7 @@ layout: true
 <!-- background-size: cover -->
 
 
-<!-- .font200[**.white[Manipulação de dados <br> com dplyr]**]  -->
+<!-- .font200[**.white[Manipulação de dados <br> com dplyr]**] -->
 <!-- <br><br> -->
 
 <!-- .font150[**.yellow[Função summarise()]**] -->
@@ -1597,7 +1631,7 @@ layout: true
 
 <!-- ```{r sumr1, echo=F, eval=F} -->
 <!-- data %>% -->
-<!--   summarise(media_HC = mean(HC, na.rm = TRUE)) %>%  -->
+<!--   summarise(media_HC = mean(HC, na.rm = TRUE)) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 
@@ -1623,7 +1657,7 @@ layout: true
 <!--   summarise(media_HC = mean(HC, na.rm = TRUE), -->
 <!--             sd_HC = mean(HC, na.rm = TRUE), -->
 <!--             min_HC = min(HC, na.rm = TRUE), -->
-<!--             max_HC = max(HC, na.rm = TRUE)) %>%  -->
+<!--             max_HC = max(HC, na.rm = TRUE)) %>% -->
 <!--   CustomDT -->
 <!-- ``` -->
 
@@ -1698,7 +1732,7 @@ layout: true
 <!-- .pull-right-10[ -->
 <!-- .pull-top[ -->
 <!-- .font80[ -->
-<!-- **.blue[Sumarizando diversas variáveis...]**  -->
+<!-- **.blue[Sumarizando diversas variáveis...]** -->
 <!-- <br><br> -->
 
 <!-- .green[**across()**] -->
@@ -1712,7 +1746,7 @@ layout: true
 <!-- data %>% -->
 <!--   summarise(across( -->
 <!--     .cols = c(HC, CAP), -->
-<!--     .fns = mean,  -->
+<!--     .fns = mean, -->
 <!--     na.rm = TRUE, -->
 <!--     .names = "mean_{.col}" -->
 <!--   )) -->
@@ -1722,7 +1756,7 @@ layout: true
 <!-- data %>% -->
 <!--   summarise(across( -->
 <!--     .cols = c(HC, CAP), -->
-<!--     .fns = mean,  -->
+<!--     .fns = mean, -->
 <!--     na.rm = TRUE, -->
 <!--     .names = "mean_{.col}" -->
 <!--   )) %>% -->
