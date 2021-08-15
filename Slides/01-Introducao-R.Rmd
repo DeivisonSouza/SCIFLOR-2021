@@ -197,7 +197,7 @@ class: inverse, top, right
 background-image: url(fig/part1/arara.jpg)
 background-size: cover
 
-.font200[**.white[Parte 1] <br> .yellow[Conhecendo o R e <br> o IDE Rstudio]**]
+.font200[**.yellow[Parte 1] <br> .white[Conhecendo o R e <br> o IDE Rstudio]**]
 
 ---
 
@@ -427,7 +427,7 @@ class: inverse, top, right
 background-image: url(fig/part1/arara2.jpg)
 background-size: cover
 
-.font200[**.white[Parte 2] <br> .yellow[Estrutura de dados <br> na linguagem R]**]
+.font200[**.yellow[Parte 2] <br> .white[Estrutura de dados <br> na linguagem R]**]
 
 ---
 
@@ -1119,7 +1119,7 @@ class: inverse, top, right
 background-image: url(fig/part1/arara2.jpg)
 background-size: cover
 
-.font200[**.white[Parte 3] <br> .yellow[Indexação no R]**]
+.font200[**.yellow[Parte 3] <br> .white[Indexação no R]**]
 
 ---
 
@@ -1787,7 +1787,7 @@ class: inverse, top, right
 background-image: url(fig/part1/arara.jpg)
 background-size: cover
 
-.font200[**.white[Parte 5] <br> .yellow[Um pouco mais <br> sobre o R]**]
+.font200[**.yellow[Parte 5] <br> .white[Um pouco mais <br> sobre o R]**]
 
 ---
 
@@ -1802,8 +1802,10 @@ name: Sint
 
 ### Sintaxe da linguagem R
 
+.font90[
 - **Linguagem de expressão**: Tecnicamente, R é uma linguagem de expressão com uma sintaxe muito simples.
 - **Case sensitive**: A linguagem R é *case sensitive*. Isto é, diferencia .green[maiúscula] e .green[minúscula].
+]
 
 .pull-left[
 ```{r r1, echo=TRUE, eval=FALSE}
@@ -1832,13 +1834,14 @@ Fonte: [An Introduction to R](https://cran.r-project.org/doc/manuals/r-release/R
 <br>
 
 ### Sintaxe da linguagem R
-
+.font90[
 - **Comandos elementares no R**: consistem em .green[expressões] ou .green[atribuições].
 <br>
 
 Se uma expressão é um comando, então o R: .blue[avalia], .blue[imprime] (a menos que seja especificado ao contrário) e o resultado é ".blue[perdido]".
 
 Se uma atribuições é um comando, então o R: .blue[avalia], .blue[atribui] o resultado para uma variável e .blue[suprime] a impressão automática do resultado".
+]
 
 .pull-left[
 ```{r r2, echo=TRUE, eval=FALSE}
