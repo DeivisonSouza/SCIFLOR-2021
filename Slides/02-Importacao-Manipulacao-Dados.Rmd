@@ -257,6 +257,8 @@ class: with-logo logo-ufpa
 ## Pacote readr (tidyverse)
 <br>
 
+### Principais funções
+
 - O pacote .blue[readr] está incorporado no tidyverse.
 - Algumas das principais funções são:
 <br><br>
@@ -269,9 +271,8 @@ class: with-logo logo-ufpa
 
 **read_tsv()** - Importar um arquivo de valores separados por .blue[tabulação] (*Tab-Separated Values*)
 
-**read_delim()**
+**read_delim()** - Importar um arquivo de texto com um .blue[delimitador incomum]
 
-**read_table()**
 ]
 
 ]
