@@ -332,7 +332,7 @@ readr::write_file(x = "Nome,DAP,H\nAngelim,100,30\nMogno,80,20",
 
 A função possui inúmeros argumentos que podem ser especificados.
 
-Execute o comando: args(read_csv).
+Execute o comando: **args(**read_csv**)**
 ]
 ]
 
@@ -374,7 +374,9 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_names**]
 ```{r file4, echo=T, eval=F}
 # Importa o arquivo "file1"
 (file1.mod1 <- readr::read_csv(file="data/file1.csv", 
-                          col_names = c("Name", "DBH", "H")))
+                          col_names = c("Name", "DBH", "H")
+                          )
+ )
 ```
 
 ```{r ref.label="file4", echo=F, eval=T, collapse=T}
@@ -420,7 +422,8 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_types**]
 ```{r file6, echo=T, eval=F}
 # Importa o arquivo "file1"
 (file1.mod2 <- readr::read_csv(file="data/file1.csv", 
-                          col_types = "fdi"))
+                          col_types = "fdi")
+ )
 ```
 
 ```{r ref.label="file6", echo=F, eval=T, collapse=T}
@@ -461,7 +464,7 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_select**
 # Importa o arquivo "file1"
 (file1.mod3 <- readr::read_csv(
   file = "data/file1.csv", 
-  col_select = c(Nome, DAP) #<<
+  col_select = c(Nome, DAP)
   )
  )
 ```
@@ -514,6 +517,35 @@ readr::write_file(x = "Nome;DAP;H\nAngelim;100;30\nMogno;80;20",
 ]
 
 ]
+
+---
+
+## Pacote readr (tidyverse)
+
+.pull-left-4[
+.font80[
+### Arquivo de valores separados por ponto e vírgula
+<br><br>
+
+- **Função .black[read_csv2()]**
+
+A função possui inúmeros argumentos que podem ser especificados.
+
+Execute o comando: **args(**read_csv2**)**
+<br><br>
+
+`r anicon::faa("hand-point-right", animate="horizontal")` **Explore os demais argumentos!** `r anicon::faa("home", animate="horizontal")`
+
+]
+]
+
+
+.pull-right-4[
+```{r echo=FALSE, out.width='55%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("fig/part2/readcsv2.png")
+```
+]
+
 
 ---
 
