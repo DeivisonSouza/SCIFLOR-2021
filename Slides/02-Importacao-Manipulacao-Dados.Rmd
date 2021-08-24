@@ -173,7 +173,17 @@ knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
 .font80[
 **Parte 1 - Importação de dados com .orange[readr]**
 
-[1- YYYYY](#R)
+[1 - Importação de dados no R](#import)
+
+[2 - O pacote readr](#readr)
+
+[3 - Arquivo de valores separados por vírgula](#csv)
+
+[4 - Arquivo de valores separados por ponto e vírgula](#csv2)
+
+[5 - Arquivo de valores separados por tabulação](#tsv)
+
+[6 - Arquivo de valores separados por um delimitador incomum](#delim)
 
 ]
 ]
@@ -234,10 +244,8 @@ class: with-logo logo-ufpa
 <div class="my-header"></div>
 <div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 2 - Importação e Manipulação de Dados: readr e dplyr</div2> </div>
 
-
-
 ---
-
+name: import
 ## Importação de dados no R
 <br>
 
@@ -254,18 +262,50 @@ class: with-logo logo-ufpa
 .center[**O pacote .blue[readr] será o nosso objeto de estudo!**]
 
 ---
+name: readr
+## Pacote readr (tidyverse)
+<br>
+
+### Funções de importação e exportação
+
+.font80[
+- O pacote .blue[readr] está incorporado no tidyverse.
+- Possui diversas funções para importação e exportação de dados.
+]
+<br>
+
+.pull-left-4[
+**Funções para importação de dados**
+.font80[
+```{r echo=T, eval=T}
+ls("package:readr") %>% 
+  stringr::str_subset("^read_")
+```
+]
+]
+
+.pull-right-4[
+**Funções para exportação de dados**
+.font80[
+```{r echo=T, eval=T}
+ls("package:readr") %>% 
+  stringr::str_subset("^write_")
+```
+]
+]
+
+---
 
 ## Pacote readr (tidyverse)
 <br>
 
 ### Principais funções
 
-- O pacote .blue[readr] está incorporado no tidyverse.
-- Algumas das principais funções são:
+- Vamos estudar apenas algumas das principais funções de importação...
 <br><br>
 
 .left[
-.font90[
+.font80[
 **read_csv()** - Importar um arquivo de valores separados por .blue[vírgula] (*Comma-Separated Values*)
 
 **read_csv2()** - Importar um arquivo de valores separados por .blue[ponto e vírgula] (*Semicolon-Separated Values*)
@@ -275,11 +315,10 @@ class: with-logo logo-ufpa
 **read_delim()** - Importar um arquivo de valores separados por um .blue[delimitador incomum]
 
 ]
-
 ]
 
 ---
-
+name: csv
 ## Pacote readr (tidyverse)
 <br>
 
@@ -475,7 +514,7 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_select**
 ]
 
 ---
-
+name: csv2
 ## Pacote readr (tidyverse)
 <br>
 
@@ -547,7 +586,7 @@ knitr::include_graphics("fig/part2/readcsv2.png")
 
 
 ---
-
+name: tsv
 ## Pacote readr (tidyverse)
 <br>
 
@@ -616,16 +655,76 @@ knitr::include_graphics("fig/part2/readtsv.png")
 ]
 
 
-
-
 ---
-
+name: delim
 ## Pacote readr (tidyverse)
 <br>
 
 ### Arquivo de valores separados por um delimitador incomum
 
+- **Função .black[read_delim()]** - Importar arquivos com delimitator de valores específicos
 
+.pull-left-9[
+
+```{r echo=FALSE, out.width='30%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("fig/part2/file4.png")
+```
+
+.font80[
+```{r echo=T, eval=F}
+# Cria o arquivo "file4.txt" e salva em "data"
+readr::write_file(x = "Nome|DAP|H\nAngelim|100|30\nMogno|80|20",
+                  path = "data/file4.txt")
+```
+]
+]
+
+--
+
+.pull-right-9[
+.font80[
+**O único argumento obrigatório (file) é o caminho para o arquivo.**
+
+```{r filedelim, echo=T, eval=F}
+# Importa o arquivo "file4"
+(file4 <- readr::read_delim(
+  file="data/file4.txt", 
+  delim = "|")
+ )
+```
+
+```{r ref.label="filedelim", echo=F, eval=T, collapse=T}
+```
+]
+
+]
+
+---
+
+## Pacote readr (tidyverse)
+
+.pull-left-4[
+.font80[
+### Arquivo de valores separados por um delimitador incomum
+<br><br>
+
+- **Função .black[read_delim()]** - Importar arquivos com delimitator de valores específicos
+
+A função possui inúmeros argumentos que podem ser especificados.
+
+Execute o comando: **args(**read_delim**)**
+<br><br>
+
+`r anicon::faa("hand-point-right", animate="horizontal")` **Explore os demais argumentos!** `r anicon::faa("home", animate="horizontal")`
+
+]
+]
+
+.pull-right-4[
+```{r echo=FALSE, out.width='55%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("fig/part2/readdelim.png")
+```
+]
 
 
 
