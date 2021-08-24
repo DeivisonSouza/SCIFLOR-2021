@@ -283,7 +283,7 @@ class: with-logo logo-ufpa
 ## Pacote readr (tidyverse)
 <br>
 
-### Arquivo de valores separados por vírgula
+### Arquivo de valores separados por vírgula .black[(].blue[,].black[)]
 
 - **Função .black[read_csv()]** - Importar arquivos .csv
 
@@ -326,7 +326,7 @@ readr::write_file(x = "Nome,DAP,H\nAngelim,100,30\nMogno,80,20",
 
 .pull-left-4[
 .font80[
-### Arquivo de valores separados por vírgula
+### Arquivo de valores separados por vírgula .black[(].blue[,].black[)]
 
 - **Função .black[read_csv()]** - Importar arquivos .csv
 
@@ -348,7 +348,7 @@ knitr::include_graphics("fig/part2/readcsv.png")
 ## Pacote readr (tidyverse)
 <br>
 
-### Arquivo de valores separados por vírgula
+### Arquivo de valores separados por vírgula .black[(].blue[,].black[)]
 
 - **Função .black[read_csv()]** - Importar arquivos .csv
 .font80[
@@ -390,7 +390,7 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_names**]
 ## Pacote readr (tidyverse)
 <br>
 
-### Arquivo de valores separados por vírgula
+### Arquivo de valores separados por vírgula .black[(].blue[,].black[)]
 
 - **Função .black[read_csv()]** - Importar arquivos .csv
 .font80[
@@ -437,7 +437,7 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_types**]
 ## Pacote readr (tidyverse)
 <br>
 
-### Arquivo de valores separados por vírgula
+### Arquivo de valores separados por vírgula .black[(].blue[,].black[)]
 
 - **Função .black[read_csv()]** - Importar arquivos .csv
 .font80[
@@ -479,7 +479,7 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_select**
 ## Pacote readr (tidyverse)
 <br>
 
-### Arquivo de valores separados por ponto e vírgula
+### Arquivo de valores separados por ponto e vírgula .black[(].blue[;].black[)]
 
 - **Função .black[read_csv2()]**
 .font80[
@@ -524,7 +524,7 @@ readr::write_file(x = "Nome;DAP;H\nAngelim;100;30\nMogno;80;20",
 
 .pull-left-4[
 .font80[
-### Arquivo de valores separados por ponto e vírgula
+### Arquivo de valores separados por ponto e vírgula .black[(].blue[;].black[)]
 <br><br>
 
 - **Função .black[read_csv2()]**
@@ -539,7 +539,6 @@ Execute o comando: **args(**read_csv2**)**
 ]
 ]
 
-
 .pull-right-4[
 ```{r echo=FALSE, out.width='55%', fig.align='center', fig.cap='', dpi=600}
 knitr::include_graphics("fig/part2/readcsv2.png")
@@ -552,7 +551,72 @@ knitr::include_graphics("fig/part2/readcsv2.png")
 ## Pacote readr (tidyverse)
 <br>
 
-### Arquivo de valores separados por tabulação
+### Arquivo de valores separados por tabulação .black[(].blue[\t].black[)]
+
+- **Função .black[read_tsv()]** - Importar arquivos (.tsv, .txt)
+
+.pull-left-9[
+
+```{r echo=FALSE, out.width='30%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("fig/part2/file3.png")
+```
+
+.font80[
+```{r echo=T, eval=F}
+# Cria o arquivo "file3.tsv" e salva em "data"
+readr::write_file(x = "Nome\tDAP\tH\nAngelim\t100\t30\nMogno\t80\t20",
+                  path = "data/file3.txt")
+```
+]
+]
+
+--
+
+.pull-right-9[
+.font80[
+**O único argumento obrigatório (file) é o caminho para o arquivo.**
+
+```{r filetsv, echo=T, eval=F}
+# Importa o arquivo "file3"
+(file3 <- readr::read_tsv(file="data/file3.txt"))
+```
+
+```{r ref.label="filetsv", echo=F, eval=T, collapse=T}
+```
+]
+
+]
+
+
+---
+
+## Pacote readr (tidyverse)
+
+.pull-left-4[
+.font80[
+### Arquivo de valores separados por tabulação .black[(].blue[\t].black[)]
+<br><br>
+
+- **Função .black[read_tsv()]** - Importar arquivos (.tsv, .txt)
+
+A função possui inúmeros argumentos que podem ser especificados.
+
+Execute o comando: **args(**read_tsv**)**
+<br><br>
+
+`r anicon::faa("hand-point-right", animate="horizontal")` **Explore os demais argumentos!** `r anicon::faa("home", animate="horizontal")`
+
+]
+]
+
+.pull-right-4[
+```{r echo=FALSE, out.width='55%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("fig/part2/readtsv.png")
+```
+]
+
+
+
 
 ---
 
