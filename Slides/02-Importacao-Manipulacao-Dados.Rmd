@@ -327,7 +327,9 @@ readr::write_file(x = "Nome,DAP,H\nAngelim,100,30\nMogno,80,20",
 
 - **Função .black[read_csv()]** - Importar arquivos .csv
 
-A função possui inúmeros argumentos que podem ser especificados...
+A função possui inúmeros argumentos que podem ser especificados.
+
+Execute o comando: args(read_csv).
 ]
 ]
 
@@ -430,6 +432,13 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_types**]
 <br>
 
 ### Arquivo de valores separados por ponto e vírgula
+
+
+```{r}
+args(read_csv)
+```
+
+
 
 
 ---
