@@ -362,6 +362,8 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_names**]
 ]
 ]
 
+--
+
 .pull-right-4[
 .font80[
 ```{r file4, echo=T, eval=F}
@@ -374,6 +376,53 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_names**]
 ```
 ]
 ]
+
+
+---
+
+## Pacote readr (tidyverse)
+<br>
+
+### Arquivo de valores separados por vírgula
+
+- **Função .black[read_csv()]** - Importar arquivos .csv
+.font80[
+Vamos explorar outros argumentos da função read_csv()...(.green[**col_types**])
+]
+
+.pull-left-4[
+.font80[
+```{r file5, echo=T, eval=F}
+# Importa o arquivo "file1"
+(file1 <- readr::read_csv(file="data/file1.csv"))
+```
+
+```{r ref.label="file5", echo=F, eval=T, collapse=T}
+```
+
+**col_types** = É possível usar strings compactas em que cada caractere representa uma coluna.
+
+**c** = character; **i** = integer; **n** = number; **d** = double; **l** = logical; **f** = factor; **D** = date
+
+]
+]
+
+
+--
+
+.pull-right-4[
+.font80[
+```{r file6, echo=T, eval=F}
+# Importa o arquivo "file1"
+(file3 <- readr::read_csv(file="data/file1.csv", 
+                          col_types = "fdi"))
+```
+
+```{r ref.label="file6", echo=F, eval=T, collapse=T}
+```
+]
+]
+
 
 ---
 
