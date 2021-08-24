@@ -734,12 +734,14 @@ name: importdata
 <br>
 
 ### Importação de dados usando a GUI do RStudio
+<br><br>
 
-.font80[
+.font90[
 - Use a Interface Gráfica do Usuário (*Graphical User Interface* - GUI) para importar dados rapidamente.
-- RStudio IDE $\rightarrow$ Environment $\rightarrow$ .blue[Import Dataset].
-]
+- RStudio IDE $\rightarrow$ Environment $\rightarrow$ .blue[Import Dataset] $\rightarrow$ From Text (readr).
+- É possível também usar funções do R-base e de outros pacotes, como **readxl** (para ler arquivos .blue[.xlsx]).
 
+]
 
 
 ---
