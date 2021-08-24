@@ -305,6 +305,8 @@ readr::write_file(x = "Nome,DAP,H\nAngelim,100,30\nMogno,80,20",
 
 .pull-right-9[
 .font80[
+**O único argumento obrigatório (file) é o caminho para o arquivo.**
+
 ```{r file1, echo=T, eval=F}
 # Importa o arquivo "file1"
 (file1 <- readr::read_csv(file="data/file1.csv"))
@@ -431,12 +433,48 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_types**]
 ## Pacote readr (tidyverse)
 <br>
 
+### Arquivo de valores separados por vírgula
+
+- **Função .black[read_csv()]** - Importar arquivos .csv
+.font80[
+Vamos explorar outros argumentos da função read_csv()...(.green[**col_select**])
+]
+
+.pull-left-4[
+.font80[
+```{r file7, echo=T, eval=F}
+# Importa o arquivo "file1"
+(file1 <- readr::read_csv(file="data/file1.csv"))
+```
+
+```{r ref.label="file7", echo=F, eval=T, collapse=T}
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font80[
+```{r file8, echo=T, eval=F}
+# Importa o arquivo "file1"
+(file4 <- readr::read_csv(file = "data/file1.csv", 
+                          col_select = c(Nome, DAP))
+ )
+```
+
+```{r ref.label="file8", echo=F, eval=T, collapse=T}
+```
+]
+]
+
+---
+
+## Pacote readr (tidyverse)
+<br>
+
 ### Arquivo de valores separados por ponto e vírgula
 
-
-```{r}
-args(read_csv)
-```
 
 
 
