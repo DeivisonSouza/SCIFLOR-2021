@@ -346,11 +346,34 @@ knitr::include_graphics("fig/part2/readcsv.png")
 ### Arquivo de valores separados por vírgula
 
 - **Função .black[read_csv()]** - Importar arquivos .csv
+.font80[
+Vamos explorar outros argumentos da função read_csv()...(.green[**col_names**])
+]
 
-Vamos explorar outros argumentos da função read_csv()...
+.pull-left-4[
+.font80[
+```{r file3, echo=T, eval=F}
+# Importa o arquivo "file1"
+(file1 <- readr::read_csv(file="data/file1.csv"))
+```
 
+```{r ref.label="file3", echo=F, eval=T, collapse=T}
+```
+]
+]
 
+.pull-right-4[
+.font80[
+```{r file4, echo=T, eval=F}
+# Importa o arquivo "file1"
+(file2 <- readr::read_csv(file="data/file1.csv", 
+                          col_names = c("Name", "DBH", "H")))
+```
 
+```{r ref.label="file4", echo=F, eval=T, collapse=T}
+```
+]
+]
 
 ---
 
