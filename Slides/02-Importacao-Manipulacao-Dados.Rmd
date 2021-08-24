@@ -185,6 +185,8 @@ knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
 
 [6 - Arquivo de valores separados por um delimitador incomum](#delim)
 
+[7 - Importação de dados usando a GUI do Rstudio](#importdata)
+
 ]
 ]
 
@@ -626,7 +628,6 @@ readr::write_file(x = "Nome\tDAP\tH\nAngelim\t100\t30\nMogno\t80\t20",
 
 ]
 
-
 ---
 
 ## Pacote readr (tidyverse)
@@ -724,6 +725,19 @@ Execute o comando: **args(**read_delim**)**
 ```{r echo=FALSE, out.width='55%', fig.align='center', fig.cap='', dpi=600}
 knitr::include_graphics("fig/part2/readdelim.png")
 ```
+]
+
+
+---
+name: importdata
+## Pacote readr (tidyverse)
+<br>
+
+### Importação de dados usando a GUI do RStudio
+
+.font80[
+- Use a Interface Gráfica do Usuário (*Graphical User Interface* - GUI) para importar dados rapidamente.
+- RStudio IDE $\rightarrow$ Environment $\rightarrow$ .blue[Import Dataset].
 ]
 
 
