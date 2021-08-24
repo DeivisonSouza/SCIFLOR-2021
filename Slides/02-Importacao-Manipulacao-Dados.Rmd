@@ -21,6 +21,7 @@ output:
       beforeInit: ["assets/remark-zoom.js", "https://platform.twitter.com/widgets.js"]
       highlightStyle: github
       highlightLines: true
+      highlightSpans: true
       countIncrementalSlides: false
       highlightLanguage: ["r", "css", "yaml"]
       ratio: '16:9'
@@ -372,7 +373,7 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_names**]
 .font80[
 ```{r file4, echo=T, eval=F}
 # Importa o arquivo "file1"
-(file2 <- readr::read_csv(file="data/file1.csv", 
+(file1.mod1 <- readr::read_csv(file="data/file1.csv", 
                           col_names = c("Name", "DBH", "H")))
 ```
 
@@ -418,7 +419,7 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_types**]
 .font80[
 ```{r file6, echo=T, eval=F}
 # Importa o arquivo "file1"
-(file3 <- readr::read_csv(file="data/file1.csv", 
+(file1.mod2 <- readr::read_csv(file="data/file1.csv", 
                           col_types = "fdi"))
 ```
 
@@ -458,8 +459,10 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_select**
 .font80[
 ```{r file8, echo=T, eval=F}
 # Importa o arquivo "file1"
-(file4 <- readr::read_csv(file = "data/file1.csv", 
-                          col_select = c(Nome, DAP))
+(file1.mod3 <- readr::read_csv(
+  file = "data/file1.csv", 
+  col_select = c(Nome, DAP) #<<
+  )
  )
 ```
 
@@ -475,9 +478,42 @@ Vamos explorar outros argumentos da função read_csv()...(.green[**col_select**
 
 ### Arquivo de valores separados por ponto e vírgula
 
+- **Função .black[read_csv2()]**
+.font80[
+Os arquivo separados por ponto e vírgula também têm a extensão .blue[.csv].
+]
 
+.pull-left-9[
 
+```{r echo=FALSE, out.width='30%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("fig/part2/file2.png")
+```
 
+.font80[
+```{r echo=T, eval=F}
+# Cria o arquivo "file2.csv" e salva em "data"
+readr::write_file(x = "Nome;DAP;H\nAngelim;100;30\nMogno;80;20",
+                  path = "data/file2.csv")
+```
+]
+]
+
+--
+
+.pull-right-9[
+.font80[
+**O único argumento obrigatório (file) é o caminho para o arquivo.**
+
+```{r filecsv2, echo=T, eval=F}
+# Importa o arquivo "file2"
+(file2 <- readr::read_csv2(file="data/file2.csv"))
+```
+
+```{r ref.label="filecsv2", echo=F, eval=T, collapse=T}
+```
+]
+
+]
 
 ---
 
