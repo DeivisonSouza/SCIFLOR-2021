@@ -223,9 +223,23 @@ name: mot
 ---
 name: ggplot
 ## O pacote ggplot2
+<br>
 
+.font90[
+- O ggplot2 é um pacote para .blue[visualização de dados] disponível no R.
+- O pacote foi desenvolvido por .blue[Hadley Wickham], inspirado pelo livro .blue[**The Grammar of graphics**] (A gramática dos gráficos) de .blue[Leland Wilkinson].
+- A essência do ggplot2 é a construção de gráficos ".blue[camada por camada]".
+- O ggplot2 possui .blue[vantagens] frente ao R-base:
+  + É altamente customizável;
+  + É mais elegante (bonito);
+  + É muito intuitivo, devido a filosofia de camadas.
+]
 
-
+.pull-left-7[
+```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
+```
+]
 
 ---
 
