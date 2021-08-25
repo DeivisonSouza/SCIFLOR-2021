@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x74d13d2de0f4f9e85a5ab3bde451403","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xd25dbee23b142a39b8589bb7230cf4c","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -18,6 +18,15 @@
     <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
     <link href="03-Visualizacao-Dados_files/font-awesome-animation-1.0/font-awesome-animation-emi.css" rel="stylesheet" />
     <script src="03-Visualizacao-Dados_files/fontawesome-5.0.13/js/fontawesome-all.min.js"></script>
+    <script src="03-Visualizacao-Dados_files/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="03-Visualizacao-Dados_files/jquery-3.5.1/jquery.min.js"></script>
+    <link href="03-Visualizacao-Dados_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="03-Visualizacao-Dados_files/datatables-binding-0.17/datatables.js"></script>
+    <link href="03-Visualizacao-Dados_files/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="03-Visualizacao-Dados_files/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="03-Visualizacao-Dados_files/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+    <link href="03-Visualizacao-Dados_files/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+    <script src="03-Visualizacao-Dados_files/crosstalk-1.1.1/js/crosstalk.min.js"></script>
     <script type="text/x-mathjax-config">
       MathJax.Hub.Config({
         TeX: { equationNumbers: { autoNumber: "AMS" } },
@@ -153,7 +162,9 @@ Ao final desta terceira parte (.blue[Visualização de Dados com ggplot2]) esper
 
 [2 - O pacote ggplot2](#ggplot)
 
-[3 - Gráficos de pontos (dispersão)](#point)
+[3 - Conjunto de dados - IF100%](#data)
+
+[4 - Gráficos de pontos (dispersão)](#point)
 
 ]
 ]
@@ -225,12 +236,65 @@ name: ggplot
 &lt;img src="https://ggplot2.tidyverse.org/logo.png" width="45%" style="display: block; margin: auto;" /&gt;
 ]
 
+
+---
+name: data
+## Pacote ggplot2 (tidyverse)
+
+.font80[
+### Conjunto de dados - Amostra de Inventário Florestal 100%...
+]
+&lt;br&gt;
+
+.font80[
+.pull-left-9[
+
+```r
+data &lt;- readr::read_csv(file="data/UPA07DVS.csv")
+
+data_sample &lt;- data %&gt;% 
+  select(Nome_Especie, CAP, HC, QF, Selecao) %&gt;% 
+  filter(Nome_Especie %in% c('Acapu', 'Tauari', 'Jatobá', 'Andiroba')) %&gt;% 
+  group_by(Nome_Especie) %&gt;% 
+  sample_n(50, replace = F)
+
+data_sample %&gt;% CustomDT # apenas p/ uma saída elegante da tabela
+```
+&lt;br&gt;&lt;br&gt;
+
+**Vamos usar uma amostra de 4 espécies florestais de um IF100% para construir 
+os gráficos...**
+
+**A base completa pode ser acessada em**: [IF100%](https://deivisonsouza.github.io/FL03034-EF/Slides/data/UPA07DVS.csv)
+
+]
+]
+
+.font80[
+.pull-right-9[
+<div id="htmlwidget-4560e67f1c66c6e703bd" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-4560e67f1c66c6e703bd">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari"],[143,140,170,135,223,262,280,200,172,142,160,180,200,196,210,160,140,160,140,135,200,160,162,174,183,200,148,216,151,226,177,194,200,230,167,164,224,148,154,160,152,143,186,158,160,182,150,210,146,173,195,140,160,160,210,196,188,200,208,184,153,160,180,166,142,167,177,142,152,140,195,190,160,152,183,154,172,140,150,200,188,188,157,145,257,144,155,164,192,185,152,145,150,305,158,186,177,160,183,154,292,161,173,228,190,316,445,127,213,218,258,215,219,270,260,150,197,230,310,206,126,210,195,190,160,250,232,270,207,214,180,142,249,160,233,174,240,226,210,195,354,181,155,130,139,180,146,237,210,350,284,240,260,162,144,184,180,260,220,190,350,190,280,240,300,210,220,280,270,240,210,147,180,196,170,165,360,226,300,410,230,270,380,162,95,260,350,180,170,149,280,230,230,216,181,230,180,210,240,300],[15,13,15,12,15,13,15,15,10,10,13,10,15,10,12,13,14,11,13,12,14,15,12,11,10,17,10,15,15,14,10,12,10,8,16,10,12,11,16,9,9,14,11,10,15,16,11,16,15,8,15,14,17,21,13,8,13,14,16,13,20,18,15,13,13,18,11,16,14,12,11,16,17,17,16,18,8,11,12,14,13,17,15,13,10,15,14,13,18,12,13,15,12,14,17,13,15,12,15,10,15,18,22,21,19,19,20,21,15,10,17,20,20,17,19,17,18,2,20,17,15,19,22,19,22,18,22,18,20,18,19,18,22,19,22,15,19,19,18,13,22,15,16,15,18,16,13,20,18,20,18,22,17,17,15,9,10,20,15,18,19,16,22,18,18,19,19,22,19,17,11,15,18,19,19,15,16,19,18,16,18,22,18,18,20,18,19,17,15,18,20,19,19,18,18,19,21,19,18,18],[1,2,1,2,1,2,2,3,1,2,1,2,1,2,2,2,3,1,2,2,1,2,2,2,2,2,2,1,1,3,2,1,2,3,1,2,2,2,1,2,1,1,2,1,1,1,1,2,2,2,2,1,1,1,1,2,1,3,1,1,2,1,1,1,1,1,2,1,1,1,2,1,1,1,2,1,2,1,1,1,3,1,1,2,3,1,1,1,1,1,2,2,3,1,2,1,1,1,1,2,2,2,1,1,1,1,3,1,1,2,1,1,1,1,1,2,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,2,1,2,1,1,1,1,1,1,1,2,1,2,1,1,1,1,1,1,1,1,1,1,2,1,2,1,1,1,1,1,1,2,1,2,1,1,1,1,1,1,1,2,1,1,1,2,1,1,2,1,1,1,1],["Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Explorar","Remanescente","Explorar","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Explorar","Explorar","Explorar","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Explorar","Explorar","Explorar","Explorar","Explorar","Explorar","Explorar","Explorar","Explorar","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Explorar","Explorar","Explorar","Explorar","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Explorar","Explorar","Explorar","Explorar","Remanescente","Explorar","Explorar","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"tip","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2,3]}],"order":[],"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+
+
 ---
 name: point
 &lt;br&gt;
 ## Pacote ggplot2 (tidyverse)
 &lt;br&gt;
 ### Gráficos de pontos (dispersão)
+
+.pull-left-1[
+
+]
+
+--
+
+.pull-right-2[
+
+]
 
 
 ---

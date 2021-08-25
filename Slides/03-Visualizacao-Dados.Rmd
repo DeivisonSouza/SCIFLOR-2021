@@ -105,7 +105,7 @@ CustomDT <- function(data){
                          style = "default",
                          class = "display", width = '180px',
                          caption = '',
-     options=list(pageLength = 20, dom = 't', autoWidth = F,
+     options=list(pageLength = 10, dom = 'tip', autoWidth = F,
        initComplete = htmlwidgets::JS(
           "function(settings, json) {",
           paste0("$(this.api().table().container()).css({'font-size': '", "9pt", "'});"),
@@ -172,7 +172,9 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 [2 - O pacote ggplot2](#ggplot)
 
-[3 - Gráficos de pontos (dispersão)](#point)
+[3 - Conjunto de dados - IF100%](#data)
+
+[4 - Gráficos de pontos (dispersão)](#point)
 
 ]
 ]
@@ -246,12 +248,66 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 ```
 ]
 
+
+---
+name: data
+## Pacote ggplot2 (tidyverse)
+
+.font80[
+### Conjunto de dados - Amostra de Inventário Florestal 100%...
+]
+<br>
+
+.font80[
+.pull-left-9[
+```{r data, echo=T, eval=F}
+data <- readr::read_csv(file="data/UPA07DVS.csv")
+
+data_sample <- data %>% 
+  select(Nome_Especie, CAP, HC, QF, Selecao) %>% 
+  filter(Nome_Especie %in% c('Acapu', 'Tauari', 'Jatobá', 'Andiroba')) %>% 
+  group_by(Nome_Especie) %>% 
+  sample_n(50, replace = F)
+
+data_sample %>% CustomDT # apenas p/ uma saída elegante da tabela
+```
+<br><br>
+
+**Vamos usar uma amostra de 4 espécies florestais de um IF100% para construir 
+os gráficos...**
+
+**A base completa pode ser acessada em**: [IF100%](https://deivisonsouza.github.io/FL03034-EF/Slides/data/UPA07DVS.csv)
+
+]
+]
+
+.font80[
+.pull-right-9[
+```{r ref.label="data", echo=FALSE, eval=TRUE, collapse=T}
+```
+]
+]
+
+
+
 ---
 name: point
 <br>
 ## Pacote ggplot2 (tidyverse)
 <br>
 ### Gráficos de pontos (dispersão)
+
+.pull-left-1[
+```{r echo=T, eval=F}
+
+```
+]
+
+--
+
+.pull-right-2[
+
+]
 
 
 ---
