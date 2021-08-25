@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"f549be7130a14be487af08efb9d7693c","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"d80f028867134b30b3cb81160b4cbf2c","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -256,7 +256,8 @@ data_sample &lt;- data %&gt;%
   select(Nome_Especie, CAP, HC, QF, Selecao) %&gt;% 
   filter(Nome_Especie %in% c('Acapu', 'Tauari', 'Jatobá', 'Andiroba')) %&gt;% 
   group_by(Nome_Especie) %&gt;% 
-  sample_n(50, replace = F)
+  sample_n(50, replace = F) %&gt;%
+  mutate(DAP = round(CAP/pi, 2))
 
 data_sample %&gt;% CustomDT # apenas p/ uma saída elegante da tabela
 ```
@@ -272,8 +273,8 @@ os gráficos...**
 
 .font80[
 .pull-right-9[
-<div id="htmlwidget-426778b6fd8ffddf1518" style="width:180px;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-426778b6fd8ffddf1518">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari"],[226,200,150,194,159,170,152,200,150,164,218,142,148,180,280,158,170,186,180,212,156,164,158,140,204,160,125,164,160,164,140,168,180,165,134,148,170,168,176,152,130,209,128,136,172,142,160,150,180,233,220,144,150,200,150,212,165,160,150,160,188,150,150,150,160,141,160,158,142,170,130,186,210,170,144,155,180,158,154,140,130,210,155,150,180,180,145,144,165,155,162,182,170,155,153,160,184,158,158,125,181,186,142,210,206,155,173,237,218,160,210,180,169,146,210,174,219,354,210,220,249,270,236,290,190,330,190,160,213,302,197,215,380,210,217,260,233,139,230,250,228,350,180,207,232,240,160,320,136,180,250,320,270,205,230,170,162,320,260,180,250,270,380,220,360,210,164,170,280,220,206,180,415,264,160,140,380,172,168,230,214,270,257,217,140,311,250,260,265,145,250,250,152,190,220,300,152,240,330,270],[11,9,13,16,14,10,14,11,10,13,12,15,11,12,13,13,10,14,15,12,14,14,12,10,14,8,11,18,14,10,9,13,10,8,14,13,16,12,17,10,13,15,13,13,15,13,13,10,10,15,12,15,12,15,16,15,16,11,13,18,13,8,14,12,13,16,17,17,13,15,15,20,12,17,14,11,16,11,10,15,8,18,15,13,17,11,15,13,18,13,15,20,11,14,13,21,18,16,17,10,15,13,18,19,17,17,17,20,10,15,18,19,22,13,15,17,20,22,19,19,22,18,19,18,19,19,19,22,15,18,18,20,26,18,15,17,22,18,2,18,21,20,19,20,22,17,19,20,20,19,22,18,16,18,17,13,17,19,22,19,18,19,22,21,16,19,18,18,20,18,18,20,19,20,17,20,10,19,19,18,16,20,18,18,17,18,19,19,16,18,18,19,17,17,19,20,17,18,20,20],[2,2,1,1,1,1,1,2,1,1,3,1,1,2,2,2,2,1,1,2,2,2,1,2,1,2,1,1,1,1,2,2,2,2,1,1,1,2,2,2,1,2,1,1,2,1,2,1,2,2,1,1,1,1,2,1,2,2,1,1,1,2,1,1,2,1,1,1,1,1,1,1,3,1,1,2,2,2,2,2,1,2,1,2,1,1,2,2,1,1,1,2,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,2,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,2,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,1,2,1,1,2,1,1,1,1,2,1,1,1,1,2,1,1,2,2,1,1,1,1,2,1,2,1,2,1],["Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Explorar","Explorar","Explorar","Explorar","Explorar","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Explorar","Explorar","Explorar","Explorar","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Remanescente","Explorar","Explorar","Explorar","Explorar","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Explorar","Explorar","Remanescente","Explorar","Explorar","Explorar","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar","Explorar","Explorar","Remanescente","Explorar","Explorar","Explorar"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"tip","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2,3]}],"order":[],"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+<div id="htmlwidget-b3d1fd2d9cd2413a8f5a" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b3d1fd2d9cd2413a8f5a">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Acapu","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Andiroba","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Jatobá","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari","Tauari"],[170,130,290,145,224,170,200,191,200,180,142,183,180,172,160,169,140,230,180,220,180,125,145,195,174,170,232,224,230,200,186,120,177,140,165,160,149,145,210,152,162,234,148,146,210,134,146,173,170,138,140,219,152,192,240,146,154,140,200,140,162,190,203,158,160,189,172,160,222,153,183,180,257,136,158,145,235,168,130,146,140,149,140,138,188,140,140,145,247,170,158,160,220,160,170,162,210,184,160,183,210,180,210,180,290,228,290,210,213,292,190,180,219,260,330,380,218,207,210,139,227,237,347,210,236,250,136,220,240,160,147,150,350,197,214,316,232,226,160,173,227,173,165,200,249,186,126,195,160,161,350,170,190,170,215,210,220,300,270,280,230,280,190,250,300,170,248,175,158,152,179,200,230,230,160,151,245,150,180,260,250,149,130,195,280,178,360,162,182,192,160,230,313,180,158,152,128,380,160,230],[10,11,21,9,12,13,10,9,10,8,13,15,14,13,16,14,9,18,12,8,18,4,10,13,13,12,15,20,12,18,11,17,17,12,10,13,13,11,14,15,10,14,11,10,10,11,13,14,13,7,11,15,12,18,10,16,10,15,18,12,18,12,18,16,15,17,21,17,15,16,14,19,10,8,11,15,13,13,8,14,11,17,12,18,13,13,11,11,20,15,12,12,13,13,10,17,13,13,18,16,18,16,9,19,19,21,18,19,15,15,19,19,20,19,19,26,10,20,19,18,19,20,18,15,19,18,20,19,19,15,16,17,20,18,18,19,22,19,17,22,21,17,23,18,22,13,15,22,19,18,18,19,20,18,18,18,18,19,20,19,18,19,16,20,18,20,19,15,17,10,22,18,18,19,19,13,20,19,19,15,20,18,19,16,15,24,22,18,18,11,23,19,24,16,20,18,13,10,17,18],[2,1,1,2,2,2,2,2,2,3,1,1,1,1,1,2,2,1,1,2,1,1,2,1,2,1,1,1,2,2,2,1,2,1,1,1,2,2,2,1,1,2,1,1,2,2,1,1,1,2,1,2,1,1,3,1,2,2,1,1,1,2,1,1,1,1,2,1,1,1,1,2,3,2,2,2,2,1,1,1,1,2,2,1,3,1,2,2,1,1,1,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,2,1,1,1,1,2,1,2,1,1,1,1,1,2,2,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],["Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Remanescente","Explorar","Explorar","Explorar","Explorar","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Explorar","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Explorar","Explorar","Explorar","Remanescente","Explorar","Explorar","Explorar","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Explorar","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Explorar","Remanescente","Explorar","Remanescente","Remanescente","Explorar","Remanescente","Explorar","Explorar","Remanescente","Remanescente","Remanescente","Remanescente","Explorar","Remanescente","Explorar"],[54.11,41.38,92.31,46.15,71.3,54.11,63.66,60.8,63.66,57.3,45.2,58.25,57.3,54.75,50.93,53.79,44.56,73.21,57.3,70.03,57.3,39.79,46.15,62.07,55.39,54.11,73.85,71.3,73.21,63.66,59.21,38.2,56.34,44.56,52.52,50.93,47.43,46.15,66.85,48.38,51.57,74.48,47.11,46.47,66.85,42.65,46.47,55.07,54.11,43.93,44.56,69.71,48.38,61.12,76.39,46.47,49.02,44.56,63.66,44.56,51.57,60.48,64.62,50.29,50.93,60.16,54.75,50.93,70.66,48.7,58.25,57.3,81.81,43.29,50.29,46.15,74.8,53.48,41.38,46.47,44.56,47.43,44.56,43.93,59.84,44.56,44.56,46.15,78.62,54.11,50.29,50.93,70.03,50.93,54.11,51.57,66.85,58.57,50.93,58.25,66.85,57.3,66.85,57.3,92.31,72.57,92.31,66.85,67.8,92.95,60.48,57.3,69.71,82.76,105.04,120.96,69.39,65.89,66.85,44.25,72.26,75.44,110.45,66.85,75.12,79.58,43.29,70.03,76.39,50.93,46.79,47.75,111.41,62.71,68.12,100.59,73.85,71.94,50.93,55.07,72.26,55.07,52.52,63.66,79.26,59.21,40.11,62.07,50.93,51.25,111.41,54.11,60.48,54.11,68.44,66.85,70.03,95.49,85.94,89.13,73.21,89.13,60.48,79.58,95.49,54.11,78.94,55.7,50.29,48.38,56.98,63.66,73.21,73.21,50.93,48.06,77.99,47.75,57.3,82.76,79.58,47.43,41.38,62.07,89.13,56.66,114.59,51.57,57.93,61.12,50.93,73.21,99.63,57.3,50.29,48.38,40.74,120.96,50.93,73.21]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>CAP<\/th>\n      <th>HC<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n      <th>DAP<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"tip","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2,3,5]}],"order":[],"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
 ]
 ]
 
@@ -283,30 +284,107 @@ os gráficos...**
 &lt;br&gt;
 ### Sintaxe Básica
 
-.pull-left-4[
+.pull-left-2[
 .font80[
 - A estrutura de dados deve ser um .blue[data.frame]. Não admite matrizes, vetores, e outros!
 - A função principal é .green[ggplot()].
 - Nesta função os argumentos básicos são: 
-  + .blue[data]: argumento que recebe os dados no formato de data.frame.
-  + .blue[aes()]: função de estética (aesthetic) ou mapeamento das variáveis.
-- A execução da função .green[ggplot()] sem especificações gera simplesmente a base do gráfico (sem elementos estéticos e geométricos).
+  + .blue[data]: argumento que recebe os dados no formato de **data.frame**.
+  + .blue[mapping]: argumento que recebe informações das variáveis (x e y) a serem usadas na plotagem. Esses argumentos são passados dentro da função .blue[aes()].
+&lt;br&gt;&lt;br&gt;
+
+Obs.: Se .blue[mapping] não for especificado na função .green[ggplot()], deve ser fornecido em cada camada adicionada ao gráfico.
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+&lt;br&gt;
+### Sintaxe Básica
+
+- Existem 3 formas de invocar a função .green[ggplot()]:
+
+.pull-left-8[
+.font80[
+
+.green[ggplot(.brown[df], aes(.blue[x], .blue[y], .blue[outras estéticas]))]
+&lt;br&gt;&lt;br&gt;
+
+- Método é recomendado quando dados de **um único data.frame** e também as **mesmas estéticas** são usadas nas camadas adicionadas.
 ]
 ]
 
 --
 
-.pull-right-4[
+.pull-left-8[
+.font80[
+.center[.green[ggplot(.brown[df])]]
+&lt;br&gt;
+
+- Método é recomendado quando dados de **um único data.frame** é usado pelas camadas adicionadas, mas as **estéticas variam de uma camada para outra**.
+
+]
+]
+
+--
+
+.pull-left-8[
+.font80[
+.center[.green[ggplot()]]
+&lt;br&gt;
+
+- Método é recomendado quando **vários data.frames precisam ser usados para produzir diferentes camadas** no gráfico. É usual para gráficos complexos.
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+&lt;br&gt;
+### Camada base
+
+.pull-left-4[
 .font80[
 
+
 ```r
-ggplot()
+ggplot(data = data_sample)
 ```
 
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-6-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+- A execução da função .green[ggplot()] (sem argumentos) ou com apenas o argumento .blue[data] especificado .green[ggplot(.blue[data] = .brown[data_sample])] gera simplesmente a base do gráfico (sem elementos estéticos e geométricos).
 ]
 ]
 
+.pull-right-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+&lt;br&gt;
+### Camada base - Adionando mapeamento estético
+
+.pull-left-4[
+.font80[
+
+
+```r
+ggplot(data = data_sample, mapping = aes(x = DAP, y = HC))
+```
+
+- A execução da função .green[ggplot()] (sem argumentos) ou com apenas o argumento .blue[data] especificado .green[ggplot(.blue[data] = .brown[data_sample])] gera simplesmente a base do gráfico (sem elementos estéticos e geométricos).
+]
+]
+
+.pull-right-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
 
 ---
 name: point

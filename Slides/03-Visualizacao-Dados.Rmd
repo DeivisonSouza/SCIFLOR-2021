@@ -267,7 +267,8 @@ data_sample <- data %>%
   select(Nome_Especie, CAP, HC, QF, Selecao) %>% 
   filter(Nome_Especie %in% c('Acapu', 'Tauari', 'Jatobá', 'Andiroba')) %>% 
   group_by(Nome_Especie) %>% 
-  sample_n(50, replace = F)
+  sample_n(50, replace = F) %>%
+  mutate(DAP = round(CAP/pi, 2))
 
 data_sample %>% CustomDT # apenas p/ uma saída elegante da tabela
 ```
@@ -294,27 +295,107 @@ os gráficos...**
 <br>
 ### Sintaxe Básica
 
-.pull-left-4[
+.pull-left-2[
 .font80[
 - A estrutura de dados deve ser um .blue[data.frame]. Não admite matrizes, vetores, e outros!
 - A função principal é .green[ggplot()].
 - Nesta função os argumentos básicos são: 
-  + .blue[data]: argumento que recebe os dados no formato de data.frame.
-  + .blue[aes()]: função de estética (aesthetic) ou mapeamento das variáveis.
-- A execução da função .green[ggplot()] sem especificações gera simplesmente a base do gráfico (sem elementos estéticos e geométricos).
+  + .blue[data]: argumento que recebe os dados no formato de **data.frame**.
+  + .blue[mapping]: argumento que recebe informações das variáveis (x e y) a serem usadas na plotagem. Esses argumentos são passados dentro da função .blue[aes()].
+<br><br>
+
+Obs.: Se .blue[mapping] não for especificado na função .green[ggplot()], deve ser fornecido em cada camada adicionada ao gráfico.
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+<br>
+### Sintaxe Básica
+
+- Existem 3 formas de invocar a função .green[ggplot()]:
+
+.pull-left-8[
+.font80[
+
+.green[ggplot(.brown[df], aes(.blue[x], .blue[y], .blue[outras estéticas]))]
+<br><br>
+
+- Método é recomendado quando dados de **um único data.frame** e também as **mesmas estéticas** são usadas nas camadas adicionadas.
 ]
 ]
 
 --
 
+.pull-left-8[
+.font80[
+.center[.green[ggplot(.brown[df])]]
+<br>
+
+- Método é recomendado quando dados de **um único data.frame** é usado pelas camadas adicionadas, mas as **estéticas variam de uma camada para outra**.
+
+]
+]
+
+--
+
+.pull-left-8[
+.font80[
+.center[.green[ggplot()]]
+<br>
+
+- Método é recomendado quando **vários data.frames precisam ser usados para produzir diferentes camadas** no gráfico. É usual para gráficos complexos.
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+<br>
+### Camada base
+
+.pull-left-4[
+.font80[
+
+```{r gg, echo=T, eval=F}
+ggplot(data = data_sample)
+```
+
+- A execução da função .green[ggplot()] (sem argumentos) ou com apenas o argumento .blue[data] especificado .green[ggplot(.blue[data] = .brown[data_sample])] gera simplesmente a base do gráfico (sem elementos estéticos e geométricos).
+]
+]
+
 .pull-right-4[
 .font80[
-```{r out.width='60%'}
-ggplot()
+```{r ref.label="gg", out.width='80%', echo=F, eval=T}
 ```
 ]
 ]
 
+---
+
+## Pacote ggplot2 (tidyverse)
+<br>
+### Camada base - Adionando mapeamento estético
+
+.pull-left-4[
+.font80[
+
+```{r gg2, echo=T, eval=F}
+ggplot(data = data_sample, mapping = aes(x = DAP, y = HC))
+```
+
+- A execução da função .green[ggplot()] (sem argumentos) ou com apenas o argumento .blue[data] especificado .green[ggplot(.blue[data] = .brown[data_sample])] gera simplesmente a base do gráfico (sem elementos estéticos e geométricos).
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="gg2", out.width='80%', echo=F, eval=T}
+```
+]
+]
 
 ---
 name: point
