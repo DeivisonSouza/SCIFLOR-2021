@@ -137,6 +137,7 @@ class: with-logo logo-ufpa
 
 ---
 
+<br>
 ## Objetivos
 <br><br>
 Ao final desta terceira parte (.blue[Visualização de Dados com ggplot2]) espera-se que os participantes possam alcançar conhecimentos para...
@@ -160,6 +161,7 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 ---
 
+<br>
 ## Conteúdo
 
 .pull-left-10[
@@ -169,6 +171,8 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 [1 - Motivação](#mot)
 
 [2 - O pacote ggplot2](#ggplot)
+
+[3 - Gráficos de pontos (dispersão)](#point)
 
 ]
 ]
@@ -205,8 +209,8 @@ class: with-logo logo-ufpa
 
 ---
 name: mot
-## Motivação
 <br>
+## Motivação
 
 .font90[
 - .blue[Dados] constituem uma representação usada para .blue[gerar informações sobre um fenômeno].
@@ -222,7 +226,8 @@ name: mot
 
 ---
 name: ggplot
-## O pacote ggplot2
+<br>
+## O pacote ggplot2 (tidyverse)
 <br>
 
 .font90[
@@ -236,10 +241,18 @@ name: ggplot
 ]
 
 .pull-left-7[
-```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600}
+```{r echo=FALSE, out.width='45%', fig.align='center', fig.cap='', dpi=600}
 knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 ```
 ]
+
+---
+name: point
+<br>
+## Pacote ggplot2 (tidyverse)
+<br>
+### Gráficos de pontos (dispersão)
+
 
 ---
 
