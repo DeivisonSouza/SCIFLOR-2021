@@ -267,7 +267,8 @@ set.seed(1000)
 
 data_sample <- data %>% 
   select(Nome_Especie, CAP, HC, QF, Selecao) %>% 
-  filter(Nome_Especie %in% c('Acapu', 'Tauari', 'Jatobá', 'Andiroba')) %>% 
+  filter(Nome_Especie %in% c('Acapu', 'Andiroba', 
+                             'Maçaranduba', 'Goiabão')) %>% 
   group_by(Nome_Especie) %>% 
   sample_n(50, replace = F) %>%
   mutate(DAP = round(CAP/pi, 2), 
@@ -366,6 +367,14 @@ ggplot(data = data_sample)
 ```
 
 - A execução da função .green[ggplot()] (sem argumentos) ou com apenas o argumento .blue[data] especificado .green[ggplot(.blue[data] = .brown[data_sample])] gera simplesmente a base do gráfico (sem elementos estéticos e geométricos).
+<br><br>
+
+```{r echo=T, eval=F}
+data_sample %>% ggplot()
+```
+
+- É comum usar o operador .blue[%>%] para enviar o conjunto de dados para a função .green[ggplot()].
+
 ]
 ]
 
@@ -386,7 +395,8 @@ ggplot(data = data_sample)
 .font80[
 
 ```{r gg2, echo=T, eval=F}
-ggplot(data = data_sample, mapping = aes(x = DAP, y = HC))
+ggplot(data = data_sample, 
+       mapping = aes(x = DAP, y = HC)) # 1ª camada
 ```
 <br>
 
@@ -414,23 +424,83 @@ name: point
 .pull-left-4[
 .font80[
 
-```{r gg3, echo=T, eval=F}
-ggplot(data = data_sample, mapping = aes(x = DAP, y = HC)) +
-  geom_point()
+```{r point1, echo=T, eval=F}
+ggplot(data = data_sample, 
+       mapping = aes(x = DAP, y = V)) + # 1ª camada
+  geom_point()                          # 2ª camada
 ```
 <br>
 
 - Para adicionar camadas usa-se o operador .red[**+**].
-- A função .blue[geom_point()] foi usada para adicionar uma camada de pontos no gráfico. Tem-se um gráfico de dispersão.
+- **2ª camada**: A função .blue[geom_point()] foi usada para adicionar uma camada de pontos no gráfico. Tem-se um gráfico de dispersão.
 ]
 ]
 
 .pull-right-4[
 .font80[
-```{r ref.label="gg3", out.width='80%', echo=F, eval=T}
+```{r ref.label="point1", out.width='80%', echo=F, eval=T}
 ```
 ]
 ]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+<br>
+### Gráfico de pontos (dispersão)
+
+.pull-left-4[
+.font80[
+
+```{r point2, echo=T, eval=F}
+ggplot(data = data_sample, 
+       mapping = aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                              # 2ª camada
+  geom_smooth(method='lm', formula=y~x, se=F) # 3ª camada
+```
+<br>
+
+- **3ª camada**: A função .blue[geom_smooth()] foi usada para adicionar uma linha de regressão linear (y~x = V~DAP).
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point2", out.width='80%', echo=F, eval=T}
+```
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+<br>
+### Gráfico de pontos (dispersão)
+
+.pull-left-4[
+.font80[
+
+```{r point3, echo=T, eval=F}
+ggplot(data = data_sample, 
+       mapping = aes(x = DAP, y = V)) +          # 1ª camada
+  geom_point() +                                 # 2ª camada
+  geom_smooth(method='lm', formula=y~x, se=F) +  # 3ª camada
+  geom_smooth(method='lm', formula=y~poly(x,2), 
+              se=F, color = "red")               # 4ª camada
+```
+<br>
+
+- **4ª camada**: A função .blue[geom_smooth()] foi usada para adicionar uma linha de regressão polinomial de segundo grau (y~x<sup>2</sup> = V~DAP<sup>2</sup>).
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point3", out.width='80%', echo=F, eval=T}
+```
+]
+]
+
 
 ---
 
