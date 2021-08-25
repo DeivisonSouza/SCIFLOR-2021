@@ -288,6 +288,32 @@ os gráficos...**
 ]
 ]
 
+---
+
+## Pacote ggplot2 (tidyverse)
+<br>
+### Sintaxe Básica
+
+.pull-left-4[
+.font80[
+- A estrutura de dados deve ser um .blue[data.frame]. Não admite matrizes, vetores, e outros!
+- A função principal é .green[ggplot()].
+- Nesta função os argumentos básicos são: 
+  + .blue[data]: argumento que recebe os dados no formato de data.frame.
+  + .blue[aes()]: função de estética (aesthetic) ou mapeamento das variáveis.
+- A execução da função .green[ggplot()] sem especificações gera simplesmente a base do gráfico (sem elementos estéticos e geométricos).
+]
+]
+
+--
+
+.pull-right-4[
+.font80[
+```{r out.width='60%'}
+ggplot()
+```
+]
+]
 
 
 ---
