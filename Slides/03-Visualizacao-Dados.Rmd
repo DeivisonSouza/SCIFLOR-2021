@@ -259,16 +259,19 @@ name: data
 <br>
 
 .font80[
-.pull-left-9[
+.pull-left-4[
 ```{r data, echo=T, eval=F}
 data <- readr::read_csv(file="data/UPA07DVS.csv")
+
+set.seed(1000)
 
 data_sample <- data %>% 
   select(Nome_Especie, CAP, HC, QF, Selecao) %>% 
   filter(Nome_Especie %in% c('Acapu', 'Tauari', 'Jatobá', 'Andiroba')) %>% 
   group_by(Nome_Especie) %>% 
   sample_n(50, replace = F) %>%
-  mutate(DAP = round(CAP/pi, 2))
+  mutate(DAP = round(CAP/pi, 2), 
+         V = round(((DAP^2*pi)/40000)*HC*0.7, 4))
 
 data_sample %>% CustomDT # apenas p/ uma saída elegante da tabela
 ```
@@ -283,7 +286,7 @@ os gráficos...**
 ]
 
 .font80[
-.pull-right-9[
+.pull-right-4[
 ```{r ref.label="data", echo=FALSE, eval=TRUE, collapse=T}
 ```
 ]
@@ -385,8 +388,13 @@ ggplot(data = data_sample)
 ```{r gg2, echo=T, eval=F}
 ggplot(data = data_sample, mapping = aes(x = DAP, y = HC))
 ```
+<br>
 
-- A execução da função .green[ggplot()] (sem argumentos) ou com apenas o argumento .blue[data] especificado .green[ggplot(.blue[data] = .brown[data_sample])] gera simplesmente a base do gráfico (sem elementos estéticos e geométricos).
+- Adicionamos ".blue[x]" = DAP e ".blue[y]" = HC dentro da função .green[aes()] do argumento .blue[mapping].
+- Isso informar que as variáveis DAP e HC devem ser usadas nos eixos x e y, respectivamente, do gráfico.
+- Apesar disso, ainda não é possível visualizar um gráfico com elementos geométricos representativos dos dados.
+- Então, é necessário definir o **tipo de gráfico** que deseja-se construir.
+
 ]
 ]
 
@@ -399,22 +407,39 @@ ggplot(data = data_sample, mapping = aes(x = DAP, y = HC))
 
 ---
 name: point
-<br>
 ## Pacote ggplot2 (tidyverse)
 <br>
-### Gráficos de pontos (dispersão)
+### Gráfico de pontos (dispersão)
 
-.pull-left-1[
-```{r echo=T, eval=F}
+.pull-left-4[
+.font80[
 
+```{r gg3, echo=T, eval=F}
+ggplot(data = data_sample, mapping = aes(x = DAP, y = HC)) +
+  geom_point()
+```
+<br>
+
+- Para adicionar camadas usa-se o operador .red[**+**].
+- A função .blue[geom_point()] foi usada para adicionar uma camada de pontos no gráfico. Tem-se um gráfico de dispersão.
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="gg3", out.width='80%', echo=F, eval=T}
 ```
 ]
-
---
-
-.pull-right-2[
-
 ]
+
+---
+
+- Buscar dados melhores
+- Mostrar cor baseado nas espécies
+- arrumar labs
+- adicionar titulo, subtitulo
+
+
 
 
 ---
