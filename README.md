@@ -1,5 +1,5 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file. -->
+<!-- README.md is generated from README.Rmd. Please edit that file.. -->
 <!-- badges: start -->
 <!-- badges: end -->
 <!-- Emprestei a função list_github_files() da Curso-R. (https://github.com/curso-r). A ideia desse readme emprestei da Curso-R. Achei excelente!-->
@@ -44,6 +44,7 @@ para Análise de Dados** estão detalhados a seguir.
 |:--------------------------------------------|:-------------------------------------------------------------------------------------------|
 | Slides/01-Introducao-R.html                 | <https://deivisonsouza.github.io/SCIFLOR-2021/Slides/01-Introducao-R.html>                 |
 | Slides/02-Importacao-Manipulacao-Dados.html | <https://deivisonsouza.github.io/SCIFLOR-2021/Slides/02-Importacao-Manipulacao-Dados.html> |
+| Slides/03-Visualizacao-Dados.html           | <https://deivisonsouza.github.io/SCIFLOR-2021/Slides/03-Visualizacao-Dados.html>           |
 
 # Facilitador :deciduous\_tree:
 
