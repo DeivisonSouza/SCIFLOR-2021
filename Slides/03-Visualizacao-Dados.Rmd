@@ -587,11 +587,9 @@ ggplot(data = data_sample,
 - **Bubblechart** (gráfico de bolhas): É um gráfico de dispersão, em que uma terceira dimensão é adicionada.
 
 ```{r point6, echo=T, eval=F}
-ggplot(data = data_sample %>% 
-           filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
+ggplot(data = data_sample %>% filter(Nome_Especie == 'Maçaranduba'), 
        mapping = aes(x = DAP, y = V)) +           # 1ª camada
-  geom_point(mapping = aes(shape = Nome_Especie, 
-                           colour = Nome_Especie,
+  geom_point(mapping = aes(colour = Selecao,
                            size = HC))            # 2ª camada
 ```
 <br>
@@ -624,8 +622,8 @@ ggplot(data = data_sample %>%
 ggplot(data = data_sample %>% 
            filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
        mapping = aes(x = DAP, y = V)) +           # 1ª camada
-  geom_point(mapping = aes(shape = Nome_Especie, 
-                           colour = Nome_Especie),
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
              size = 4)                            # 2ª camada
 ```
 <br>
@@ -646,8 +644,37 @@ ggplot(data = data_sample %>%
 
 ---
 
+## Pacote ggplot2 (tidyverse)
+<br>
+### Gráfico de pontos (dispersão) - Estética de pontos
 
+.pull-left-4[
+.font70[
+- ...
 
+```{r point8, echo=T, eval=F}
+ggplot(data = data_sample %>% 
+           filter(Nome_Especie == 'Acapu'), 
+       mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(shape = Nome_Especie, 
+                           colour = Nome_Especie),
+             size = 4)                            # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- Isso é feito com argumento .magenta[**size**], porém fora de .green[aes()].
+- Especifique um valor inteiro para o argumento.
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point8", out.width='80%', echo=F, eval=T}
+```
+]
+]
 
 ---
 

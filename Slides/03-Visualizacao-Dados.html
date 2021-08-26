@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x1d16447ef1f485e9492cda043feafd5","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"b5d1cc7b20af486a84032c1f60a26db3","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -576,11 +576,9 @@ ggplot(data = data_sample,
 
 
 ```r
-ggplot(data = data_sample %&gt;% 
-           filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
+ggplot(data = data_sample %&gt;% filter(Nome_Especie == 'Maçaranduba'), 
        mapping = aes(x = DAP, y = V)) +           # 1ª camada
-  geom_point(mapping = aes(shape = Nome_Especie, 
-                           colour = Nome_Especie,
+  geom_point(mapping = aes(colour = Selecao,
                            size = HC))            # 2ª camada
 ```
 &lt;br&gt;
@@ -613,6 +611,40 @@ ggplot(data = data_sample %&gt;%
 ggplot(data = data_sample %&gt;% 
            filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
        mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4)                            # 2ª camada
+```
+&lt;br&gt;
+
+👉 **2ª camada**:
+
+- Isso é feito com argumento .magenta[**size**], porém fora de .green[aes()].
+- Especifique um valor inteiro para o argumento.
+]
+]
+
+.pull-right-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-15-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+&lt;br&gt;
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-4[
+.font70[
+- ...
+
+
+```r
+ggplot(data = data_sample %&gt;% 
+           filter(Nome_Especie == 'Acapu'), 
+       mapping = aes(x = DAP, y = V)) +           # 1ª camada
   geom_point(mapping = aes(shape = Nome_Especie, 
                            colour = Nome_Especie),
              size = 4)                            # 2ª camada
@@ -628,7 +660,7 @@ ggplot(data = data_sample %&gt;%
 
 .pull-right-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-15-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
