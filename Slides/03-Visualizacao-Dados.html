@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"b242d92be00e447f84bf2c5e4e1bbd03","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x3bd86886f3f4d6a898d958c9f70e674","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -648,7 +648,7 @@ ggplot(data = data_sample %&gt;%
   geom_point(mapping = aes(colour = Nome_Especie,
                            shape = Selecao),
              size = 4) +    # 2ª camada
-  scale_shape_manual(values = c(3, 16)) +
+  scale_shape_manual(values = c(3, 5)) +
   scale_color_manual(values = c('#999999','#E69F00'))
 ```
 &lt;br&gt;
@@ -664,6 +664,22 @@ ggplot(data = data_sample %&gt;%
 .font80[
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 ]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+&lt;br&gt;
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-1[
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.center[**Tipos de formas (shapes)**]
+]
+
+.pull-right-2[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-17-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
