@@ -80,6 +80,10 @@ div3 {
  color: brown;
 }
 
+.magenta{
+ color: magenta;
+}
+
 div.my-footer {
     background-color: #004d26;
     position: absolute;

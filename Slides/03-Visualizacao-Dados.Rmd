@@ -48,11 +48,13 @@ knitr::opts_chunk$set(
 
 ```{r packages, include=FALSE}
 # remotes::install_github("dill/emoGG")
+# remotes::install_github("hadley/emo")
 library(ggplot2)
 library(dplyr)
 library(ggimage)
 library(kableExtra)
 library(readr)
+library(emo)
 ```
 
 ```{css, echo=FALSE}
@@ -423,7 +425,7 @@ name: point
 
 .pull-left-4[
 .font80[
-
+**Útil para exibir a relação entre duas variáveis contínuas...**
 ```{r point1, echo=T, eval=F}
 ggplot(data = data_sample, 
        mapping = aes(x = DAP, y = V)) + # 1ª camada
@@ -431,8 +433,11 @@ ggplot(data = data_sample,
 ```
 <br>
 
-- Para adicionar camadas usa-se o operador .red[**+**].
-- **2ª camada**: A função .blue[geom_point()] foi usada para adicionar uma camada de pontos no gráfico. Tem-se um gráfico de dispersão.
+`r emo::ji("point_right")` **2ª camada**:
+
+- A função .green[geom_point()] foi usada para adicionar uma camada de pontos no gráfico. Tem-se um gráfico de dispersão.
+- **Importante**: Para adicionar camadas usa-se o operador .red[**+**].
+
 ]
 ]
 
@@ -447,7 +452,7 @@ ggplot(data = data_sample,
 
 ## Pacote ggplot2 (tidyverse)
 <br>
-### Gráfico de pontos (dispersão)
+### Gráfico de pontos (dispersão) + linha de regressão
 
 .pull-left-4[
 .font80[
@@ -460,7 +465,9 @@ ggplot(data = data_sample,
 ```
 <br>
 
-- **3ª camada**: A função .blue[geom_smooth()] foi usada para adicionar uma linha de regressão linear (y~x = V~DAP).
+`r emo::ji("point_right")` **3ª camada**:
+
+- A função .green[geom_smooth()] foi usada para adicionar uma linha de regressão linear (y~x = V~DAP).
 ]
 ]
 
@@ -475,7 +482,7 @@ ggplot(data = data_sample,
 
 ## Pacote ggplot2 (tidyverse)
 <br>
-### Gráfico de pontos (dispersão)
+### Gráfico de pontos (dispersão) + linha de regressão
 
 .pull-left-4[
 .font80[
@@ -490,7 +497,9 @@ ggplot(data = data_sample,
 ```
 <br>
 
-- **4ª camada**: A função .blue[geom_smooth()] foi usada para adicionar uma linha de regressão polinomial de segundo grau (y~x<sup>2</sup> = V~DAP<sup>2</sup>).
+`r emo::ji("point_right")` **4ª camada**:
+
+- A função .green[geom_smooth()] foi usada para adicionar outra linha de regressão, porém de um polinômio de segundo grau (y~x<sup>2</sup> = V~DAP<sup>2</sup>).
 ]
 ]
 
@@ -501,11 +510,142 @@ ggplot(data = data_sample,
 ]
 ]
 
+---
+
+## Pacote ggplot2 (tidyverse)
+<br>
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-4[
+.font70[
+- Identificando os pontos pertencentes a cada espécie...
+
+```{r point4, echo=T, eval=F}
+ggplot(data = data_sample, 
+       mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(colour=Nome_Especie))  # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+- A função .green[geom_point()] também possui argumentos para customização de atributos estéticos. (?geom_point).
+- mapping: pode receber argumentos por meio da função .green[aes()]:
+
+x, y, alpha, .magenta[**colour**], fill, group, shape, size, stroke
+
+- O argumento .magenta[**colour**] recebeu a coluna "Nome_Especie" e mapeou diferentes cores para as categorias: Acapu, Andiroba, Goiabão, Maçaranduba.
+
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point4", out.width='80%', echo=F, eval=T}
+```
+]
+]
 
 ---
 
-- Buscar dados melhores
-- Mostrar cor baseado nas espécies
+## Pacote ggplot2 (tidyverse)
+<br>
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-4[
+.font70[
+- Mudando a forma (shape) dos pontos...
+
+```{r point5, echo=T, eval=F}
+ggplot(data = data_sample, 
+       mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(colour=Nome_Especie,
+                           shape=Selecao))        # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- O argumento .magenta[**shape**] recebeu a coluna "Selecao" e mapeou diferentes formas para as categorias: Explorar e Remanescente.
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point5", out.width='80%', echo=F, eval=T}
+```
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+<br>
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-4[
+.font70[
+- **Bubblechart** (gráfico de bolhas): É um gráfico de dispersão, em que uma terceira dimensão é adicionada.
+
+```{r point6, echo=T, eval=F}
+ggplot(data = data_sample %>% 
+           filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
+       mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(shape = Nome_Especie, 
+                           colour = Nome_Especie,
+                           size = HC))            # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- O argumento .magenta[**size**] (dentro de .green[aes()]) recebeu a coluna "HC" e mapeou tamanhos de pontos proporcionais aos valores de HC.
+- Portanto, a altura de cada árvore é representada pelo tamanho do círculo.
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point6", out.width='80%', echo=F, eval=T}
+```
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+<br>
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-4[
+.font70[
+- Aumentando tamanho de todos os pontos, mas na mesma proporção...
+
+```{r point7, echo=T, eval=F}
+ggplot(data = data_sample %>% 
+           filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
+       mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(shape = Nome_Especie, 
+                           colour = Nome_Especie),
+             size = 4)                            # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- Isso é feito com argumento .magenta[**size**], porém fora de .green[aes()].
+- Especifique um valor inteiro para o argumento.
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point7", out.width='80%', echo=F, eval=T}
+```
+]
+]
+
+---
+
 - arrumar labs
 - adicionar titulo, subtitulo
 

@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"a853d7da48844afd8a86dbb7542ff143","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x1d16447ef1f485e9492cda043feafd5","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -120,7 +120,7 @@ top:1.5em;right:0.6em;
 ##### Faculdade de Engenharia Florestal
 ##### E-mail: deivisonvs@ufpa.br
 &lt;br&gt;
-##### 25/agosto/2021
+##### 26/agosto/2021
 
 ---
 
@@ -413,7 +413,7 @@ name: point
 
 .pull-left-4[
 .font80[
-
+**Útil para exibir a relação entre duas variáveis contínuas...**
 
 ```r
 ggplot(data = data_sample, 
@@ -422,8 +422,11 @@ ggplot(data = data_sample,
 ```
 &lt;br&gt;
 
-- Para adicionar camadas usa-se o operador .red[**+**].
-- **2ª camada**: A função .blue[geom_point()] foi usada para adicionar uma camada de pontos no gráfico. Tem-se um gráfico de dispersão.
+👉 **2ª camada**:
+
+- A função .green[geom_point()] foi usada para adicionar uma camada de pontos no gráfico. Tem-se um gráfico de dispersão.
+- **Importante**: Para adicionar camadas usa-se o operador .red[**+**].
+
 ]
 ]
 
@@ -437,7 +440,7 @@ ggplot(data = data_sample,
 
 ## Pacote ggplot2 (tidyverse)
 &lt;br&gt;
-### Gráfico de pontos (dispersão)
+### Gráfico de pontos (dispersão) + linha de regressão
 
 .pull-left-4[
 .font80[
@@ -451,7 +454,9 @@ ggplot(data = data_sample,
 ```
 &lt;br&gt;
 
-- **3ª camada**: A função .blue[geom_smooth()] foi usada para adicionar uma linha de regressão linear (y~x = V~DAP).
+👉 **3ª camada**:
+
+- A função .green[geom_smooth()] foi usada para adicionar uma linha de regressão linear (y~x = V~DAP).
 ]
 ]
 
@@ -465,7 +470,7 @@ ggplot(data = data_sample,
 
 ## Pacote ggplot2 (tidyverse)
 &lt;br&gt;
-### Gráfico de pontos (dispersão)
+### Gráfico de pontos (dispersão) + linha de regressão
 
 .pull-left-4[
 .font80[
@@ -481,7 +486,9 @@ ggplot(data = data_sample,
 ```
 &lt;br&gt;
 
-- **4ª camada**: A função .blue[geom_smooth()] foi usada para adicionar uma linha de regressão polinomial de segundo grau (y~x&lt;sup&gt;2&lt;/sup&gt; = V~DAP&lt;sup&gt;2&lt;/sup&gt;).
+👉 **4ª camada**:
+
+- A função .green[geom_smooth()] foi usada para adicionar outra linha de regressão, porém de um polinômio de segundo grau (y~x&lt;sup&gt;2&lt;/sup&gt; = V~DAP&lt;sup&gt;2&lt;/sup&gt;).
 ]
 ]
 
@@ -491,11 +498,142 @@ ggplot(data = data_sample,
 ]
 ]
 
+---
+
+## Pacote ggplot2 (tidyverse)
+&lt;br&gt;
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-4[
+.font70[
+- Identificando os pontos pertencentes a cada espécie...
+
+
+```r
+ggplot(data = data_sample, 
+       mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(colour=Nome_Especie))  # 2ª camada
+```
+&lt;br&gt;
+
+👉 **2ª camada**:
+- A função .green[geom_point()] também possui argumentos para customização de atributos estéticos. (?geom_point).
+- mapping: pode receber argumentos por meio da função .green[aes()]:
+
+x, y, alpha, .magenta[**colour**], fill, group, shape, size, stroke
+
+- O argumento .magenta[**colour**] recebeu a coluna "Nome_Especie" e mapeou diferentes cores para as categorias: Acapu, Andiroba, Goiabão, Maçaranduba.
+
+]
+]
+
+.pull-right-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-12-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
 
 ---
 
-- Buscar dados melhores
-- Mostrar cor baseado nas espécies
+## Pacote ggplot2 (tidyverse)
+&lt;br&gt;
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-4[
+.font70[
+- Mudando a forma (shape) dos pontos...
+
+
+```r
+ggplot(data = data_sample, 
+       mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(colour=Nome_Especie,
+                           shape=Selecao))        # 2ª camada
+```
+&lt;br&gt;
+
+👉 **2ª camada**:
+
+- O argumento .magenta[**shape**] recebeu a coluna "Selecao" e mapeou diferentes formas para as categorias: Explorar e Remanescente.
+]
+]
+
+.pull-right-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-13-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+&lt;br&gt;
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-4[
+.font70[
+- **Bubblechart** (gráfico de bolhas): É um gráfico de dispersão, em que uma terceira dimensão é adicionada.
+
+
+```r
+ggplot(data = data_sample %&gt;% 
+           filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
+       mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(shape = Nome_Especie, 
+                           colour = Nome_Especie,
+                           size = HC))            # 2ª camada
+```
+&lt;br&gt;
+
+👉 **2ª camada**:
+
+- O argumento .magenta[**size**] (dentro de .green[aes()]) recebeu a coluna "HC" e mapeou tamanhos de pontos proporcionais aos valores de HC.
+- Portanto, a altura de cada árvore é representada pelo tamanho do círculo.
+]
+]
+
+.pull-right-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+&lt;br&gt;
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-4[
+.font70[
+- Aumentando tamanho de todos os pontos, mas na mesma proporção...
+
+
+```r
+ggplot(data = data_sample %&gt;% 
+           filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
+       mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(shape = Nome_Especie, 
+                           colour = Nome_Especie),
+             size = 4)                            # 2ª camada
+```
+&lt;br&gt;
+
+👉 **2ª camada**:
+
+- Isso é feito com argumento .magenta[**size**], porém fora de .green[aes()].
+- Especifique um valor inteiro para o argumento.
+]
+]
+
+.pull-right-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-15-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
 - arrumar labs
 - adicionar titulo, subtitulo
 
