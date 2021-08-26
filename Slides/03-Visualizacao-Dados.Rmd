@@ -278,7 +278,7 @@ data_sample <- data %>%
 
 data_sample %>% CustomDT # apenas p/ uma saída elegante da tabela
 ```
-<br><br>
+<br>
 
 **Vamos usar uma amostra de 4 espécies florestais de um IF100% para construir 
 os gráficos...**
@@ -382,7 +382,7 @@ data_sample %>% ggplot()
 
 .pull-right-4[
 .font80[
-```{r ref.label="gg", out.width='80%', echo=F, eval=T}
+```{r ref.label="gg", fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
@@ -412,7 +412,7 @@ ggplot(data = data_sample,
 
 .pull-right-4[
 .font80[
-```{r ref.label="gg2", out.width='80%', echo=F, eval=T}
+```{r ref.label="gg2", fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
@@ -443,7 +443,7 @@ ggplot(data = data_sample,
 
 .pull-right-4[
 .font80[
-```{r ref.label="point1", out.width='80%', echo=F, eval=T}
+```{r ref.label="point1", fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
@@ -473,7 +473,7 @@ ggplot(data = data_sample,
 
 .pull-right-4[
 .font80[
-```{r ref.label="point2", out.width='80%', echo=F, eval=T}
+```{r ref.label="point2", fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
@@ -505,7 +505,7 @@ ggplot(data = data_sample,
 
 .pull-right-4[
 .font80[
-```{r ref.label="point3", out.width='80%', echo=F, eval=T}
+```{r ref.label="point3", fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
@@ -540,7 +540,7 @@ x, y, alpha, .magenta[**colour**], fill, group, shape, size, stroke
 
 .pull-right-4[
 .font80[
-```{r ref.label="point4", out.width='80%', echo=F, eval=T}
+```{r ref.label="point4", fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
@@ -571,7 +571,7 @@ ggplot(data = data_sample,
 
 .pull-right-4[
 .font80[
-```{r ref.label="point5", out.width='80%', echo=F, eval=T}
+```{r ref.label="point5", fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
@@ -603,7 +603,7 @@ ggplot(data = data_sample %>% filter(Nome_Especie == 'Maçaranduba'),
 
 .pull-right-4[
 .font80[
-```{r ref.label="point6", out.width='80%', echo=F, eval=T}
+```{r ref.label="point6", fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
@@ -637,7 +637,7 @@ ggplot(data = data_sample %>%
 
 .pull-right-4[
 .font80[
-```{r ref.label="point7", out.width='80%', echo=F, eval=T}
+```{r ref.label="point7", fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
@@ -650,29 +650,30 @@ ggplot(data = data_sample %>%
 
 .pull-left-4[
 .font70[
-- É possível customizar as formas, cores e tamanhos dos pontos facilmente...
+- É possível personalizar as formas e cores dos pontos facilmente...
 
 ```{r point8, echo=T, eval=F}
 ggplot(data = data_sample %>% 
-           filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
+           filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')), 
        mapping = aes(x = DAP, y = V)) +           # 1ª camada
   geom_point(mapping = aes(colour = Nome_Especie,
                            shape = Selecao),
-             size = 4) +                          # 2ª camada
-  scale_shape_manual(values=c(3, 16)) +
-  scale_color_manual(values=c('#999999','#E69F00'))
+             size = 4) +    # 2ª camada
+  scale_shape_manual(values = c(3, 16)) +
+  scale_color_manual(values = c('#999999','#E69F00'))
 ```
 <br>
 
 `r emo::ji("point_right")` **2ª camada**:
 
-- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para definir a forma e cor desejada para os pontos, respectivamente.
+- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para definir a forma e cor desejada para os pontos, respectivamente. 
+- Experimente .green[scale_size_manual()].
 ]
 ]
 
 .pull-right-4[
 .font80[
-```{r ref.label="point8", out.width='80%', echo=F, eval=T}
+```{r ref.label="point8",fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]

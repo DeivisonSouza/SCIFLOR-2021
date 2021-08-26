@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"ad89b2654d9e41f499aa367a1ab95f99","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"b242d92be00e447f84bf2c5e4e1bbd03","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -265,7 +265,7 @@ data_sample &lt;- data %&gt;%
 
 data_sample %&gt;% CustomDT # apenas p/ uma saída elegante da tabela
 ```
-&lt;br&gt;&lt;br&gt;
+&lt;br&gt;
 
 **Vamos usar uma amostra de 4 espécies florestais de um IF100% para construir 
 os gráficos...**
@@ -371,7 +371,7 @@ data_sample %&gt;% ggplot()
 
 .pull-right-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -401,7 +401,7 @@ ggplot(data = data_sample,
 
 .pull-right-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-8-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -432,7 +432,7 @@ ggplot(data = data_sample,
 
 .pull-right-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-9-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -462,7 +462,7 @@ ggplot(data = data_sample,
 
 .pull-right-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -494,7 +494,7 @@ ggplot(data = data_sample,
 
 .pull-right-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -529,7 +529,7 @@ x, y, alpha, .magenta[**colour**], fill, group, shape, size, stroke
 
 .pull-right-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-12-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -560,7 +560,7 @@ ggplot(data = data_sample,
 
 .pull-right-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-13-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -592,7 +592,7 @@ ggplot(data = data_sample %&gt;% filter(Nome_Especie == 'Maçaranduba'),
 
 .pull-right-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -626,7 +626,7 @@ ggplot(data = data_sample %&gt;%
 
 .pull-right-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-15-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -638,30 +638,31 @@ ggplot(data = data_sample %&gt;%
 
 .pull-left-4[
 .font70[
-- É possível customizar as formas, cores e tamanhos dos pontos facilmente...
+- É possível personalizar as formas e cores dos pontos facilmente...
 
 
 ```r
 ggplot(data = data_sample %&gt;% 
-           filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
+           filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')), 
        mapping = aes(x = DAP, y = V)) +           # 1ª camada
   geom_point(mapping = aes(colour = Nome_Especie,
                            shape = Selecao),
-             size = 4) +                          # 2ª camada
-  scale_shape_manual(values=c(3, 16)) +
-  scale_color_manual(values=c('#999999','#E69F00'))
+             size = 4) +    # 2ª camada
+  scale_shape_manual(values = c(3, 16)) +
+  scale_color_manual(values = c('#999999','#E69F00'))
 ```
 &lt;br&gt;
 
 👉 **2ª camada**:
 
-- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para definir a forma e cor desejada para os pontos, respectivamente.
+- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para definir a forma e cor desejada para os pontos, respectivamente. 
+- Experimente .green[scale_size_manual()].
 ]
 ]
 
 .pull-right-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
