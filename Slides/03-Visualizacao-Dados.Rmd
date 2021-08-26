@@ -646,6 +646,11 @@ ggplot(data = data_sample %>%
 
 ---
 
+
+
+
+---
+
 - arrumar labs
 - adicionar titulo, subtitulo
 
