@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"d44ee48843504928a728d1b2b9669cb7","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x805b8538e1b4ee28087779da84f3750","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -696,10 +696,10 @@ ggplot(data = data_sample %&gt;%
 ```r
 ggplot(data = data_sample %&gt;% 
            filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')), 
-       mapping = aes(x = DAP, y = V)) +                # 1ª camada
+       mapping = aes(x = DAP, y = V)) +                 # 1ª camada
   geom_point(mapping = aes(colour = Nome_Especie,
                            shape = Selecao),
-             size = 4) +                               # 2ª camada
+             size = 4) +                                # 2ª camada
   scale_shape_manual(values = c(3, 5),
                      labels = c("Árvore para explorar", 
                                 "Árvore remanescente"),
@@ -722,6 +722,54 @@ ggplot(data = data_sample %&gt;%
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+&lt;br&gt;
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-4[
+.font70[
+**- Não está satisfeito com os títulos e escalas de eixos?**
+
+
+```r
+ggplot(data = data_sample %&gt;% 
+           filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')), 
+       mapping = aes(x = DAP, y = V)) +                 # 1ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4) +                                # 2ª camada
+  scale_shape_manual(values = c(3, 5),
+                     labels = c("Árvore para explorar", 
+                                "Árvore remanescente"),
+                     name = "Seleção") +                # 3ª camada
+  scale_color_manual(values = c('#999999','#E69F00'),
+                     labels = c("Carapa guianensis", 
+                                "Manilkara elata"),
+                     name = "Espécie") +                # 4ª camada
+  scale_x_continuous(name = "Diâmetro (cm)",
+                     limits = c(35, 115),
+                     breaks = seq(35, 115, 10))         # 5ª camada
+```
+
+👉 **5ª camada**:
+
+- Argumentos .blue[name], .blue[limits] e .blue[breaks] na camada de .green[scale_x_continuous()]. Experimente: .green[scale_y_continuous()].
+]
+]
+
+.pull-right-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+
+
 
 ---
 

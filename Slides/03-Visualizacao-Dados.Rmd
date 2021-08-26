@@ -720,10 +720,10 @@ ggplot(shapes, aes(x, y)) +
 ```{r point9, echo=T, eval=F}
 ggplot(data = data_sample %>% 
            filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')), 
-       mapping = aes(x = DAP, y = V)) +                # 1ª camada
+       mapping = aes(x = DAP, y = V)) +                 # 1ª camada
   geom_point(mapping = aes(colour = Nome_Especie,
                            shape = Selecao),
-             size = 4) +                               # 2ª camada
+             size = 4) +                                # 2ª camada
   scale_shape_manual(values = c(3, 5),
                      labels = c("Árvore para explorar", 
                                 "Árvore remanescente"),
@@ -747,6 +747,54 @@ ggplot(data = data_sample %>%
 ```
 ]
 ]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+<br>
+### Gráfico de pontos (dispersão) - Estética de pontos
+
+.pull-left-4[
+.font70[
+**- Não está satisfeito com os títulos e escalas de eixos?**
+
+```{r point10, echo=T, eval=F}
+ggplot(data = data_sample %>% 
+           filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')), 
+       mapping = aes(x = DAP, y = V)) +                 # 1ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4) +                                # 2ª camada
+  scale_shape_manual(values = c(3, 5),
+                     labels = c("Árvore para explorar", 
+                                "Árvore remanescente"),
+                     name = "Seleção") +                # 3ª camada
+  scale_color_manual(values = c('#999999','#E69F00'),
+                     labels = c("Carapa guianensis", 
+                                "Manilkara elata"),
+                     name = "Espécie") +                # 4ª camada
+  scale_x_continuous(name = "Diâmetro (cm)",
+                     limits = c(35, 115),
+                     breaks = seq(35, 115, 10))         # 5ª camada
+```
+
+`r emo::ji("point_right")` **5ª camada**:
+
+- Argumentos .blue[name], .blue[limits] e .blue[breaks] na camada de .green[scale_x_continuous()]. Experimente: .green[scale_y_continuous()].
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point10",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+
+
+
 
 ---
 
