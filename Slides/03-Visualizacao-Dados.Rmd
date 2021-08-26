@@ -451,8 +451,11 @@ ggplot(data = data_sample,
 ---
 
 ## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de pontos (dispersão) - .black[Adicione linha de regressão]
+]
 <br>
-### Gráfico de pontos (dispersão) + linha de regressão
 
 .pull-left-4[
 .font80[
@@ -481,8 +484,11 @@ ggplot(data = data_sample,
 ---
 
 ## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de pontos (dispersão) - .black[Adicione linha de regressão]
+]
 <br>
-### Gráfico de pontos (dispersão) + linha de regressão
 
 .pull-left-4[
 .font80[
@@ -513,8 +519,11 @@ ggplot(data = data_sample,
 ---
 
 ## Pacote ggplot2 (tidyverse)
+
+.font50[
+### Gráfico de pontos (dispersão) - .black[Modifique a cor dos pontos]
+]
 <br>
-### Gráfico de pontos (dispersão) - Estética de pontos
 
 .pull-left-4[
 .font70[
@@ -548,13 +557,14 @@ x, y, alpha, .magenta[**colour**], fill, group, shape, size, stroke
 ---
 
 ## Pacote ggplot2 (tidyverse)
+
+.font50[
+### Gráfico de pontos (dispersão) - .black[Modifique a forma dos pontos]
+]
 <br>
-### Gráfico de pontos (dispersão) - Estética de pontos
 
 .pull-left-4[
 .font70[
-- Mudando a forma (shape) dos pontos...
-
 ```{r point5, echo=T, eval=F}
 ggplot(data = data_sample, 
        mapping = aes(x = DAP, y = V)) +           # 1ª camada
@@ -579,8 +589,11 @@ ggplot(data = data_sample,
 ---
 
 ## Pacote ggplot2 (tidyverse)
+
+.font50[
+### Gráfico de pontos (dispersão) - .black[Tamanho proporcional]
+]
 <br>
-### Gráfico de pontos (dispersão) - Estética de pontos
 
 .pull-left-4[
 .font70[
@@ -611,8 +624,11 @@ ggplot(data = data_sample %>% filter(Nome_Especie == 'Maçaranduba'),
 ---
 
 ## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de pontos (dispersão) - .black[Modifique tamanho dos pontos]
+]
 <br>
-### Gráfico de pontos (dispersão) - Estética de pontos
 
 .pull-left-4[
 .font70[
@@ -645,13 +661,14 @@ ggplot(data = data_sample %>%
 ---
 
 ## Pacote ggplot2 (tidyverse)
+
+.font60[
+### Gráfico de pontos (dispersão) - .black[Modifique formas e cores dos pontos]
+]
 <br>
-### Gráfico de pontos (dispersão) - Estética de pontos
 
 .pull-left-4[
 .font70[
-- É possível personalizar as formas e cores dos pontos facilmente...
-
 ```{r point8, echo=T, eval=F}
 ggplot(data = data_sample %>% 
            filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')), 
@@ -681,17 +698,13 @@ ggplot(data = data_sample %>%
 ---
 
 ## Pacote ggplot2 (tidyverse)
-<br>
-### Gráfico de pontos (dispersão) - Estética de pontos
 
-.pull-left-1[
-<br><br><br><br>
-
-.center[**Tipos de formas (shapes)**]
+.font70[
+### Gráfico de pontos (dispersão) - .black[Tipos de formas (shapes)]
 ]
+<br>
 
-.pull-right-2[
-```{r echo=F, eval=T, out.width='60%'}
+```{r echo=F, eval=T, out.width='35%'}
 shapes <- data.frame(
   shape = c(0:19, 22, 21, 24, 23, 20),
   x = 0:24 %/% 5,
@@ -705,18 +718,19 @@ ggplot(shapes, aes(x, y)) +
   expand_limits(x = 4.1) +
   theme_void()
 ```
-]
+
 
 ---
 
 ## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de pontos (dispersão) - .black[Modifique legendas]
+]
 <br>
-### Gráfico de pontos (dispersão) - Estética de pontos
 
 .pull-left-4[
 .font70[
-**- Não está satisfeito com os nomes nas legendas?**
-
 ```{r point9, echo=T, eval=F}
 ggplot(data = data_sample %>% 
            filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')), 
@@ -751,13 +765,14 @@ ggplot(data = data_sample %>%
 ---
 
 ## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de pontos (dispersão) - .black[Modifique títulos e escalas]
+]
 <br>
-### Gráfico de pontos (dispersão) - Estética de pontos
 
 .pull-left-4[
 .font70[
-**- Não está satisfeito com os títulos e escalas de eixos?**
-
 ```{r point10, echo=T, eval=F}
 ggplot(data = data_sample %>% 
            filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')), 
@@ -793,8 +808,49 @@ ggplot(data = data_sample %>%
 
 ---
 
+## Pacote ggplot2 (tidyverse)
 
+.font70[
+### Gráfico de pontos (dispersão) - .black[Adicione títulos, subtítulos, tags...]
+]
+<br>
 
+.pull-left-4[
+.font70[
+
+```{r point11, echo=T, eval=F}
+ggplot(data = data_sample %>% 
+           filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')), 
+       mapping = aes(x = DAP, y = V)) +                 # 1ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4) +                                # 2ª camada
+  scale_shape_manual(values = c(3, 5),
+                     labels = c("Árvore para explorar", 
+                                "Árvore remanescente"),
+                     name = "Seleção") +                # 3ª camada
+  scale_color_manual(values = c('#999999','#E69F00'),
+                     labels = c("Carapa guianensis", 
+                                "Manilkara elata"),
+                     name = "Espécie") +                # 4ª camada
+  labs(title = "Relação Volume-Diâmetro", 
+       subtitle = "(IF100% - Amazônia)",
+       tag = "A", x = "Diâmetro (cm)", 
+       y = "Volume (m³)")                               # 5ª camada
+```
+
+`r emo::ji("point_right")` **5ª camada**:
+
+- Experimente a função .green[labs()] para adicionar títulos.
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point11",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
 
 ---
 
