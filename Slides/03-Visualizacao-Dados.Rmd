@@ -650,22 +650,23 @@ ggplot(data = data_sample %>%
 
 .pull-left-4[
 .font70[
-- ...
+- É possível customizar as formas, cores e tamanhos dos pontos facilmente...
 
 ```{r point8, echo=T, eval=F}
 ggplot(data = data_sample %>% 
-           filter(Nome_Especie == 'Acapu'), 
+           filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
        mapping = aes(x = DAP, y = V)) +           # 1ª camada
-  geom_point(mapping = aes(shape = Nome_Especie, 
-                           colour = Nome_Especie),
-             size = 4)                            # 2ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4) +                          # 2ª camada
+  scale_shape_manual(values=c(3, 16)) +
+  scale_color_manual(values=c('#999999','#E69F00'))
 ```
 <br>
 
 `r emo::ji("point_right")` **2ª camada**:
 
-- Isso é feito com argumento .magenta[**size**], porém fora de .green[aes()].
-- Especifique um valor inteiro para o argumento.
+- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para definir a forma e cor desejada para os pontos, respectivamente.
 ]
 ]
 

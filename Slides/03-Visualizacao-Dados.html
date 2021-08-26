@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"b5d1cc7b20af486a84032c1f60a26db3","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"ad89b2654d9e41f499aa367a1ab95f99","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -638,23 +638,24 @@ ggplot(data = data_sample %&gt;%
 
 .pull-left-4[
 .font70[
-- ...
+- É possível customizar as formas, cores e tamanhos dos pontos facilmente...
 
 
 ```r
 ggplot(data = data_sample %&gt;% 
-           filter(Nome_Especie == 'Acapu'), 
+           filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')), 
        mapping = aes(x = DAP, y = V)) +           # 1ª camada
-  geom_point(mapping = aes(shape = Nome_Especie, 
-                           colour = Nome_Especie),
-             size = 4)                            # 2ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4) +                          # 2ª camada
+  scale_shape_manual(values=c(3, 16)) +
+  scale_color_manual(values=c('#999999','#E69F00'))
 ```
 &lt;br&gt;
 
 👉 **2ª camada**:
 
-- Isso é feito com argumento .magenta[**size**], porém fora de .green[aes()].
-- Especifique um valor inteiro para o argumento.
+- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para definir a forma e cor desejada para os pontos, respectivamente.
 ]
 ]
 
