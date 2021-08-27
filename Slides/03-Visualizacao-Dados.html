@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xee00d738b7a470c8bb3bbd6062576bb","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"e668f81c81c14781969462142ae8f843","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -120,7 +120,7 @@ top:1.5em;right:0.6em;
 ##### Faculdade de Engenharia Florestal
 ##### E-mail: deivisonvs@ufpa.br
 &lt;br&gt;
-##### 26/agosto/2021
+##### 27/agosto/2021
 
 ---
 
@@ -160,14 +160,44 @@ Ao final desta terceira parte (.blue[Visualização de Dados com ggplot2]) esper
 
 [1 - Motivação](#mot)
 
-[2 - O pacote ggplot2](#ggplot)
+[2 - O pacote ggplot2](#ggplot2)
 
 [3 - Conjunto de dados - IF100%](#data)
 
-[4 - Gráficos de pontos (dispersão)](#point)
+[4 - Função ggplot()](#ggplot)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[4.1 - Camada base](#cb)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[4.2 - Especificando x e y](#xy)
+
+[5 - Gráfico de pontos (dispersão)](#point)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.1 - Adicionando linha de regressão](#alr)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.2 - Modificando a cor dos pontos](#mcp)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.3 - Modificando a forma dos pontos](#mfp)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.4 - Modificando a tamanho dos pontos](#mtp)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.5 - Personalisando a forma e a cor dos pontos](#pfcp)
 
 ]
 ]
+
+.pull-right-10[
+.pull-down[
+.font80[
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.6 - Modificando legendas](#ml)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.7 - Modificando títulos e escalas](#mte)
+
+]
+]
+]
+
+---
+
 
 .pull-right-10[
 .pull-down[
@@ -217,7 +247,7 @@ name: mot
 .center[**O pacote .blue[ggplot2] será o nosso objeto de estudo!**]
 
 ---
-name: ggplot
+name: ggplot2
 &lt;br&gt;
 ## O pacote ggplot2 (tidyverse)
 &lt;br&gt;
@@ -283,7 +313,7 @@ os gráficos...**
 ]
 
 ---
-
+name: ggplot
 ## Pacote ggplot2 (tidyverse)
 &lt;br&gt;
 ### Sintaxe Básica
@@ -343,7 +373,7 @@ Obs.: Se .blue[mapping] não for especificado na função .green[ggplot()], deve
 ]
 
 ---
-
+name: cb
 ## Pacote ggplot2 (tidyverse)
 &lt;br&gt;
 ### Camada base
@@ -376,10 +406,13 @@ data_sample %&gt;% ggplot()
 ]
 
 ---
-
+name: xy
 ## Pacote ggplot2 (tidyverse)
+
+.font80[
+### Camada base - .black[Especificando x e y]
+]
 &lt;br&gt;
-### Camada base - Adionando mapeamento estético
 
 .pull-left-4[
 .font80[
@@ -437,7 +470,7 @@ ggplot(data = data_sample,
 ]
 
 ---
-
+name: alr
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
@@ -505,7 +538,7 @@ ggplot(data = data_sample,
 ]
 
 ---
-
+name: mcp
 ## Pacote ggplot2 (tidyverse)
 
 .font50[
@@ -543,7 +576,7 @@ x, y, alpha, .magenta[**colour**], fill, group, shape, size, stroke
 ]
 
 ---
-
+name: mfp
 ## Pacote ggplot2 (tidyverse)
 
 .font50[
@@ -575,7 +608,7 @@ ggplot(data = data_sample,
 ]
 
 ---
-
+name: mtp
 ## Pacote ggplot2 (tidyverse)
 
 .font50[
@@ -647,11 +680,11 @@ ggplot(data = data_sample %&gt;%
 ]
 
 ---
-
+name: pfcp
 ## Pacote ggplot2 (tidyverse)
 
 .font60[
-### Gráfico de pontos (dispersão) - .black[Modifique formas e cores dos pontos]
+### Gráfico de pontos (dispersão) - .black[Personalise a forma e a cor dos pontos]
 ]
 &lt;br&gt;
 

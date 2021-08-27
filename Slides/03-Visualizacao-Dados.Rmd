@@ -172,14 +172,44 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 [1 - Motivação](#mot)
 
-[2 - O pacote ggplot2](#ggplot)
+[2 - O pacote ggplot2](#ggplot2)
 
 [3 - Conjunto de dados - IF100%](#data)
 
-[4 - Gráficos de pontos (dispersão)](#point)
+[4 - Função ggplot()](#ggplot)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[4.1 - Camada base](#cb)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[4.2 - Especificando x e y](#xy)
+
+[5 - Gráfico de pontos (dispersão)](#point)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[5.1 - Adicionando linha de regressão](#alr)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[5.2 - Modificando a cor dos pontos](#mcp)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[5.3 - Modificando a forma dos pontos](#mfp)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[5.4 - Modificando a tamanho dos pontos](#mtp)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[5.5 - Personalisando a forma e a cor dos pontos](#pfcp)
 
 ]
 ]
+
+.pull-right-10[
+.pull-down[
+.font80[
+&nbsp;&nbsp;&nbsp;&nbsp;[5.6 - Modificando legendas](#ml)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[5.7 - Modificando títulos e escalas](#mte)
+
+]
+]
+]
+
+---
+
 
 .pull-right-10[
 .pull-down[
@@ -229,7 +259,7 @@ name: mot
 .center[**O pacote .blue[ggplot2] será o nosso objeto de estudo!**]
 
 ---
-name: ggplot
+name: ggplot2
 <br>
 ## O pacote ggplot2 (tidyverse)
 <br>
@@ -296,7 +326,7 @@ os gráficos...**
 ]
 
 ---
-
+name: ggplot
 ## Pacote ggplot2 (tidyverse)
 <br>
 ### Sintaxe Básica
@@ -356,7 +386,7 @@ Obs.: Se .blue[mapping] não for especificado na função .green[ggplot()], deve
 ]
 
 ---
-
+name: cb
 ## Pacote ggplot2 (tidyverse)
 <br>
 ### Camada base
@@ -388,10 +418,13 @@ data_sample %>% ggplot()
 ]
 
 ---
-
+name: xy
 ## Pacote ggplot2 (tidyverse)
+
+.font80[
+### Camada base - .black[Especificando x e y]
+]
 <br>
-### Camada base - Adionando mapeamento estético
 
 .pull-left-4[
 .font80[
@@ -449,7 +482,7 @@ ggplot(data = data_sample,
 ]
 
 ---
-
+name: alr
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
@@ -517,7 +550,7 @@ ggplot(data = data_sample,
 ]
 
 ---
-
+name: mcp
 ## Pacote ggplot2 (tidyverse)
 
 .font50[
@@ -555,7 +588,7 @@ x, y, alpha, .magenta[**colour**], fill, group, shape, size, stroke
 ]
 
 ---
-
+name: mfp
 ## Pacote ggplot2 (tidyverse)
 
 .font50[
@@ -587,7 +620,7 @@ ggplot(data = data_sample,
 ]
 
 ---
-
+name: mtp
 ## Pacote ggplot2 (tidyverse)
 
 .font50[
@@ -659,11 +692,11 @@ ggplot(data = data_sample %>%
 ]
 
 ---
-
+name: pfcp
 ## Pacote ggplot2 (tidyverse)
 
 .font60[
-### Gráfico de pontos (dispersão) - .black[Modifique formas e cores dos pontos]
+### Gráfico de pontos (dispersão) - .black[Personalise a forma e a cor dos pontos]
 ]
 <br>
 
