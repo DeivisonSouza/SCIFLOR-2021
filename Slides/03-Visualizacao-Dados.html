@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"e668f81c81c14781969462142ae8f843","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"d43f659da51d4c39ae5d047a1a2a88ee","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -191,6 +191,12 @@ Ao final desta terceira parte (.blue[Visualização de Dados com ggplot2]) esper
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.6 - Modificando legendas](#ml)
 
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.7 - Modificando títulos e escalas](#mte)
+
+[6 - Gráficos de barras](#gb)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[6.1 - Modificando cores das barras](#mcb)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[6.2 - Reordenando as barras](#rb)
 
 ]
 ]
@@ -861,12 +867,217 @@ ggplot(data = data_sample %&gt;%
 ]
 
 ---
+name: gb
+## Pacote ggplot2 (tidyverse)
 
-- arrumar labs
-- adicionar titulo, subtitulo
+.font80[
+### Gráfico de barras (ou colunas) - Funcão geom_col()
+]
+&lt;br&gt;
+
+.font70[
+.pull-left-4[
+
+```r
+data_top &lt;- data %&gt;% 
+  count(Nome_Especie) %&gt;%
+  top_n(10, n)
+
+# Adicione **arrange(desc(n))** se desejar 
+# imprimir a tabela ordenada por "n".
+```
 
 
+&lt;br&gt;
 
+**Primeiro, vamos extrair do IF100% as 10 espécies com mais indivíduos...**
+
+- Isso é feito em 2 passos:
+
+1. .green[count()] : cria uma tabela de frequências simples para todas as espécies;
+2. .green[top_n()]: filtra as 10 espécies com mais indivíduos.
+
+]
+]
+
+.font80[
+.pull-right-4[
+<div id="htmlwidget-a1d992da4ef4c7120ed5" style="width:180px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a1d992da4ef4c7120ed5">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Andiroba","Barrote","Casca seca","Maparajuba","Melancieiro","Tauari","Taxi branco","Taxi preto","Timborana"],[2617,316,289,1584,254,620,568,292,393,1138]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"tip","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":1}],"order":[],"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras - .black[Função geom_col()]
+]
+&lt;br&gt;
+
+.pull-right-4[
+.pull-top[
+.font70[
+
+```r
+ggplot(data = data_top) +                            # 1ª camada
+  geom_col(mapping = aes(x = n, y = Nome_Especie))   # 2ª camada
+```
+&lt;br&gt;
+
+👉 **2ª camada**:
+
+- A função .green[geom_col()] foi usada para adicionar uma camada de colunas no gráfico. Tem-se um gráfico de barras.
+&lt;br&gt;&lt;br&gt;
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+--
+
+.font70[
+.center[
+**Atenção!**
+&lt;br&gt;&lt;br&gt;
+
+.blue[Perceba que dessa vez não mapeamos x e y na função ggplot(). Você entenderá o motivo mais a frente...].
+
+
+]
+]
+
+---
+name: mcb
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras - .black[Modificando cores das barras]
+]
+&lt;br&gt;
+
+.pull-right-4[
+.pull-top[
+.font70[
+
+```r
+  ggplot(data = data_top) +                         # 1ª camada
+  geom_col(mapping = aes(x = n,
+                         y = Nome_Especie,
+                         fill = Nome_Especie), 
+               show.legend = F)                     # 2ª camada
+```
+&lt;br&gt;
+
+👉 **2ª camada**:
+
+- Em .green[geom_col()] pode-se adicionar elementos estéticos.
+- Por exemplo, o argumento .brown[fill] recebeu a coluna "Nome_Especie" e mapeou diferentes cores para as categorias.
+&lt;br&gt;&lt;br&gt;
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+name: rb
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras - .black[Reordenando as barras]
+]
+&lt;br&gt;
+
+.pull-right-4[
+.pull-top[
+.font70[
+
+```r
+data_top %&gt;%
+  mutate(Nome_Especie = forcats::fct_reorder(Nome_Especie, n)) %&gt;% 
+  ggplot() +                                          # 1ª camada
+  geom_col(mapping = aes(x = n,
+                         y = Nome_Especie,
+                         fill = Nome_Especie), 
+               show.legend = F)                       # 2ª camada
+```
+&lt;br&gt;
+
+- Use a função .green[fct_reorder()] do pacote **forcats** para reordenar os níveis de fator da variável "Nome_Especie".
+- Repasse o comando dentro da função .green[mutate()] do **dplyr**.
+&lt;br&gt;&lt;br&gt;
+
+**Experimente**: Faça .green[as.factor(.black[data_top$Nome_Especie])] e veja como os níveis de fator são ordenados por padrão.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+name: arb
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras - .black[Adicionando rótulos nas barras]
+]
+&lt;br&gt;
+
+.pull-right-4[
+.pull-top[
+.font70[
+
+```r
+data_top %&gt;%
+  mutate(Nome_Especie = forcats::fct_reorder(Nome_Especie, n)) %&gt;% 
+  ggplot() +                                             # 1ª camada
+  geom_col(mapping = aes(x = n,
+                         y = Nome_Especie,
+                         fill = Nome_Especie), 
+               show.legend = F) +                        # 2ª camada
+  geom_label(aes(x = n/2, y = Nome_Especie, label = n), 
+             size = 3)                                   # 3ª camada
+```
+&lt;br&gt;
+
+👉 **3ª camada**:
+
+- Use a função .green[geom_label()] para reordenar adicionar rótulos com os valores de contagem por espécie a cada barra..
+- **Importante**: perceba que para .green[geom_label()] precisamos mapear novos pares de valores (x e y), que indicam a posição de impressão dos rótulos no gráfico. 
+- Este é o motivo para não especificar x e y em ggplot()!
+
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
 
 ---
 

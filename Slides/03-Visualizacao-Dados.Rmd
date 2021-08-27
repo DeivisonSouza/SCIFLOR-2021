@@ -204,6 +204,12 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 &nbsp;&nbsp;&nbsp;&nbsp;[5.7 - Modificando títulos e escalas](#mte)
 
+[6 - Gráficos de barras](#gb)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[6.1 - Modificando cores das barras](#mcb)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[6.2 - Reordenando as barras](#rb)
+
 ]
 ]
 ]
@@ -886,12 +892,221 @@ ggplot(data = data_sample %>%
 ]
 
 ---
+name: gb
+## Pacote ggplot2 (tidyverse)
 
-- arrumar labs
-- adicionar titulo, subtitulo
+.font80[
+### Gráfico de barras (ou colunas) - Funcão geom_col()
+]
+<br>
+
+.font70[
+.pull-left-4[
+```{r echo=T, eval=T}
+data_top <- data %>% 
+  count(Nome_Especie) %>%
+  top_n(10, n)
+
+# Adicione **arrange(desc(n))** se desejar 
+# imprimir a tabela ordenada por "n".
+```
+
+```{r dtop, echo=F, eval=F}
+data %>% 
+  count(Nome_Especie) %>%
+  top_n(10, n) %>%
+  CustomDT
+```
+<br>
+
+**Primeiro, vamos extrair do IF100% as 10 espécies com mais indivíduos...**
+
+- Isso é feito em 2 passos:
+
+1. .green[count()] : cria uma tabela de frequências simples para todas as espécies;
+2. .green[top_n()]: filtra as 10 espécies com mais indivíduos.
+
+]
+]
+
+.font80[
+.pull-right-4[
+```{r ref.label="dtop", echo=FALSE, eval=TRUE, collapse=T}
+```
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras - .black[Função geom_col()]
+]
+<br>
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r bar1, echo=T, eval=F}
+ggplot(data = data_top) +                            # 1ª camada
+  geom_col(mapping = aes(x = n, y = Nome_Especie))   # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- A função .green[geom_col()] foi usada para adicionar uma camada de colunas no gráfico. Tem-se um gráfico de barras.
+<br><br>
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="bar1", fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+--
+
+.font70[
+.center[
+**Atenção!**
+<br><br>
+
+.blue[Perceba que dessa vez não mapeamos x e y na função ggplot(). Você entenderá o motivo mais a frente...].
 
 
+]
+]
 
+---
+name: mcb
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras - .black[Modificando cores das barras]
+]
+<br>
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r bar2, echo=T, eval=F}
+  ggplot(data = data_top) +                         # 1ª camada
+  geom_col(mapping = aes(x = n,
+                         y = Nome_Especie,
+                         fill = Nome_Especie), 
+               show.legend = F)                     # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- Em .green[geom_col()] pode-se adicionar elementos estéticos.
+- Por exemplo, o argumento .brown[fill] recebeu a coluna "Nome_Especie" e mapeou diferentes cores para as categorias.
+<br><br>
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="bar2",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+name: rb
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras - .black[Reordenando as barras]
+]
+<br>
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r bar3, echo=T, eval=F}
+data_top %>%
+  mutate(Nome_Especie = forcats::fct_reorder(Nome_Especie, n)) %>% 
+  ggplot() +                                          # 1ª camada
+  geom_col(mapping = aes(x = n,
+                         y = Nome_Especie,
+                         fill = Nome_Especie), 
+               show.legend = F)                       # 2ª camada
+```
+<br>
+
+- Use a função .green[fct_reorder()] do pacote **forcats** para reordenar os níveis de fator da variável "Nome_Especie".
+- Repasse o comando dentro da função .green[mutate()] do **dplyr**.
+<br><br>
+
+**Experimente**: Faça .green[as.factor(.black[data_top$Nome_Especie])] e veja como os níveis de fator são ordenados por padrão.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="bar3", fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+name: arb
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras - .black[Adicionando rótulos nas barras]
+]
+<br>
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r bar4, echo=T, eval=F}
+data_top %>%
+  mutate(Nome_Especie = forcats::fct_reorder(Nome_Especie, n)) %>% 
+  ggplot() +                                             # 1ª camada
+  geom_col(mapping = aes(x = n,
+                         y = Nome_Especie,
+                         fill = Nome_Especie), 
+               show.legend = F) +                        # 2ª camada
+  geom_label(aes(x = n/2, y = Nome_Especie, label = n), 
+             size = 3)                                   # 3ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **3ª camada**:
+
+- Use a função .green[geom_label()] para reordenar adicionar rótulos com os valores de contagem por espécie a cada barra..
+- **Importante**: perceba que para .green[geom_label()] precisamos mapear novos pares de valores (x e y), que indicam a posição de impressão dos rótulos no gráfico. 
+- Este é o motivo para não especificar x e y em ggplot()!
+
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="bar4",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
 
 ---
 
