@@ -210,6 +210,8 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 &nbsp;&nbsp;&nbsp;&nbsp;[6.2 - Reordenando as barras](#rb)
 
+&nbsp;&nbsp;&nbsp;&nbsp;[6.3 - Adicionando rótulos nas barras](#arb)
+
 ]
 ]
 ]
