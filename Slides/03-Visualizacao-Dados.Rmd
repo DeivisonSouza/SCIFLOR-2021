@@ -898,14 +898,14 @@ name: gb
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
-### Gráfico de barras (ou colunas) - .black[Contagem por categoria]
+### Gráfico de barras (ou colunas)
 - Existem 2 tipos de gráficos de barra: .green[geom_bar()] e .green[geom_col()].
 ]
 
 .font70[
 <br>
 
-**Vamos experimentar 2 abordagens usando .green[geom_bar()] para construir esse gráfico...**
+**Vamos experimentar 2 abordagens usando .green[geom_bar()] para construir gráficos de barras com contagens por categorias...**
 <br>
 
 - **Abordagem 1**: A partir de um quadro com todos os dados.
@@ -932,7 +932,10 @@ data_sample2 <- data %>%
 data_top <- data %>% 
   filter(Nome_Especie %in% c("Acapu", "Casca seca", "Timborana")) %>%
   group_by(Nome_Especie) %>%
-  summarise(mean = mean(HC), n = n())
+  summarise(media_HC = mean(HC), n = n())
+
+# Adicione **arrange(desc(n))** se desejar 
+# imprimir a tabela ordenada por "n".
 ```
 ]
 ]
@@ -948,24 +951,29 @@ data_top <- data %>%
 ]
 
 .font70[
-.pull-left-4[
+.pull-right-4[
 ```{r barn, echo=T, eval=F}
-ggplot(data = data_sample2) +
-  geom_bar(aes(x = Nome_Especie), stat = "count")
+ggplot(data = data_sample2) +                # 1ª camada
+  geom_bar(aes(x = Nome_Especie), 
+           stat = "count")                   # 2ª camada
 ```
 <br><br>
 
 **Gráfico de contagem por categoria usando .green[geom_bar()]**
 <br>
 
-1. Por padrão, a camada .green[geom_bar()] usa .green[stat_count()] e faz a contagem de casos por categoria em "x".
+1. Use .blue[stat] = "count" na camada .green[geom_bar()] para fazer a contagem de casos por categoria em "x".
 2. Neste caso, o argumento "y" é dispensado.
 ]
 ]
 
+--
+
 .pull-left-4[
+.font80[
 ```{r ref.label="barn", fig.width=5, fig.height=4, echo=F, eval=T}
 ```
+]
 ]
 
 ---
@@ -978,25 +986,39 @@ ggplot(data = data_sample2) +
 - **Abordagem 2**: A partir de um quadro com os dados resumidos.
 ]
 
+
+.pull-right-4[
 .font70[
-.pull-left-4[
 ```{r barnc, echo=T, eval=F}
-ggplot(data = data_top) +
-  geom_bar(aes(x = Nome_Especie, y = n), stat = "identity")
+ggplot(data = data_top) +                   # 1ª camada
+  geom_bar(aes(x = Nome_Especie, y = n), 
+           stat = "identity")               # 2ª camada
 ```
 <br><br>
 
 **Gráfico de contagem por categoria usando .green[geom_bar()]**
 <br>
 
-1. Nesta situação, usa-se .green[stat_identity()] na camada .green[geom_bar()], indicando que os dados devem ser usados como estão.
-2. Neste caso, o argumento "y" precisa ser informado.
+1. Use .blue[stat] = "identity" na camada .green[geom_bar()], indicando que os dados devem ser usados como estão.
+2. Neste caso, o argumento "y" com os valores de contagem precisa ser informado.
+
+.center[
+**Atenção!**
+<br>
+.blue[Veja que dessa vez não mapeamos x e y na função ggplot().
+<br>
+Você entenderá o motivo mais a frente!].
+]
 ]
 ]
 
+--
+
 .pull-left-4[
+.font80[
 ```{r ref.label="barnc", fig.width=5, fig.height=4, echo=F, eval=T}
 ```
+]
 ]
 
 ---
@@ -1010,12 +1032,12 @@ ggplot(data = data_top) +
 ]
 
 .font70[
-.pull-left-4[
+.pull-right-4[
 ```{r barmean, echo=T, eval=F}
-ggplot(data = data_sample2) +
+ggplot(data = data_sample2) +               # 1ª camada
   geom_bar(aes(x = Nome_Especie, y = HC),
            stat = "summary",
-           fun = "mean")
+           fun = "mean")                    # 2ª camada
 ```
 <br><br>
 
@@ -1028,61 +1050,13 @@ ggplot(data = data_sample2) +
 ]
 ]
 
+--
+
 .pull-left-4[
+.font80[
 ```{r ref.label="barmean", fig.width=5, fig.height=4, echo=F, eval=T}
 ```
 ]
-
----
-
-```{r}
-#ggplot(data = data_top) +
-#  geom_bar(aes(x = Nome_Especie, y = n), stat = "identity")
-```
-
----
-
-## Pacote ggplot2 (tidyverse)
-
-.font80[
-### Gráfico de barras (ou colunas) - Funcão geom_col()
-]
-<br>
-
-.font70[
-.pull-left-4[
-```{r echo=T, eval=T}
-data_top <- data %>% 
-  count(Nome_Especie) %>%
-  top_n(10, n)
-
-# Adicione **arrange(desc(n))** se desejar 
-# imprimir a tabela ordenada por "n".
-```
-
-```{r dtop, echo=F, eval=F}
-data %>% 
-  count(Nome_Especie) %>%
-  top_n(10, n) %>%
-  CustomDT
-```
-<br>
-
-**Primeiro, vamos extrair do IF100% as 10 espécies com mais indivíduos...**
-
-- Isso é feito em 2 passos:
-
-1. .green[count()] : cria uma tabela de frequências simples para todas as espécies;
-2. .green[top_n()]: filtra as 10 espécies com mais indivíduos.
-
-]
-]
-
-.font80[
-.pull-right-4[
-```{r ref.label="dtop", echo=FALSE, eval=TRUE, collapse=T}
-```
-]
 ]
 
 ---
@@ -1090,24 +1064,25 @@ data %>%
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
-### Gráfico de barras - .black[Função geom_col()]
-]
-<br>
+### Gráfico de barras (ou colunas) - .black[Média por categoria]
 
-.pull-right-4[
-.pull-top[
+- **Abordagem 2**: A partir de um quadro com os dados resumidos.
+]
+
 .font70[
-```{r bar1, echo=T, eval=F}
-ggplot(data = data_top) +                            # 1ª camada
-  geom_col(mapping = aes(x = n, y = Nome_Especie))   # 2ª camada
+.pull-right-4[
+```{r barmean2, echo=T, eval=F}
+ggplot(data = data_top) +                         # 1ª camada
+  geom_bar(aes(x = Nome_Especie, y = media_HC), 
+           stat = "identity")                     # 2ª camada
 ```
+<br><br>
+
+**Gráfico de médias por categoria usando .green[geom_bar()]**
 <br>
 
-`r emo::ji("point_right")` **2ª camada**:
-
-- A função .green[geom_col()] foi usada para adicionar uma camada de colunas no gráfico. Tem-se um gráfico de barras.
-<br><br>
-]
+1. Use .blue[stat] = "identity" na camada .green[geom_bar()], indicando que os dados devem ser usados como estão. Fazendo isso, .green[stat_identity()] será invocada.
+2. Neste caso, o argumento "y" (Média) precisa ser informado.
 ]
 ]
 
@@ -1115,21 +1090,8 @@ ggplot(data = data_top) +                            # 1ª camada
 
 .pull-left-4[
 .font80[
-```{r ref.label="bar1", fig.width=6, fig.height=5, echo=F, eval=T}
+```{r ref.label="barmean2", fig.width=5, fig.height=4, echo=F, eval=T}
 ```
-]
-]
-
---
-
-.font70[
-.center[
-**Atenção!**
-<br><br>
-
-.blue[Perceba que dessa vez não mapeamos x e y na função ggplot(). Você entenderá o motivo mais a frente...].
-
-
 ]
 ]
 
@@ -1138,25 +1100,25 @@ name: mcb
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
-### Gráfico de barras - .black[Modificando cores das barras]
+### Gráfico de barras (ou colunas) - .black[Modificando cores das barras]
 ]
 <br>
 
 .pull-right-4[
 .pull-top[
 .font70[
-```{r bar2, echo=T, eval=F}
-  ggplot(data = data_top) +                         # 1ª camada
-  geom_col(mapping = aes(x = n,
-                         y = Nome_Especie,
+```{r barCor, echo=T, eval=F}
+ggplot(data = data_top) +                           # 1ª camada
+  geom_bar(mapping = aes(x = Nome_Especie, 
+                         y = n, 
                          fill = Nome_Especie), 
-               show.legend = F)                     # 2ª camada
+           stat = "identity", show.legend = F)      # 2ª camada
 ```
 <br>
 
 `r emo::ji("point_right")` **2ª camada**:
 
-- Em .green[geom_col()] pode-se adicionar elementos estéticos.
+- Em .green[geom_bar()] pode-se adicionar elementos estéticos.
 - Por exemplo, o argumento .brown[fill] recebeu a coluna "Nome_Especie" e mapeou diferentes cores para as categorias.
 <br><br>
 ]
@@ -1167,7 +1129,7 @@ name: mcb
 
 .pull-left-4[
 .font80[
-```{r ref.label="bar2",fig.width=6, fig.height=5, echo=F, eval=T}
+```{r ref.label="barCor",fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
@@ -1186,12 +1148,14 @@ name: rb
 .font70[
 ```{r bar3, echo=T, eval=F}
 data_top %>%
-  mutate(Nome_Especie = forcats::fct_reorder(Nome_Especie, n)) %>% 
-  ggplot() +                                          # 1ª camada
-  geom_col(mapping = aes(x = n,
-                         y = Nome_Especie,
+  mutate(Nome_Especie = 
+           forcats::fct_reorder(Nome_Especie, n, .desc = F)
+         ) %>% 
+  ggplot() +                                        # 1ª camada
+  geom_bar(mapping = aes(x = Nome_Especie, 
+                         y = n, 
                          fill = Nome_Especie), 
-               show.legend = F)                       # 2ª camada
+           stat = "identity", show.legend = F)      # 2ª camada
 ```
 <br>
 
@@ -1227,13 +1191,17 @@ name: arb
 .font70[
 ```{r bar4, echo=T, eval=F}
 data_top %>%
-  mutate(Nome_Especie = forcats::fct_reorder(Nome_Especie, n)) %>% 
+  mutate(Nome_Especie = 
+           forcats::fct_reorder(Nome_Especie, n, .desc = F)
+         ) %>% 
   ggplot() +                                             # 1ª camada
-  geom_col(mapping = aes(x = n,
-                         y = Nome_Especie,
+  geom_bar(mapping = aes(x = Nome_Especie, 
+                         y = n, 
                          fill = Nome_Especie), 
-               show.legend = F) +                        # 2ª camada
-  geom_label(aes(x = n/2, y = Nome_Especie, label = n), 
+           stat = "identity", show.legend = F) +         # 2ª camada
+  geom_label(aes(x = Nome_Especie, 
+                 y = n/2, 
+                 label = n), 
              size = 3)                                   # 3ª camada
 ```
 <br>

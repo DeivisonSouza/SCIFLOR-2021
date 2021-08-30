@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xc4eacdfcbd3459eb80fbe20751f382b","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x96259d595cf4abb9316ff19715d563b","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -873,14 +873,14 @@ name: gb
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
-### Gráfico de barras (ou colunas) - .black[Contagem por categoria]
+### Gráfico de barras (ou colunas)
 - Existem 2 tipos de gráficos de barra: .green[geom_bar()] e .green[geom_col()].
 ]
 
 .font70[
 &lt;br&gt;
 
-**Vamos experimentar 2 abordagens usando .green[geom_bar()] para construir esse gráfico...**
+**Vamos experimentar 2 abordagens usando .green[geom_bar()] para construir gráficos de barras com contagens por categorias...**
 &lt;br&gt;
 
 - **Abordagem 1**: A partir de um quadro com todos os dados.
@@ -909,7 +909,10 @@ data_sample2 &lt;- data %&gt;%
 data_top &lt;- data %&gt;% 
   filter(Nome_Especie %in% c("Acapu", "Casca seca", "Timborana")) %&gt;%
   group_by(Nome_Especie) %&gt;%
-  summarise(mean = mean(HC), n = n())
+  summarise(media_HC = mean(HC), n = n())
+
+# Adicione **arrange(desc(n))** se desejar 
+# imprimir a tabela ordenada por "n".
 ```
 ]
 ]
@@ -925,24 +928,29 @@ data_top &lt;- data %&gt;%
 ]
 
 .font70[
-.pull-left-4[
+.pull-right-4[
 
 ```r
-ggplot(data = data_sample2) +
-  geom_bar(aes(x = Nome_Especie), stat = "count")
+ggplot(data = data_sample2) +                # 1ª camada
+  geom_bar(aes(x = Nome_Especie), 
+           stat = "count")                   # 2ª camada
 ```
 &lt;br&gt;&lt;br&gt;
 
 **Gráfico de contagem por categoria usando .green[geom_bar()]**
 &lt;br&gt;
 
-1. Por padrão, a camada .green[geom_bar()] usa .green[stat_count()] e faz a contagem de casos por categoria em "x".
+1. Use .blue[stat] = "count" na camada .green[geom_bar()] para fazer a contagem de casos por categoria em "x".
 2. Neste caso, o argumento "y" é dispensado.
 ]
 ]
 
+--
+
 .pull-left-4[
+.font80[
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+]
 ]
 
 ---
@@ -955,25 +963,39 @@ ggplot(data = data_sample2) +
 - **Abordagem 2**: A partir de um quadro com os dados resumidos.
 ]
 
+
+.pull-right-4[
 .font70[
-.pull-left-4[
 
 ```r
-ggplot(data = data_top) +
-  geom_bar(aes(x = Nome_Especie, y = n), stat = "identity")
+ggplot(data = data_top) +                   # 1ª camada
+  geom_bar(aes(x = Nome_Especie, y = n), 
+           stat = "identity")               # 2ª camada
 ```
 &lt;br&gt;&lt;br&gt;
 
 **Gráfico de contagem por categoria usando .green[geom_bar()]**
 &lt;br&gt;
 
-1. Nesta situação, usa-se .green[stat_identity()] na camada .green[geom_bar()], indicando que os dados devem ser usados como estão.
-2. Neste caso, o argumento "y" precisa ser informado.
+1. Use .blue[stat] = "identity" na camada .green[geom_bar()], indicando que os dados devem ser usados como estão.
+2. Neste caso, o argumento "y" com os valores de contagem precisa ser informado.
+
+.center[
+**Atenção!**
+&lt;br&gt;
+.blue[Veja que dessa vez não mapeamos x e y na função ggplot().
+&lt;br&gt;
+Você entenderá o motivo mais a frente!].
+]
 ]
 ]
 
+--
+
 .pull-left-4[
+.font80[
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+]
 ]
 
 ---
@@ -987,13 +1009,13 @@ ggplot(data = data_top) +
 ]
 
 .font70[
-.pull-left-4[
+.pull-right-4[
 
 ```r
-ggplot(data = data_sample2) +
+ggplot(data = data_sample2) +               # 1ª camada
   geom_bar(aes(x = Nome_Especie, y = HC),
            stat = "summary",
-           fun = "mean")
+           fun = "mean")                    # 2ª camada
 ```
 &lt;br&gt;&lt;br&gt;
 
@@ -1006,57 +1028,12 @@ ggplot(data = data_sample2) +
 ]
 ]
 
+--
+
 .pull-left-4[
+.font80[
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
 ]
-
----
-
-
-```r
-#ggplot(data = data_top) +
-#  geom_bar(aes(x = Nome_Especie, y = n), stat = "identity")
-```
-
----
-
-## Pacote ggplot2 (tidyverse)
-
-.font80[
-### Gráfico de barras (ou colunas) - Funcão geom_col()
-]
-&lt;br&gt;
-
-.font70[
-.pull-left-4[
-
-```r
-data_top &lt;- data %&gt;% 
-  count(Nome_Especie) %&gt;%
-  top_n(10, n)
-
-# Adicione **arrange(desc(n))** se desejar 
-# imprimir a tabela ordenada por "n".
-```
-
-
-&lt;br&gt;
-
-**Primeiro, vamos extrair do IF100% as 10 espécies com mais indivíduos...**
-
-- Isso é feito em 2 passos:
-
-1. .green[count()] : cria uma tabela de frequências simples para todas as espécies;
-2. .green[top_n()]: filtra as 10 espécies com mais indivíduos.
-
-]
-]
-
-.font80[
-.pull-right-4[
-<div id="htmlwidget-a1d992da4ef4c7120ed5" style="width:180px;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a1d992da4ef4c7120ed5">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Acapu","Andiroba","Barrote","Casca seca","Maparajuba","Melancieiro","Tauari","Taxi branco","Taxi preto","Timborana"],[2617,316,289,1584,254,620,568,292,393,1138]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Nome_Especie<\/th>\n      <th>n<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"tip","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '9pt'});\n}","columnDefs":[{"className":"dt-right","targets":1}],"order":[],"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
-]
 ]
 
 ---
@@ -1064,25 +1041,26 @@ data_top &lt;- data %&gt;%
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
-### Gráfico de barras - .black[Função geom_col()]
-]
-&lt;br&gt;
+### Gráfico de barras (ou colunas) - .black[Média por categoria]
 
-.pull-right-4[
-.pull-top[
+- **Abordagem 2**: A partir de um quadro com os dados resumidos.
+]
+
 .font70[
+.pull-right-4[
 
 ```r
-ggplot(data = data_top) +                            # 1ª camada
-  geom_col(mapping = aes(x = n, y = Nome_Especie))   # 2ª camada
+ggplot(data = data_top) +                         # 1ª camada
+  geom_bar(aes(x = Nome_Especie, y = media_HC), 
+           stat = "identity")                     # 2ª camada
 ```
+&lt;br&gt;&lt;br&gt;
+
+**Gráfico de médias por categoria usando .green[geom_bar()]**
 &lt;br&gt;
 
-👉 **2ª camada**:
-
-- A função .green[geom_col()] foi usada para adicionar uma camada de colunas no gráfico. Tem-se um gráfico de barras.
-&lt;br&gt;&lt;br&gt;
-]
+1. Use .blue[stat] = "identity" na camada .green[geom_bar()], indicando que os dados devem ser usados como estão. Fazendo isso, .green[stat_identity()] será invocada.
+2. Neste caso, o argumento "y" (Média) precisa ser informado.
 ]
 ]
 
@@ -1090,20 +1068,7 @@ ggplot(data = data_top) +                            # 1ª camada
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
-]
-]
-
---
-
-.font70[
-.center[
-**Atenção!**
-&lt;br&gt;&lt;br&gt;
-
-.blue[Perceba que dessa vez não mapeamos x e y na função ggplot(). Você entenderá o motivo mais a frente...].
-
-
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1112,7 +1077,7 @@ name: mcb
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
-### Gráfico de barras - .black[Modificando cores das barras]
+### Gráfico de barras (ou colunas) - .black[Modificando cores das barras]
 ]
 &lt;br&gt;
 
@@ -1121,17 +1086,17 @@ name: mcb
 .font70[
 
 ```r
-  ggplot(data = data_top) +                         # 1ª camada
-  geom_col(mapping = aes(x = n,
-                         y = Nome_Especie,
+ggplot(data = data_top) +                           # 1ª camada
+  geom_bar(mapping = aes(x = Nome_Especie, 
+                         y = n, 
                          fill = Nome_Especie), 
-               show.legend = F)                     # 2ª camada
+           stat = "identity", show.legend = F)      # 2ª camada
 ```
 &lt;br&gt;
 
 👉 **2ª camada**:
 
-- Em .green[geom_col()] pode-se adicionar elementos estéticos.
+- Em .green[geom_bar()] pode-se adicionar elementos estéticos.
 - Por exemplo, o argumento .brown[fill] recebeu a coluna "Nome_Especie" e mapeou diferentes cores para as categorias.
 &lt;br&gt;&lt;br&gt;
 ]
@@ -1142,7 +1107,7 @@ name: mcb
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1161,12 +1126,14 @@ name: rb
 
 ```r
 data_top %&gt;%
-  mutate(Nome_Especie = forcats::fct_reorder(Nome_Especie, n)) %&gt;% 
-  ggplot() +                                          # 1ª camada
-  geom_col(mapping = aes(x = n,
-                         y = Nome_Especie,
+  mutate(Nome_Especie = 
+           forcats::fct_reorder(Nome_Especie, n, .desc = F)
+         ) %&gt;% 
+  ggplot() +                                        # 1ª camada
+  geom_bar(mapping = aes(x = Nome_Especie, 
+                         y = n, 
                          fill = Nome_Especie), 
-               show.legend = F)                       # 2ª camada
+           stat = "identity", show.legend = F)      # 2ª camada
 ```
 &lt;br&gt;
 
@@ -1183,7 +1150,7 @@ data_top %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1202,13 +1169,17 @@ name: arb
 
 ```r
 data_top %&gt;%
-  mutate(Nome_Especie = forcats::fct_reorder(Nome_Especie, n)) %&gt;% 
+  mutate(Nome_Especie = 
+           forcats::fct_reorder(Nome_Especie, n, .desc = F)
+         ) %&gt;% 
   ggplot() +                                             # 1ª camada
-  geom_col(mapping = aes(x = n,
-                         y = Nome_Especie,
+  geom_bar(mapping = aes(x = Nome_Especie, 
+                         y = n, 
                          fill = Nome_Especie), 
-               show.legend = F) +                        # 2ª camada
-  geom_label(aes(x = n/2, y = Nome_Especie, label = n), 
+           stat = "identity", show.legend = F) +         # 2ª camada
+  geom_label(aes(x = Nome_Especie, 
+                 y = n/2, 
+                 label = n), 
              size = 3)                                   # 3ª camada
 ```
 &lt;br&gt;
@@ -1227,7 +1198,7 @@ data_top %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1243,7 +1214,7 @@ ggplot(data = data_sample, aes(Nome_Especie, V)) +
            fun = "mean")
 ```
 
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -1256,7 +1227,7 @@ ggplot(data = data_sample2, aes(Nome_Especie)) +
   geom_bar()
 ```
 
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
 
 
 
