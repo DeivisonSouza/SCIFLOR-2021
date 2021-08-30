@@ -897,6 +897,153 @@ ggplot(data = data_sample %>%
 name: gb
 ## Pacote ggplot2 (tidyverse)
 
+.font70[
+### Gráfico de barras (ou colunas) - .black[Contagem por categoria]
+- Existem 2 tipos de gráficos de barra: .green[geom_bar()] e .green[geom_col()].
+]
+
+.font70[
+<br>
+
+**Vamos experimentar 2 abordagens usando .green[geom_bar()] para construir esse gráfico...**
+<br>
+
+- **Abordagem 1**: A partir de um quadro com todos os dados.
+- **Abordagem 2**: A partir de um quadro com os dados resumidos.
+]
+<br>
+
+.pull-left-4[
+.font70[
+**.blue[Tabela com todos os dados das 3 espécies mais frequentes...]**
+```{r echo=T, eval=T}
+# Filtra os dados de 3 espécies mais frequentes
+data_sample2 <- data %>% 
+  filter(Nome_Especie %in% c("Acapu", "Casca seca", "Timborana"))
+```
+]
+]
+
+.pull-right-4[
+.font70[
+**.blue[Tabela de contagem das 3 espécies mais frequentes...]**
+```{r echo=T, eval=T}
+# Uma tabela de contagem das 3 espécies mais frequentes
+data_top <- data %>% 
+  filter(Nome_Especie %in% c("Acapu", "Casca seca", "Timborana")) %>%
+  group_by(Nome_Especie) %>%
+  summarise(mean = mean(HC), n = n())
+```
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras (ou colunas) - .black[Contagem por categoria]
+
+- **Abordagem 1**: A partir de um quadro com todos os dados.
+]
+
+.font70[
+.pull-left-4[
+```{r barn, echo=T, eval=F}
+ggplot(data = data_sample2) +
+  geom_bar(aes(x = Nome_Especie), stat = "count")
+```
+<br><br>
+
+**Gráfico de contagem por categoria usando .green[geom_bar()]**
+<br>
+
+1. Por padrão, a camada .green[geom_bar()] usa .green[stat_count()] e faz a contagem de casos por categoria em "x".
+2. Neste caso, o argumento "y" é dispensado.
+]
+]
+
+.pull-left-4[
+```{r ref.label="barn", fig.width=5, fig.height=4, echo=F, eval=T}
+```
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras (ou colunas) - .black[Contagem por categoria]
+
+- **Abordagem 2**: A partir de um quadro com os dados resumidos.
+]
+
+.font70[
+.pull-left-4[
+```{r barnc, echo=T, eval=F}
+ggplot(data = data_top) +
+  geom_bar(aes(x = Nome_Especie, y = n), stat = "identity")
+```
+<br><br>
+
+**Gráfico de contagem por categoria usando .green[geom_bar()]**
+<br>
+
+1. Nesta situação, usa-se .green[stat_identity()] na camada .green[geom_bar()], indicando que os dados devem ser usados como estão.
+2. Neste caso, o argumento "y" precisa ser informado.
+]
+]
+
+.pull-left-4[
+```{r ref.label="barnc", fig.width=5, fig.height=4, echo=F, eval=T}
+```
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras (ou colunas) - .black[Média por categoria]
+
+- **Abordagem 1**: A partir de um quadro com todos os dados.
+]
+
+.font70[
+.pull-left-4[
+```{r barmean, echo=T, eval=F}
+ggplot(data = data_sample2) +
+  geom_bar(aes(x = Nome_Especie, y = HC),
+           stat = "summary",
+           fun = "mean")
+```
+<br><br>
+
+**Gráfico de médias por categoria usando .green[geom_bar()]**
+<br>
+
+1. Use .blue[stat] = "summary" e .blue[fun] = "mean" na camada .green[geom_bar()].
+2. Ao usar .blue[stat] = "summary", é possível especificar a estatística de resumo no argumento .blue[fun].
+3. **Experimente**: Use .blue[fun] = "sum" e .blue[y] = V, para obter o volume total das 3 espécies.
+]
+]
+
+.pull-left-4[
+```{r ref.label="barmean", fig.width=5, fig.height=4, echo=F, eval=T}
+```
+]
+
+---
+
+```{r}
+#ggplot(data = data_top) +
+#  geom_bar(aes(x = Nome_Especie, y = n), stat = "identity")
+```
+
+---
+
+## Pacote ggplot2 (tidyverse)
+
 .font80[
 ### Gráfico de barras (ou colunas) - Funcão geom_col()
 ]
@@ -1109,6 +1256,29 @@ data_top %>%
 ```
 ]
 ]
+
+
+---
+
+
+```{r}
+ggplot(data = data_sample, aes(Nome_Especie, V)) +
+  geom_bar(position = "dodge",
+           stat = "summary",
+           fun = "mean")
+```
+
+
+```{r}
+
+data_sample2 <- data %>% 
+  filter(Nome_Especie %in% c("Acapu", "Casca seca", "Timborana"))
+
+ggplot(data = data_sample2, aes(Nome_Especie)) +
+  geom_bar()
+```
+
+
 
 ---
 
