@@ -206,11 +206,26 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 [6 - Gráficos de barras](#gb)
 
-&nbsp;&nbsp;&nbsp;&nbsp;[6.1 - Modificando cores das barras](#mcb)
+&nbsp;&nbsp;&nbsp;&nbsp;[6.1 - Gráfico de contagem por categoria](#gcc)
 
-&nbsp;&nbsp;&nbsp;&nbsp;[6.2 - Reordenando as barras](#rb)
+&nbsp;&nbsp;&nbsp;&nbsp;[6.2 - Gráfico de média por categoria](#gmc)
 
-&nbsp;&nbsp;&nbsp;&nbsp;[6.3 - Adicionando rótulos nas barras](#arb)
+&nbsp;&nbsp;&nbsp;&nbsp;[6.3 - Representando duas (ou mais) variáveis](#rdv)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[6.4 - Modificando cores das barras](#mcb)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[6.5 - Reordenando as barras](#rb)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[6.6 - Adicionando rótulos nas barras](#arb)
+
+[7 - Histograma de frequência](#hf)
+
+[8 - Boxplots](#box)
+
+[9 - Gráfico em matriz de painéis (facet)](#facet)
+
+
+
 
 ]
 ]
@@ -941,7 +956,7 @@ data_top <- data %>%
 ]
 
 ---
-
+name: gcc
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
@@ -1022,7 +1037,7 @@ Você entenderá o motivo mais a frente!].
 ]
 
 ---
-
+name: gmc
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
@@ -1209,7 +1224,7 @@ data_top %>%
 `r emo::ji("point_right")` **3ª camada**:
 
 - Use a função .green[geom_label()] para reordenar adicionar rótulos com os valores de contagem por espécie a cada barra..
-- **Importante**: perceba que para .green[geom_label()] precisamos mapear novos pares de valores (x e y), que indicam a posição de impressão dos rótulos no gráfico. 
+- **Importante**: perceba que para .green[geom_label()] mapeou-se novos pares de valores (x e y), que indicam a posição de impressão dos rótulos no gráfico. 
 - Este é o motivo para não especificar x e y em ggplot()!
 
 ]
@@ -1225,6 +1240,76 @@ data_top %>%
 ]
 ]
 
+---
+name: rdv
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de barras - .black[Representando duas (ou mais) variáveis]
+]
+<br>
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r bar5, echo=T, eval=F}
+data_sample %>% 
+  filter(Nome_Especie != "Acapu") %>% 
+  ggplot() +                                          # 1ª camada
+  geom_bar(aes(x = Nome_Especie, fill = Selecao), 
+           position = "dodge",
+           stat = "count")                            # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- O gráfico mostra a contagem de árvores remanescente e explorar por espécie.
+- Use .blue[fill] para mapear diferentes cores para as categorias de "Selecao".
+- Use .blue[position] = "dodge" para que as barras sejam posicionadas lado a lado. (Padrão é "stack" = empilhadas)
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="bar5",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+
+
+---
+
+```{r bar6, echo=T, eval=F}
+data_sample %>% 
+  filter(Nome_Especie != "Acapu") %>% 
+  ggplot() +                                          # 1ª camada
+  geom_bar(aes(x = Nome_Especie, fill = Selecao), 
+           position = "dodge",
+           stat = "count")                            # 2ª camada
+
+
+# x <- data_sample2 %>%
+#   select(Nome_Especie, Selecao) %>% 
+#   tidyr::pivot_longer(!Nome_Especie,
+#                       names_to = "Variavel",
+#                       values_to = "Valor") %>% 
+#   ggplot() +
+#     geom_bar(mapping = aes(x = Nome_Especie, 
+#                            y = Valor,
+#                            fill = Variavel), 
+#              stat = "count")     
+  
+```
+
+
+
+
+
 
 ---
 
@@ -1238,7 +1323,6 @@ ggplot(data = data_sample, aes(Nome_Especie, V)) +
 
 
 ```{r}
-
 data_sample2 <- data %>% 
   filter(Nome_Especie %in% c("Acapu", "Casca seca", "Timborana"))
 
