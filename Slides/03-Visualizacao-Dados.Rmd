@@ -1435,8 +1435,87 @@ data_sample2 %>%
 ]
 ]
 
+---
+name: box
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### BoxPlots - .black[Compare distribuições]
+]
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r box1, echo=T, eval=F}
+data_sample2 %>%
+  ggplot() +                                 # 1ª camada    
+  geom_boxplot(aes(x = Nome_Especie, 
+                   y = DAP))                 # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- Use .green[geom_boxplot()] para criar gráficos BoxPlots.
+- Esse tipo de gráfico é recomendado quando deseja-se comparar a distribuições.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="box1",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### BoxPlots - .black[Reordenando os BoxPlots]
+]
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r box2, echo=T, eval=F}
+data_sample2 %>%
+    mutate(Nome_Especie = 
+           forcats::fct_reorder(
+             Nome_Especie, 
+             DAP, 
+             na.rm = T, 
+             .desc = T)
+           ) %>%
+  ggplot() +                                 # 1ª camada    
+  geom_boxplot(aes(x = Nome_Especie, 
+                   y = DAP))                 # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- Use .green[fct_reorder()] do pacote **forcats** para reordenar os níveis de fator da variável "Nome_Especie".
+- Repasse o comando dentro da função .green[mutate()] do **dplyr**.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="box2",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
 
 
+---
 
 
 
