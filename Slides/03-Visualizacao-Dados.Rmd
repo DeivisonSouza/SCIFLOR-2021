@@ -1517,6 +1517,47 @@ data_sample2 %>%
 
 ---
 
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### BoxPlots - .black[Adicione símbolo para representar a média]
+]
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r box3, echo=T, eval=F}
+data_sample2 %>%
+  ggplot(aes(x = Nome_Especie, 
+                   y = DAP)) +      # 1ª camada    
+  geom_boxplot() +                  # 2ª camada
+  stat_summary(fun.y = mean, 
+               geom = "point", 
+               shape = 20, 
+               size = 4,
+               color = "red"
+               )                    # 3ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- Use .green[stat_summary()] para adicionar pontos representativos da média para cada categoria de "Nome_Especie".
+- Use .blue[fun.y] para informar a estatística desejada.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="box3",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+
 
 
 ---
