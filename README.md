@@ -48,8 +48,7 @@ detalhados a seguir.
 
 # Conjunto de dados
 
-No minicurso **Introdução ao R para Análise de Dados** serão usados os
-seguintes conjuntos de dados:
+Serão usados os seguintes conjuntos de dados no minicurso:
 
 1 - **UPA07DVS.csv** → São dados de Inventário Florestal 100% (IF100%)
 realizado em Área de Manejo Florestal Sustentável na Amazônia
@@ -62,6 +61,11 @@ IF100%.
 |:-------------------------|:------------------------------------------------------------------------|
 | Slides/data/UPA07DVS.csv | <https://deivisonsouza.github.io/SCIFLOR-2021/Slides/data/UPA07DVS.csv> |
 | Slides/data/data.csv     | <https://deivisonsouza.github.io/SCIFLOR-2021/Slides/data/data.csv>     |
+
+# Arquivos .R com códigos dos slides
+
+Para facilitar a seguir estão os arquivos .R com os códigos dos slides e
+as aplicações em bases de dados.
 
 # Facilitador :deciduous\_tree:
 
