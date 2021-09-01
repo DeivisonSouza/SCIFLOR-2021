@@ -31,20 +31,37 @@
 Este repositório guarda os slides em .html, códigos R, arquivos .Rmd,
 figuras, conjunto de dados (e outros) utilizados no minicurso
 **Introdução ao R para Análise de Dados** ministrado pelo
-**Prof. Dr. Deivison Venicio Souza** no III Simpósio de Ciências
-Florestais do Espírito Santo da Universidade Federal do Espírito Santo
+**Prof. Dr. Deivison Venicio Souza** no **III Simpósio de Ciências
+Florestais do Espírito Santo** da Universidade Federal do Espírito Santo
 (UFES).
 
-# Programação do minicurso
+# Slides do minicurso
 
-A programação, o conteúdo e os slides do minicurso **Introdução ao R
-para Análise de Dados** estão detalhados a seguir.
+Os slides do minicurso **Introdução ao R para Análise de Dados** estão
+detalhados a seguir.
 
 | Slide                                       | Link                                                                                       |
 |:--------------------------------------------|:-------------------------------------------------------------------------------------------|
 | Slides/01-Introducao-R.html                 | <https://deivisonsouza.github.io/SCIFLOR-2021/Slides/01-Introducao-R.html>                 |
 | Slides/02-Importacao-Manipulacao-Dados.html | <https://deivisonsouza.github.io/SCIFLOR-2021/Slides/02-Importacao-Manipulacao-Dados.html> |
 | Slides/03-Visualizacao-Dados.html           | <https://deivisonsouza.github.io/SCIFLOR-2021/Slides/03-Visualizacao-Dados.html>           |
+
+# Conjunto de dados
+
+No minicurso **Introdução ao R para Análise de Dados** serão usados os
+seguintes conjuntos de dados:
+
+1 - **UPA07DVS.csv** → São dados de Inventário Florestal 100% (IF100%)
+realizado em Área de Manejo Florestal Sustentável na Amazônia
+brasileira.
+
+2 - **data.csv** → É simplesmente uma pequena amostra aleatória de
+IF100%.
+
+| Slide                    | Link                                                                    |
+|:-------------------------|:------------------------------------------------------------------------|
+| Slides/data/UPA07DVS.csv | <https://deivisonsouza.github.io/SCIFLOR-2021/Slides/data/UPA07DVS.csv> |
+| Slides/data/data.csv     | <https://deivisonsouza.github.io/SCIFLOR-2021/Slides/data/data.csv>     |
 
 # Facilitador :deciduous\_tree:
 

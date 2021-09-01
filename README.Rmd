@@ -68,11 +68,11 @@ list_github_files <- function(repo, dir = NULL, ext = NULL) {
 
 # Minicurso: Introdução ao R para Análise de Dados
 
-Este repositório guarda os slides em .html, códigos R, arquivos .Rmd, figuras, conjunto de dados (e outros) utilizados no minicurso **Introdução ao R para Análise de Dados** ministrado pelo **Prof. Dr. Deivison Venicio Souza** no III Simpósio de Ciências Florestais do Espírito Santo da Universidade Federal do Espírito Santo (UFES).
+Este repositório guarda os slides em .html, códigos R, arquivos .Rmd, figuras, conjunto de dados (e outros) utilizados no minicurso **Introdução ao R para Análise de Dados** ministrado pelo **Prof. Dr. Deivison Venicio Souza** no **III Simpósio de Ciências Florestais do Espírito Santo** da Universidade Federal do Espírito Santo (UFES).
 
-# Programação do minicurso
+# Slides do minicurso
 
-A programação, o conteúdo e os slides do minicurso **Introdução ao R para Análise de Dados** estão detalhados a seguir.
+Os slides do minicurso **Introdução ao R para Análise de Dados** estão detalhados a seguir.
 
 ```{r, echo = FALSE}
 knitr::kable(
@@ -82,6 +82,25 @@ knitr::kable(
   ) %>% 
     dplyr::filter(!stringr::str_detect(Slide,
                                        "_files/|_cache/|assets"))
+)
+```
+
+# Conjunto de dados
+
+No minicurso **Introdução ao R para Análise de Dados** serão usados os seguintes conjuntos de dados:
+
+1 - **UPA07DVS.csv** $\rightarrow$ São dados de Inventário Florestal 100% (IF100%) realizado em Área de Manejo Florestal Sustentável na Amazônia brasileira.
+
+2 - **data.csv** $\rightarrow$ É simplesmente uma pequena amostra aleatória de IF100%.
+
+```{r, echo = FALSE}
+knitr::kable(
+  tibble::tibble(
+    Slide = list_github_files(repo=repo, "Slides/data", "csv"),
+    Link = paste0("https://deivisonsouza.github.io/", repo, "/", Slide)
+  ) %>% 
+    dplyr::filter(!stringr::str_detect(Slide,
+                                       "file"))
 )
 ```
 
