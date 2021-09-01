@@ -218,7 +218,11 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 &nbsp;&nbsp;&nbsp;&nbsp;[6.6 - Representando duas (ou mais) variáveis](#rdv)
 
-[7 - Histograma de frequência](#hf)
+[7 - Histograma e polígonos de frequências](#hist)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[7.1 - Controlando a largura da barra](#clb)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[7.2 - Compare distribuições entre categorias](#pol)
 
 [8 - Boxplots](#box)
 
@@ -313,18 +317,18 @@ name: data
 .font80[
 .pull-left-4[
 ```{r data, echo=T, eval=F}
-data <- readr::read_csv(file="data/UPA07DVS.csv")
+data <- readr::read_csv(file="data/UPA07DVS.csv") %>%
+  mutate(DAP = round(CAP/pi, 2), 
+         V = round(((DAP^2*pi)/40000)*HC*0.7, 4))
 
 set.seed(1000)
 
 data_sample <- data %>% 
-  select(Nome_Especie, CAP, HC, QF, Selecao) %>% 
+  select(Nome_Especie, DAP, CAP, HC, QF, Selecao, V) %>% 
   filter(Nome_Especie %in% c('Acapu', 'Andiroba', 
                              'Maçaranduba', 'Goiabão')) %>% 
   group_by(Nome_Especie) %>% 
-  sample_n(50, replace = F) %>%
-  mutate(DAP = round(CAP/pi, 2), 
-         V = round(((DAP^2*pi)/40000)*HC*0.7, 4))
+  sample_n(50, replace = F)
 
 data_sample %>% CustomDT # apenas p/ uma saída elegante da tabela
 ```
@@ -1282,7 +1286,7 @@ data_sample %>%
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
-### Gráfico de barras - .black[Representando duas (ou mais) variáveis quantitativas]
+### Gráfico de barras - .black[Represente duas (ou mais) variáveis quantitativas]
 ]
 <br>
 
@@ -1322,6 +1326,116 @@ data_sample %>%
 ]
 
 ---
+name: hist
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Histogramas de frequências - .black[Distribuição diamétrica]
+]
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r hist1, echo=T, eval=F}
+data %>%
+  ggplot() +                                 # 1ª camada     
+  geom_histogram(mapping = aes(x = DAP))     # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- Gráfico mostra a distribuição de frequência de uma única variável contínua (DAP).
+- Use .green[geom_histogram()] para criar histogramas.
+- É necessário apenas especificar para "x" ou "y" a variável contínua.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="hist1",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+
+---
+name: clb
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Histogramas de frequências - .black[Controlando a largura das barras]
+]
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r hist2, echo=T, eval=F}
+data %>%
+  ggplot() +                                 # 1ª camada     
+  geom_histogram(mapping = aes(x = DAP),
+                 binwidth = 10)              # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- Use .blue[binwidth] para controlar a largura das barras.
+- Explore .blue[binwidth] para encontrar a melhor representação dos dados.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="hist2",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+name: pol
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Polígono de frequências - .black[Compare distribuições entre categorias]
+]
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r pol1, echo=T, eval=F}
+data_sample2 %>%
+  ggplot() +                                 # 1ª camada     
+  geom_freqpoly(mapping = aes(x = DAP, 
+                              colour = Nome_Especie),
+                 binwidth = 10)              # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **2ª camada**:
+
+- Use .green[geom_freqpoly()] para criar polígonos de frequências.
+- Esse tipo de gráfico é recomendado quando deseja-se comparar a distribuição entre os níveis de uma variável categórica.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="pol1",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+
 
 
 
