@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"e20afbb636a34c82b5f8213d08e523df","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xd1b4bc0a9464802a1ab4c46906b00cf","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -1554,10 +1554,82 @@ data_sample2 %&gt;%
 ]
 ]
 
-
 ---
 
+## Pacote ggplot2 (tidyverse)
 
+.font70[
+### BoxPlots - .black[Represente vários grupos]
+]
+
+.pull-right-4[
+.pull-top[
+.font70[
+
+```r
+data_sample %&gt;%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP,
+             color = Selecao)) +      # 1ª camada    
+  geom_boxplot()                      # 2ª camada
+```
+&lt;br&gt;
+
+👉 **1ª camada**:
+
+- Use .blue[color] = .brown[Selecao] para criar BoxPlots de cada categoria de "Selecao" para cada espécie.
+- Os BoxPlots das categorias serão diferenciados por cores.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+name: boxjitter
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### BoxPlots - .black[Adicione pontos representativos dos dados]
+]
+
+.pull-right-4[
+.pull-top[
+.font70[
+
+```r
+data_sample %&gt;%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP)) +                        # 1ª camada    
+  geom_boxplot() +                              # 2ª camada
+  geom_jitter(width = 0.1)                      # 3ª camada
+```
+&lt;br&gt;
+
+👉 **3ª camada**:
+
+- Use .green[geom_jitter()] para adicionar pontos representativos dos dados.
+- A .green[geom_jitter()] adiciona uma pequena variação aleatória à localização de cada ponto, evitando *overplotting* (dados sobrepostos).
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+
+---
 
 
 

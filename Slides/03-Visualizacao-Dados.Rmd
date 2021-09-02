@@ -1577,10 +1577,82 @@ data_sample2 %>%
 ]
 ]
 
-
 ---
 
+## Pacote ggplot2 (tidyverse)
 
+.font70[
+### BoxPlots - .black[Represente vários grupos]
+]
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r box4, echo=T, eval=F}
+data_sample %>%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP,
+             color = Selecao)) +      # 1ª camada    
+  geom_boxplot()                      # 2ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **1ª camada**:
+
+- Use .blue[color] = .brown[Selecao] para criar BoxPlots de cada categoria de "Selecao" para cada espécie.
+- Os BoxPlots das categorias serão diferenciados por cores.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="box4",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+name: boxjitter
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### BoxPlots - .black[Adicione pontos representativos dos dados]
+]
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r box5, echo=T, eval=F}
+data_sample %>%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP)) +                        # 1ª camada    
+  geom_boxplot() +                              # 2ª camada
+  geom_jitter(width = 0.1)                      # 3ª camada
+```
+<br>
+
+`r emo::ji("point_right")` **3ª camada**:
+
+- Use .green[geom_jitter()] para adicionar pontos representativos dos dados.
+- A .green[geom_jitter()] adiciona uma pequena variação aleatória à localização de cada ponto, evitando *overplotting* (dados sobrepostos).
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="box5",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+
+---
 
 
 
