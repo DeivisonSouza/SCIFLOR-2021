@@ -245,6 +245,12 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 &nbsp;&nbsp;&nbsp;&nbsp;[8.3 - Adicione símbolo para representar a média](#meanbox)
 
+&nbsp;&nbsp;&nbsp;&nbsp;[8.4 - Represente vários grupos](#rvg)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[8.5 - Adicione pontos representativos dos dados](#aprd)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[8.6 - Adicione cores aos pontos por categoria](#acpc)
+
 [9 - Gráfico em matriz de painéis (facet)](#facet)
 
 
@@ -1578,7 +1584,7 @@ data_sample2 %>%
 ]
 
 ---
-
+name: rvg
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
@@ -1615,7 +1621,7 @@ data_sample %>%
 ]
 
 ---
-name: boxjitter
+name: aprd
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
@@ -1653,10 +1659,44 @@ data_sample %>%
 
 
 ---
+name: acpc
+## Pacote ggplot2 (tidyverse)
 
+.font70[
+### BoxPlots - .black[Adicione cores aos pontos por categoria]
+]
 
+.pull-right-4[
+.pull-top[
+.font70[
+```{r box6, echo=T, eval=F}
+data_sample %>%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP,
+             color = Selecao)) +                # 1ª camada    
+  geom_boxplot(color="black",
+               outlier.shape = NA) +            # 2ª camada
+  geom_jitter(width = 0.1)                      # 3ª camada
+```
+<br>
 
+`r emo::ji("point_right")` **3ª camada**:
 
+- Use .blue[color] = .brown[Selecao] em .green[ggplot()] para mapear cores para os pontos representativos das categorias de "Selecao".
+- Use .blue[color] = .brown["black"] em .green[geom_boxplot].
+- Use .blue[outlier.shape] = .brown[NA] em .green[geom_boxplot] para ignorar os outliers.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="box6",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
 
 ---
 

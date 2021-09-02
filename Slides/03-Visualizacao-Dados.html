@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xd1b4bc0a9464802a1ab4c46906b00cf","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x09511df7367492daf6ffb14754e4a1f","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -232,6 +232,12 @@ Ao final desta terceira parte (.blue[Visualização de Dados com ggplot2]) esper
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[8.2 - Reordenando os BoxPlots](#rbox)
 
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[8.3 - Adicione símbolo para representar a média](#meanbox)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[8.4 - Represente vários grupos](#rvg)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[8.5 - Adicione pontos representativos dos dados](#aprd)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[8.6 - Adicione cores aos pontos por categoria](#acpc)
 
 [9 - Gráfico em matriz de painéis (facet)](#facet)
 
@@ -1555,7 +1561,7 @@ data_sample2 %&gt;%
 ]
 
 ---
-
+name: rvg
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
@@ -1592,7 +1598,7 @@ data_sample %&gt;%
 ]
 
 ---
-name: boxjitter
+name: aprd
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
@@ -1630,10 +1636,44 @@ data_sample %&gt;%
 
 
 ---
+name: acpc
+## Pacote ggplot2 (tidyverse)
 
+.font70[
+### BoxPlots - .black[Adicione cores aos pontos por categoria]
+]
 
+.pull-right-4[
+.pull-top[
+.font70[
 
+```r
+data_sample %&gt;%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP,
+             color = Selecao)) +                # 1ª camada    
+  geom_boxplot(color="black",
+               outlier.shape = NA) +            # 2ª camada
+  geom_jitter(width = 0.1)                      # 3ª camada
+```
+&lt;br&gt;
 
+👉 **3ª camada**:
+
+- Use .blue[color] = .brown[Selecao] em .green[ggplot()] para mapear cores para os pontos representativos das categorias de "Selecao".
+- Use .blue[color] = .brown["black"] em .green[geom_boxplot].
+- Use .blue[outlier.shape] = .brown[NA] em .green[geom_boxplot] para ignorar os outliers.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
 
 ---
 
