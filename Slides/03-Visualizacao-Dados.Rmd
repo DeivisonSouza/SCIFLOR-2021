@@ -224,15 +224,32 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 &nbsp;&nbsp;&nbsp;&nbsp;[7.2 - Compare distribuições entre categorias](#pol)
 
-[8 - Boxplots](#box)
-
-[9 - Gráfico em matriz de painéis (facet)](#facet)
-
 ]
 ]
 ]
 
 ---
+
+<br>
+## Conteúdo
+
+.pull-left-10[
+.font80[
+**Parte 1 - Visualização de dados com .orange[ggplot2]** .green[**(cont.)**]
+
+[8 - Boxplots](#box)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[8.1 - Compare distribuições](#box)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[8.2 - Reordenando os BoxPlots](#rbox)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[8.3 - Adicione símbolo para representar a média](#meanbox)
+
+[9 - Gráfico em matriz de painéis (facet)](#facet)
+
+
+]
+]
 
 
 .pull-right-10[
@@ -1475,7 +1492,7 @@ data_sample2 %>%
 ]
 
 ---
-
+name: rbox
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
@@ -1519,7 +1536,7 @@ data_sample2 %>%
 
 
 ---
-
+name: meanbox
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
