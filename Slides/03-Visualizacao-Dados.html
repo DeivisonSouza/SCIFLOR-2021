@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x09511df7367492daf6ffb14754e4a1f","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xe65d9825e23427d8fcf7b23a9edb91e","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -120,7 +120,7 @@ top:1.5em;right:0.6em;
 ##### Faculdade de Engenharia Florestal
 ##### E-mail: deivisonvs@ufpa.br
 &lt;br&gt;
-##### 02/setembro/2021
+##### 03/setembro/2021
 
 ---
 
@@ -239,7 +239,7 @@ Ao final desta terceira parte (.blue[Visualização de Dados com ggplot2]) esper
 
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[8.6 - Adicione cores aos pontos por categoria](#acpc)
 
-[9 - Gráfico em matriz de painéis (facet)](#facet)
+[9 - Represente categorias em matriz de paineis (facet)](#facet)
 
 
 ]
@@ -1672,6 +1672,133 @@ data_sample %&gt;%
 .pull-left-4[
 .font80[
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+
+---
+name: facet
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Facetas - .black[Matriz de painéis (facet)]
+]
+
+--
+
+.pull-right-4[
+.pull-top[
+.font70[
+
+```r
+data_sample %&gt;%
+  ggplot() +                    # 1ª camada   
+  geom_point(
+    mapping = aes(
+      x = DAP,
+      y = V,
+      color = Nome_Especie))    # 2ª camada
+```
+&lt;br&gt;
+**Primeiro, vamos resgatar um gráfico de pontos que fizemos anteriormente...**
+&lt;br&gt;
+
+- Neste gráfico, a estética de cor (color) foi usada para diferenciar as categorias da variável "Nome_Especie".
+- Mas, veja que existe uma razoável sobreposição de grupos. Isso dificulta uma clara e fácil separação destes.
+- **Alternativa**: Use .green[facet_grid()] ou .green[facet_wrap()] para diferenciar grupos.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+
+---
+name: rcv
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Facetas - .black[Represente categorias de uma varíavel]
+]
+
+--
+
+.pull-right-4[
+.pull-top[
+.font70[
+
+```r
+data_sample %&gt;%
+  ggplot(aes(x = DAP, y = V)) +       # 1ª camada   
+  geom_point() +                      # 2ª camada
+  facet_grid(. ~ Nome_Especie)        # 3ª camada
+```
+&lt;br&gt;
+
+- Use .green[facet_grid()] para diferenciar grupos de uma (ou mais) variáveis.
+- Forneça uma fórmula para .green[facet_grid()], como: **vertical ~ horizontal**
+&lt;br&gt;&lt;br&gt;
+
+<span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente**
+- **Modifique**: .green[facet_grid(] .brown[Nome_Especie ~ .].green[)]
+- **Adicione**: .green[geom_smooth()] 
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+name: rcdv
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Facetas - .black[Represente categorias de duas (ou mais) variáveis]
+]
+
+--
+
+.pull-right-4[
+.pull-top[
+.font70[
+
+```r
+data_sample %&gt;%
+  ggplot(aes(x = DAP, y = V)) +       # 1ª camada   
+  geom_point() +                      # 2ª camada
+  facet_grid(Selecao ~ Nome_Especie)  # 3ª camada
+```
+&lt;br&gt;
+
+- Adicione em .green[facet_grid()] mais uma variável para mapear.
+- Um matriz de subgráficos é criada com dados dos níveis/categorias das variáveis “Selecao” e “Nome_Especie”
+- 
+&lt;br&gt;&lt;br&gt;
+
+<span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente**
+- **Modifique**: .green[facet_grid(] .brown[Nome_Especie ~ Selecao].green[)]
+- **Adicione**: .green[geom_smooth()] 
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 

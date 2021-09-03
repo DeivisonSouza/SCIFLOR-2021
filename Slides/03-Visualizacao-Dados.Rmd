@@ -251,7 +251,7 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 &nbsp;&nbsp;&nbsp;&nbsp;[8.6 - Adicione cores aos pontos por categoria](#acpc)
 
-[9 - Gráfico em matriz de painéis (facet)](#facet)
+[9 - Represente categorias em matriz de paineis (facet)](#facet)
 
 
 ]
@@ -1694,6 +1694,133 @@ data_sample %>%
 .pull-left-4[
 .font80[
 ```{r ref.label="box6",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+
+---
+name: facet
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Facetas - .black[Matriz de painéis (facet)]
+]
+
+--
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r fac, echo=T, eval=F}
+data_sample %>%
+  ggplot() +                    # 1ª camada   
+  geom_point(
+    mapping = aes(
+      x = DAP,
+      y = V,
+      color = Nome_Especie))    # 2ª camada
+```
+<br>
+**Primeiro, vamos resgatar um gráfico de pontos que fizemos anteriormente...**
+<br>
+
+- Neste gráfico, a estética de cor (color) foi usada para diferenciar as categorias da variável "Nome_Especie".
+- Mas, veja que existe uma razoável sobreposição de grupos. Isso dificulta uma clara e fácil separação destes.
+- **Alternativa**: Use .green[facet_grid()] ou .green[facet_wrap()] para diferenciar grupos.
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="fac",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+
+---
+name: rcv
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Facetas - .black[Represente categorias de uma varíavel]
+]
+
+--
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r fac1, echo=T, eval=F}
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +       # 1ª camada   
+  geom_point() +                      # 2ª camada
+  facet_grid(. ~ Nome_Especie)        # 3ª camada
+```
+<br>
+
+- Use .green[facet_grid()] para diferenciar grupos de uma (ou mais) variáveis.
+- Forneça uma fórmula para .green[facet_grid()], como: **vertical ~ horizontal**
+<br><br>
+
+`r anicon::faa("hand-point-down", animate="vertical")` **Experimente**
+- **Modifique**: .green[facet_grid(] .brown[Nome_Especie ~ .].green[)]
+- **Adicione**: .green[geom_smooth()] 
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="fac1",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+name: rcdv
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Facetas - .black[Represente categorias de duas (ou mais) variáveis]
+]
+
+--
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r fac2, echo=T, eval=F}
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +       # 1ª camada   
+  geom_point() +                      # 2ª camada
+  facet_grid(Selecao ~ Nome_Especie)  # 3ª camada
+```
+<br>
+
+- Adicione em .green[facet_grid()] mais uma variável para mapear.
+- Um matriz de subgráficos é criada com dados dos níveis/categorias das variáveis “Selecao” e “Nome_Especie”
+- 
+<br><br>
+
+`r anicon::faa("hand-point-down", animate="vertical")` **Experimente**
+- **Modifique**: .green[facet_grid(] .brown[Nome_Especie ~ Selecao].green[)]
+- **Adicione**: .green[geom_smooth()] 
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="fac2",fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
