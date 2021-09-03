@@ -1875,7 +1875,6 @@ data_sample %>%
 ]
 
 ---
-
 name: mtrf
 ## Pacote ggplot2 (tidyverse)
 
