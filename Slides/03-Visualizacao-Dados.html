@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xe65d9825e23427d8fcf7b23a9edb91e","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x12398feca2c417f8d4577834f1e4766","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -239,8 +239,17 @@ Ao final desta terceira parte (.blue[Visualização de Dados com ggplot2]) esper
 
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[8.6 - Adicione cores aos pontos por categoria](#acpc)
 
-[9 - Represente categorias em matriz de paineis (facet)](#facet)
+[9 - Matriz de painéis (facet)](#facet)
 
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[9.1 - Represente categorias de uma varíavel](#rcv)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[9.2 - Represente categorias de duas (ou mais) variáveis](#rcdv)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[9.3 - Escalas dos eixos livres](#eel)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[9.4 - Modificando o texto do rótulo da faceta](#mtrf)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[9.5 - XXXXXXXXXXXXXX](#acpc)
 
 ]
 ]
@@ -1784,7 +1793,6 @@ data_sample %&gt;%
 
 - Adicione em .green[facet_grid()] mais uma variável para mapear.
 - Um matriz de subgráficos é criada com dados dos níveis/categorias das variáveis “Selecao” e “Nome_Especie”
-- 
 &lt;br&gt;&lt;br&gt;
 
 <span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente**
@@ -1799,6 +1807,93 @@ data_sample %&gt;%
 .pull-left-4[
 .font80[
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+name: eel
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Facetas - .black[Escalas dos eixos livres]
+]
+
+--
+
+.pull-right-4[
+.pull-top[
+.font70[
+
+```r
+data_sample %&gt;%
+  ggplot(aes(x = DAP, y = V)) +       # 1ª camada   
+  geom_point() +                      # 2ª camada
+  facet_grid(Selecao ~ Nome_Especie,
+             scales="free")           # 3ª camada
+```
+&lt;br&gt;
+
+- Por padrão, .green[facet_grid()] usa .blue[scales]=.brown["fixed"]. Isso significa que as escalas dos eixos (x e y) são constantes em todos os subgráficos.
+- Use .blue[scales]=.brown["free"] para permitir que as escalas sejam independentes, ou seja, possam variar para cada subgráfico.
+&lt;br&gt;&lt;br&gt;
+
+<span>&lt;i class="fas  fa-hand-point-down faa-vertical animated "&gt;&lt;/i&gt;</span> **Experimente**
+- **Modifique**: .blue[scales]=.brown["free_x"] e .blue[scales]=.brown["free_y"]. O que acontece?
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+name: mtrf
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Facetas - .black[Modificando o texto do rótulo da faceta]
+]
+
+--
+
+.pull-right-4[
+.pull-top[
+.font70[
+
+```r
+
+labels1 &lt;- c(Remanescente = "Rem.", Explorar = "Exp.")
+labels2 &lt;- c(Acapu = "Vouacapoua", Andiroba = "Carapa",
+             `Goiabão` = "Pouteria", `Maçaranduba` = "Manilkara")
+
+data_sample %&gt;%
+  ggplot(aes(x = DAP, y = V)) +                 # 1ª camada   
+  geom_point() +                                # 2ª camada
+  facet_grid(Selecao ~ Nome_Especie,
+             scales = "free",
+             `labeller` = 
+               labeller(Selecao = labels1,
+                        Nome_Especie = labels2)) # 3ª camada
+```
+&lt;br&gt;
+
+- Use .blue[labeller] para modificar os rótulos das facetas.
+
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 

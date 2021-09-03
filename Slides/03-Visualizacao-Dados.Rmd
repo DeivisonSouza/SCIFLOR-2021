@@ -251,8 +251,17 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 &nbsp;&nbsp;&nbsp;&nbsp;[8.6 - Adicione cores aos pontos por categoria](#acpc)
 
-[9 - Represente categorias em matriz de paineis (facet)](#facet)
+[9 - Matriz de painéis (facet)](#facet)
 
+&nbsp;&nbsp;&nbsp;&nbsp;[9.1 - Represente categorias de uma varíavel](#rcv)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[9.2 - Represente categorias de duas (ou mais) variáveis](#rcdv)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[9.3 - Escalas dos eixos livres](#eel)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[9.4 - Modificando o texto do rótulo da faceta](#mtrf)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[9.5 - XXXXXXXXXXXXXX](#acpc)
 
 ]
 ]
@@ -1806,7 +1815,6 @@ data_sample %>%
 
 - Adicione em .green[facet_grid()] mais uma variável para mapear.
 - Um matriz de subgráficos é criada com dados dos níveis/categorias das variáveis “Selecao” e “Nome_Especie”
-- 
 <br><br>
 
 `r anicon::faa("hand-point-down", animate="vertical")` **Experimente**
@@ -1821,6 +1829,93 @@ data_sample %>%
 .pull-left-4[
 .font80[
 ```{r ref.label="fac2",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+name: eel
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Facetas - .black[Escalas dos eixos livres]
+]
+
+--
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r fac3, echo=T, eval=F}
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +       # 1ª camada   
+  geom_point() +                      # 2ª camada
+  facet_grid(Selecao ~ Nome_Especie,
+             scales="free")           # 3ª camada
+```
+<br>
+
+- Por padrão, .green[facet_grid()] usa .blue[scales]=.brown["fixed"]. Isso significa que as escalas dos eixos (x e y) são constantes em todos os subgráficos.
+- Use .blue[scales]=.brown["free"] para permitir que as escalas sejam independentes, ou seja, possam variar para cada subgráfico.
+<br><br>
+
+`r anicon::faa("hand-point-down", animate="vertical")` **Experimente**
+- **Modifique**: .blue[scales]=.brown["free_x"] e .blue[scales]=.brown["free_y"]. O que acontece?
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="fac3",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+
+name: mtrf
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Facetas - .black[Modificando o texto do rótulo da faceta]
+]
+
+--
+
+.pull-right-4[
+.pull-top[
+.font70[
+```{r fac4, echo=T, eval=F}
+
+labels1 <- c(Remanescente = "Rem.", Explorar = "Exp.")
+labels2 <- c(Acapu = "Vouacapoua", Andiroba = "Carapa",
+             `Goiabão` = "Pouteria", `Maçaranduba` = "Manilkara")
+
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +                 # 1ª camada   
+  geom_point() +                                # 2ª camada
+  facet_grid(Selecao ~ Nome_Especie,
+             scales = "free",
+             `labeller` = 
+               labeller(Selecao = labels1,
+                        Nome_Especie = labels2)) # 3ª camada
+```
+<br>
+
+- Use .blue[labeller] para modificar os rótulos das facetas.
+
+]
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="fac4",fig.width=6, fig.height=5, echo=F, eval=T}
 ```
 ]
 ]
