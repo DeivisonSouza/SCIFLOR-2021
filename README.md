@@ -67,6 +67,10 @@ IF100%.
 Para facilitar a seguir estão os arquivos .R com os códigos dos slides e
 as aplicações em bases de dados.
 
+| Slide                    | Link                                                                    |
+|:-------------------------|:------------------------------------------------------------------------|
+| Slides/01-Introducao-R.R | <https://deivisonsouza.github.io/SCIFLOR-2021/Slides/01-Introducao-R.R> |
+
 # Facilitador :deciduous\_tree:
 
 <div>

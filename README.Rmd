@@ -108,6 +108,19 @@ knitr::kable(
 
 Para facilitar a seguir estão os arquivos .R com os códigos dos slides e as aplicações em bases de dados.
 
+```{r, echo = FALSE}
+knitr::kable(
+  tibble::tibble(
+    Slide = list_github_files(repo=repo, "Slides/", "R"),
+    Link = paste0("https://deivisonsouza.github.io/", repo, "/", Slide)
+  ) %>% 
+    dplyr::filter(!stringr::str_detect(Slide,
+                                       "file"))
+)
+```
+
+
+
 
 # Facilitador :deciduous_tree:
 <div>
