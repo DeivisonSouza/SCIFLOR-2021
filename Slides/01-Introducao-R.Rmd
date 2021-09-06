@@ -1298,7 +1298,7 @@ Diametro[Diametro >= 50]
 
 .pull-left-4[
 .font90[
-**Extração por indexação lógica**
+
 ```{r Vsub, echo=T, eval=F}
 Especie <- c("Mogno", "Cedro", "Ipe", NA, NA)
 Diametro <- c(23.0, 27.0, 33.6, 42.6, 52.1)
