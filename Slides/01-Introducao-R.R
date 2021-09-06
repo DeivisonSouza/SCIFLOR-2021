@@ -6,7 +6,9 @@
 # Instituto: Universidade Federal do Pará (UFPA)
 #-----------------------------------------------------------------------------------
 
-# Estrutura de dados na linguagem R
+##############################################
+# Parte 2 - Estrutura de dados na linguagem R
+##############################################
 
 #---------------------------------------
 # 1 - Vetores
@@ -245,4 +247,140 @@ class(data)
 #---------------------------------------
 # 4 - Listas
 #---------------------------------------
+
+# Pode reunir diferentes estruturas de dados (vetores, matrizes,
+# data frames e inclusive outras listas).
+# O R-base possui a função list().
+# Se os objetos já existem pode-se simplesmente adicioná-los à função list().
+
+#---------------------------------------
+# 4.1 - Função list()
+
+## 4.1.1 - Cria uma lista a partir de vetores já existentes
+
+especie <- c("Acapu", "Mogno", "Cedro", "Ipe")
+diametro <- c(23.0, 27.0, 33.6, 52.6)
+altura <- c(8.4, 8.7, 9.1, 18.2)
+
+# Sem atribuir nomes
+list1 <- list(especie, diametro, altura)
+
+# Atribuindo nomes aos elementos da lista
+# Nomear os componentes da lista facilita a identificação e a indexação.
+list2 <- list(Esp = especie, DAP = diametro, H = altura)
+
+# 4.1.2 - Uma lista com diferentes estruturas de dados
+diametro <- c(23.0, 27.0, 33.6, 52.6)
+
+mat <-
+  matrix(data=1:6, nrow=2,
+         ncol=3, byrow=TRUE,
+         dimnames=list(c("L1", "L2"),
+                       c("C1", "C2", "C3")))
+invFlor <-
+  data.frame(
+    especie=c("Acapu", "Mogno", "Cedro", "Ipe"),
+    cortar=c("Não", "Não", "Não", "Sim"),
+    stringsAsFactors=FALSE)
+
+# Criando lista nomeada
+list3 <- list(Vetor = diametro,
+               Matriz = mat,
+               DataFrame = invFlor)
+
+# Explore as funções length() e names().
+
+# 4.1.3 - Coagindo lista para data frame
+# Uma lista pode ser transformada em um data frame usando a
+# função as.data.frame().
+# Mas, para isso a lista a ser transformada deve possuir vetores de
+# igual comprimento.
+
+# Criando lista nomeada
+list4 <- list(
+  Esp = c("Acapu", "Mogno", "Cedro", "Ipe"),
+  DAP = c(23.0, 27.0, 33.6, 52.6),
+  H = c(8.4, 8.7, 9.1, 18.2))
+
+as.data.frame(list4)
+
+##############################################
+# Parte 3 - Indexação no R
+##############################################
+
+# Quando o interesse é extrair, excluir ou substituir elementos de objetos
+# é possível fazê-lo por meio de algum mecanismo de indexação.
+# Operadores de indexação: [ ], [[ ]] e $.
+# O operador $: permite extrair componentes nomeados de uma lista ou data frame.
+
+#---------------------------------------
+# 1 - Indexação de vetores
+
+# Para extrair, excluir ou substituir elementos de um vetor usa-se o comando [i].
+# O índice i indica a posição do elemento no objeto, e inicia no valor 1.
+# A função c() pode ser usada para concatenar as posições dentro de colchetes.
+
+# 1.1 - Extração
+# 1.1.1 - Extração por indexação positiva
+#--------------------------------------------
+
+# cria os vetores
+especie <- c("Acapu", "Mogno", "Cedro", "Ipe")
+diametro <- c(23.0, 27.0, 33.6, 42.6)
+
+# Um elemento
+especie[2]
+
+# Múltiplos elementos (sequenciais)
+diametro[1:3]
+
+# Múltiplos elementos (alternados)
+especie[c(1,3,4)]
+
+# Múltiplos elementos usando seq()
+diametro[seq(from = 1, to = 4, by = 1)]
+
+# 1.1.2 - Extração por indexação negativa
+#--------------------------------------------
+
+# Um elemento
+especie[-2]
+
+# Múltiplos elementos (sequenciais)
+diametro[-(1:3)]
+
+# Múltiplos elementos (alternados)
+especie[-c(1,3,5)]
+
+# 1.1.3 - Extração por indexação lógica
+#--------------------------------------------
+
+Especie <- c("Mogno", "Cedro", "Ipe", "Tauari")
+Diametro <- c(23.0, 27.0, 33.6, 42.6, 52.1)
+
+# Extrai árvores que não sejam Tauari
+Especie[Especie != "Tauari"]
+
+# Diâmetros >= 50cm.
+Diametro[Diametro >= 50]
+
+# 1.2 - Substituição
+#--------------------------------------------
+Especie <- c("Mogno", "Cedro", "Ipe", NA, NA)
+Diametro <- c(23.0, 27.0, 33.6, 42.6, 52.1)
+
+# Substitui os NAs
+Especie[is.na(Especie)] <- "NI"
+print(Especie)
+
+# Altera posição 3, e atribui 33.5.
+
+Diametro[3] <- 33.5; print(Diametro)
+
+# Altera posições 4 e 5, e atribui 55.3 e 63.4
+Diametro[c(4, 5)] <- c(55.3, 63.4); print(Diametro)
+
+
+#---------------------------------------
+# 2 - Indexação de matrizes
 
