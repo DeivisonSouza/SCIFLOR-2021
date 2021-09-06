@@ -384,3 +384,171 @@ Diametro[c(4, 5)] <- c(55.3, 63.4); print(Diametro)
 #---------------------------------------
 # 2 - Indexação de matrizes
 
+# Para **extrair**, **excluir** ou **substituir** elementos de uma matriz usa-se o comando [ i, j ].
+# O índice i indica as linhas e o índice j indica as colunas da matriz.
+# Se o argumento for do tipo [ i, ] ter-se-á acesso a todos os elementos da linha i especificada.
+# Se o argumento for do tipo [ , j ] ter-se-á acesso a todos os elementos da coluna j especificada.
+# Se nem o número da linha e nem o número da coluna é informado [ , ]: a matriz é acessada por completa.
+
+# 2.1 - Extração
+# 2.1.1 - Extração por indexação positiva
+#--------------------------------------------
+
+# Cria uma matriz
+(mat <-
+   matrix(1:6, nrow=2, ncol=3, byrow = TRUE,
+          dimnames = list(c("L1", "L2"),
+                          c("C1", "C2", "C3"))))
+
+# extrai o elemento da linha 2 e coluna 2.
+mat[2, 2]
+
+# extrai todos elementos da linha 2.
+mat[2, ]
+
+# extrai todos elementos da coluna 3.
+mat[, 3]
+
+# extrai os elementos de L1 e L2, C2 e C3.
+mat[c(1, 2), c(2, 3)]
+
+# 2.1.2 - Extração por indexação negativa
+#--------------------------------------------
+
+# Cria uma matriz
+(mat <-
+   matrix(1:6, nrow=2, ncol=3, byrow = TRUE,
+          dimnames = list(c("L1", "L2"),
+                          c("C1", "C2", "C3"))))
+
+# exclui as colunas 1 e 3.
+mat[, c(-1, -3)]
+
+# exclui apenas a coluna 2
+mat[, -2]
+
+# 2.2 - Substituição de elementos na matriz
+#--------------------------------------------
+
+# Cria uma matriz
+(mat <-
+   matrix(1:6, nrow=2, ncol=3, byrow = TRUE,
+          dimnames = list(c("L1", "L2"),
+                          c("C1", "C2", "C3"))))
+
+# Substitui o elemento da posição 1 por zero.
+mat[1, 1] <- 0; print(mat)
+
+# Substitui os elementos das posições 1 e 5 por zero.
+mat[c(1,5)] <- c(0,0); print(mat)
+
+#---------------------------------------
+# 3 - Indexação de data frames
+
+# A **extração**, **inclusão** ou **substituição** de vetores em um data frame
+# pode ser feita usando os comandos: [i, j] e $.
+# O comando $ é usual para colunas nomeadas.
+# O comando [ i, j ] segue a lógica de matrizes. Em que, i = linhas e j = colunas.
+# Operadores lógicos (&, |, !) e de comparação (<, >, >=, <=, !=, ==, %in%)
+# podem ser usados para extrair informações específicas do data frame.
+# As funções attach() (attachment) e with() também podem ser usadas para
+# facilitar o acesso à colunas de data frames.
+
+
+# 3.1 - Extração usando o comando [i, j]
+#--------------------------------------------
+
+invFlor <-
+   data.frame(
+     especie=c("Acapu", "Mogno", "Cedro", "Tauari"),
+     diametro=c(39.5, 45.6, 49.5, 70.4),
+     altura=c(10.5, 13.6, 14.5, 17.4),
+     cortar=c("Não", "Não", "Não", "Sim"),
+     stringsAsFactors=FALSE)
+
+# Extrai elementos da linha 2 e coluna 1
+invFlor[2, 1]
+
+# Extrai todos os elementos da coluna 2
+invFlor[, 2]
+
+# Extrai todos os elementos da coluna 2
+# Porém, conserve a saída como data frame
+invFlor[, 2, drop=FALSE]
+
+# Extrai colunas pelo nome
+invFlor[, "especie"]
+
+# Extrai grupos de colunas
+# Observe a ordem de impressão das variáveis
+invFlor[, c(4,3)]
+invFlor[, c("cortar", "especie")]
+
+# 3.2 - Extração usando o comando $
+#--------------------------------------------
+
+# extrai a coluna “diâmetro”
+invFlor$diametro
+
+# Acessa a coluna “altura”
+# e extrai os elementos da posição [4, 5]
+invFlor$altura[c(3,4)]
+
+# 3.3 - Extração usando o comandos $ + Operadores de comparação
+#--------------------------------------------
+# Operadores de comparação (<, >, >=, <=, !=, ==, %in%)
+
+(invFlor <-
+   data.frame(
+     especie=c("Acapu", "Mogno", "Cedro", "Tauari"),
+     diametro=c(39.5, 45.6, 49.5, 70.4),
+     altura=c(10.5, 13.6, 14.5, 17.4),
+     cortar=c("Não", "Não", "Não", "Sim"),
+     stringsAsFactors=FALSE))
+
+# Quais árvores têm mais de 14 m?
+invFlor$altura > 14
+
+# Quais árvores têm diâmetros >= 50cm?
+invFlor$diametro >= 50
+
+# Quais árvores estão previstas para corte?
+invFlor$cortar == "Sim"
+
+################################# Importante! ##############################
+# Observe que as saídas dos comandos são respostas booleanas (TRUE ou FALSE).
+# No entanto, na maioria das vezes deseja-se extrair os elementos.
+############################################################################
+
+# 3.4 - Extração usando os comandos: [i, j] + $ + Operadores (lógicos e comparação)
+#--------------------------------------------
+
+# Quais árvores têm mais de 14 m?
+invFlor[invFlor$altura > 14, ]
+
+# Quais árvores têm diâmetros >= 50cm?
+invFlor[invFlor$diametro >= 50, ]
+
+# Quais árvores estão previstas para corte?
+invFlor[invFlor$cortar == "Sim", ]
+
+# Quais árvores têm diametro < 50
+# e não estão previstas para corte?
+invFlor[invFlor$diametro < 50 & invFlor$cortar == "Não", ]
+
+# 3.5 - Adição de linhas e colunas
+#--------------------------------------------
+
+# Cria um vetor sobre proteção
+protegida <- c("Sim", "Sim", "Sim", "Não")
+
+# Adiciona como nova coluna
+invFlor$protegida <- protegida
+print(invFlor)
+
+# Substitui linha na posição 1
+invFlor[1,] <- c("Acapu", 50.9, 15.6, "Não", "Sim")
+print(invFlor)
+
+#---------------------------------------
+# 4 - Indexação de listas
