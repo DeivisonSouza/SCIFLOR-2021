@@ -1814,8 +1814,6 @@ list$Inventario[diametro > 50 & cortar == "Sim", ]
 ]
 
 ---
-
----
 layout: false
 name: conc
 class: inverse, top, right

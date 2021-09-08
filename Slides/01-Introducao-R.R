@@ -190,7 +190,6 @@ mat.6 <- matrix(1:6, nrow=3, ncol=3, byrow = TRUE,
 #---------------------------------------
 # 3 - Data Frames
 #---------------------------------------
-
 # São caracterizados por possuírem duas dimensões (linhas e colunas).
 # Pode-se reunir vetores de diferentes classes, com a condição de possuírem
 # igual comprimento.
@@ -315,6 +314,7 @@ as.data.frame(list4)
 
 #---------------------------------------
 # 1 - Indexação de vetores
+#---------------------------------------
 
 # Para extrair, excluir ou substituir elementos de um vetor usa-se o comando [i].
 # O índice i indica a posição do elemento no objeto, e inicia no valor 1.
@@ -383,6 +383,7 @@ Diametro[c(4, 5)] <- c(55.3, 63.4); print(Diametro)
 
 #---------------------------------------
 # 2 - Indexação de matrizes
+#---------------------------------------
 
 # Para **extrair**, **excluir** ou **substituir** elementos de uma matriz usa-se o comando [ i, j ].
 # O índice i indica as linhas e o índice j indica as colunas da matriz.
@@ -444,7 +445,7 @@ mat[c(1,5)] <- c(0,0); print(mat)
 
 #---------------------------------------
 # 3 - Indexação de data frames
-
+#---------------------------------------
 # A **extração**, **inclusão** ou **substituição** de vetores em um data frame
 # pode ser feita usando os comandos: [i, j] e $.
 # O comando $ é usual para colunas nomeadas.
@@ -552,3 +553,226 @@ print(invFlor)
 
 #---------------------------------------
 # 4 - Indexação de listas
+#---------------------------------------
+# A indexação de lista pode ser feita com uso dos comandos [[ ]] e $ .
+# Para acessar subíndices dos componentes da lista pode-se fazer: [[ ]][ ] .
+# O comando $ poderá ser usado quando a lista tiver seus componentes nomeados.
+
+# 4.1 - Lista com níveis superiores não nomeados
+#--------------------------------------------
+
+diametro <- c(23.0, 27.0, 33.6, 52.6)
+
+invFlor <-
+  data.frame(
+    especie=c("Acapu", "Mogno", "Cedro", "Tauari"),
+    cortar=c("Não", "Não", "Não", "Sim"),
+    stringsAsFactors=FALSE)
+
+# Criando lista não nomeada
+list <- list(diametro, invFlor)
+
+# extrai o componente 1
+list[[1]]
+
+# extrai a posição 1 do componente 2
+list[[2]][1]
+list[[2]]$especie
+#list[[2]]["especie"]
+
+# 4.2 - Lista com níveis superiores nomeados
+#--------------------------------------------
+
+diametro <- c(23.0, 27.0, 33.6, 52.6)
+
+invFlor <-
+  data.frame(
+    especie=c("Acapu", "Mogno", "Cedro", "Tauari"),
+    cortar=c("Não", "Não", "Não", "Sim"),
+    stringsAsFactors=FALSE)
+
+# Criando lista não nomeada
+list <- list(DAP = diametro, Inventario = invFlor)
+
+# extrai o componente da posição 1
+list$DAP
+
+# extrai a coluna espécie do componente 2
+list$Inventario$especie
+
+# extrai as árvores para corte com DAP > 50
+list$Inventario[diametro > 50 & cortar == "Sim", ]
+
+##############################################
+# Parte 4 - Um pouco mais sobre o R
+##############################################
+
+# 1 - Operadores no R
+
+# Na linguagem R existe três tipos de operadores
+# Os operadores lógicos e relacionais operam com duas
+# respostas possíveis: `TRUE` (verdadeiro) ou `FALSE` (falso).
+
+#--------------------------------------------
+# 1.1 - **Operadores Aritméticos**
+
+  # | Símbolo | Descrição                |
+  # |---------|--------------------------|
+  # | +       | Adição                   |
+  # | -       | Subtração                |
+  # | *       | Multiplicação            |
+  # | /       | Divisão                  |
+  # | ^ ou ** | Potenciação              |
+  # | %%      | Resto da divisão         |
+  # | %/%     | Parte inteira da divisão |
+
+# Operadores usuais para realizar operações matemáticas.
+
+2+3             # adição
+4*9             # multiplicação
+20/5            # divisão
+32-10           # subtração
+5^3             # potenciação (exponenciação)
+10%%3           # resto da divisão
+10%/%3          # Parte inteira da divisão
+
+(x <- c(2,4,6,8))
+(y <- c(1,5,9,0))
+
+x + y
+y/x+2
+
+# Regra PEMDAS (Parênteses, Exponenciação, Multiplicação, Divisão, Adição e Subtração).
+(2+3)*10
+4*3**3
+5+8-4*9/3
+5+(8-4)*9/3
+2^3*4+6/2
+2^3*(4+6)/2
+
+#--------------------------------------------
+# 1.2 - **Operadores Relacionais (ou Comparação)**
+
+  # | Símbolo | Descrição                |
+  # |---------|--------------------------|
+  # | <       | Menor do que...          |
+  # | >       | Maior do que...          |
+  # | <=      | Menor ou igual do que... |
+  # | >=      | Maior ou igual do que... |
+  # | ==      | Igual a...               |
+  # | !=      | Diferente de...          |
+  # | %in%    | Contém                   |
+
+# Operadores relacionais são usados para realizar comparações de valores.
+
+# vetor com um elemento
+(x <- 20)
+(y <- 10)
+(v <- 1)
+
+# vetor com mais de um elemento
+(z <- c(1:5))
+(w <- c(5:1))
+
+x > y        # x é maior do que y?
+x < y        # x é menor do que y?
+x != y       # x é diferente de y?
+y <= x       # y é menor ou igual a x?
+y >= x       # y é maior ou igual a x?
+z == w       # elementos de z são iguais aos de w?
+z != w       # elementos de z são dif. aos de w?
+x >= w       # x é >= aos elementos de w?
+w %in% v     # w contém v?
+
+
+# Um pouco mais sobre o operador %in%
+
+# É um operador binário que retorna um vetor booleano (TRUE ou FALSE) de tamanho
+# sempre igual ao vetor esquerdo.
+
+# Considere um vetor de nomes de espécies florestais...
+
+especie <-
+  c("Vouacapoua-americana", "Cedrela-odorata",
+    "Bertholletia-excelsa", "Dinizia-excelsa Ducke",
+    "Bertholletia-excelsa", "Manilkara-huberi",
+    "Couratari-guianensis")
+
+# Agora, você deseja descobrir se esse vetor contém *Bertholletia excelsa* e
+# *Swietenia macrophylla*?
+
+"Bertholletia-excelsa" %in% especie
+"Swietenia-macrophylla" %in% especie
+
+# Comparando dois vetores com operador %in%
+
+especie <-
+  c("Vouacapoua-americana", "Cedrela-odorata",
+    "Bertholletia-excelsa", "Dinizia-excelsa Ducke",
+    "Bertholletia-excelsa", "Manilkara-huberi",
+    "Couratari-guianensis")
+
+ameacadas <-
+  c("Vouacapoua-americana", "Bertholletia-excelsa",
+    "Cedrela-odorata", "Swietenia-macrophylla")
+
+# Pergunta
+# As espécies do vetor "ameacadas" estão contidas no vetor "especie"?
+# O comando .green[**%in%**] avalia cada elemento do vetor "especie" e
+# retorna uma resposta booleana (TRUE ou FALSE) de comprimento igual ao
+# vetor esquerdo ("especie").
+
+especie %in% ameacadas
+#unique(especie[which(especie %in% ameacadas)])
+
+#--------------------------------------------
+# 1.3 - **Operadores Lógicos**
+
+  # | Símbolo | Descrição                       |
+  # |---------|---------------------------------|
+  # | &       | E (and) - versão vetorizada     |
+  # | &&      | E (and) - versão não-vetorizada |
+  # | ⎮       | Ou (or) - versão vetorizada     |
+  # | ⎮⎮      | Ou (or) - versão não-vetorizada |
+  # | !       | Não...                          |
+  # | xor     | Ou exclusivo...                 |
+
+# Estes operadores são usados para realizar **operações lógicas**,
+# cuja saída é uma **resposta booleana**.
+# Uma resposta booleana indica se algo é Verdadeiro (`TRUE`) ou Falso (`FALSE`).
+
+data <- data.frame(
+  Especie = c("Swietenia macrophylla", "Swietenia macrophylla", "Swietenia macrophylla", "Hymenolobium petraeum","Hymenolobium petraeum", "Hymenolobium petraeum", "Hymenolobium petraeum","Hymenolobium petraeum", "Swietenia macrophylla", "Swietenia macrophylla"),
+  DAP = c(33.6, 42.6, 52.1, 80.3, 90.8,
+          49.4, 70.5, 100.5, 60.7, 27.1),
+  H = c(9.1, 13.2, 15.4, 18.6, 19.5,
+        16.8, 17.9, 22.4, 15.3, 8.7),
+  Cipo = c("Sim", "Não", "Sim", "Não", "Sim",
+           "Não", "Sim", "Não", "Sim", "Sim"),
+  QF = c(2, 1, 3, 1, 2, 1, 2, 3, 1, 3),
+  Selecao = c("Protegida", "Protegida", "Protegida", "Explorar", "Explorar",
+              "Remanescente", "Explorar", "Remanescente","Protegida", "Protegida"),
+  stringsAsFactors = T)
+
+
+# 1.3.1 - Operador `&`
+
+# Use o operador lógico `&` para responder as questões a seguir:
+
+# Quais árvores possuem **DAP maior ou igual a 50cm** e **Qualidade de Fuste (QF)
+# igual a 1**❓
+
+data$DAP >= 50 & data$QF == 1
+#data[data$DAP >= 50 & data$QF == 1, ]
+
+# Quais árvores possuem **cipós ausentes**, **QF igual a 1** e **DAP maior ou igual
+# a 50cm**❓
+
+data$Cipo == "Não" & data$QF == 1 & data$DAP >= 50
+#data[data$Cipo == "Não" & data$QF == 1 & data$DAP >= 50,]
+
+# Quais árvores estão selecionadas para **explorar** e **QF igual a 1**❓
+
+data$Selecao == "Explorar" & data$QF == 1
+#data[data$Selecao == "Explorar" & data$QF == 1, ]
+
