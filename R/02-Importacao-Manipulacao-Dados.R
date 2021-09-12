@@ -29,25 +29,22 @@
 # Possui diversas funções para importação e exportação de dados.
 
 #---------------------------------------
-# 1.1 - Instala pacote
-# install.packages("readr")
+# install.packages("readr") # Instala o pacote (Recomendação: Instalar o Tidyverse!)
+library(readr)            # Importação
+library(dplyr)            # Manipulação
 
 #---------------------------------------
-# 1.2 - Carrega o pacote
-library(readr)
+# 2.1 - Funções para importação e exportação de dados
+# ^ = início da string
 
-#---------------------------------------
-# 1.3 - Funções para importação de dados
 ls("package:readr") %>%
-  stringr::str_subset("^read_")         # ^ = início da string
+  stringr::str_subset("^read_")    # Funções para importação de dados
 
-#---------------------------------------
-# 1.4 - Funções para exportação de dados
 ls("package:readr") %>%
-  stringr::str_subset("^write_")
+  stringr::str_subset("^write_")   # Funções para exportação de dados
 
 #---------------------------------------
-# 1.5 - Algumas das principais funções de importação do readr
+# 3 - Importação de dados usando o readr
 
 # Vamos estudar apenas algumas das principais funções de importação do readr...
 
@@ -60,10 +57,15 @@ ls("package:readr") %>%
 # **read_delim()** - Importar um arquivo de valores separados por um delimitador incomum
 
 #------------------------------------------------
-# 1.5.1 - Arquivo de valores separados por vírgula (,)
+# 3.1 - Arquivo de valores separados por vírgula (,)
 
+# Função read_csv() - Importar arquivos .csv
+#-------------------------------------------------
+# Para importar é necessário possuir o arquivo em algum diretório...
+# Então, vamos usar a estratégia de criar esses arquivos usando as funções de
+# exportação do readr e salvá-lo no diretório "data"...
 
+# Cria o arquivo "file1.csv" e salva em "data"
 
-- **Função .black[read_csv()]** - Importar arquivos .csv
-
-
+readr::write_file(x = "Nome,DAP,H\nAngelim,100,30\nMogno,80,20",
+                  path = "Slides/data/file1.csv")
