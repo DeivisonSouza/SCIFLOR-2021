@@ -177,15 +177,17 @@ knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
 
 [2 - O pacote readr](#readr)
 
-[3 - Arquivo de valores separados por vírgula](#csv)
+[3 - Importação usando o readr](#import)
 
-[4 - Arquivo de valores separados por ponto e vírgula](#csv2)
+&nbsp;&nbsp;&nbsp;&nbsp;[3.1 - Arquivo de valores separados por vírgula](#csv)
 
-[5 - Arquivo de valores separados por tabulação](#tsv)
+&nbsp;&nbsp;&nbsp;&nbsp;[3.2 - Arquivo de valores separados por ponto e vírgula](#csv2)
 
-[6 - Arquivo de valores separados por um delimitador incomum](#delim)
+&nbsp;&nbsp;&nbsp;&nbsp;[3.3 - Arquivo de valores separados por tabulação](#tsv)
 
-[7 - Importação de dados usando a GUI do Rstudio](#importdata)
+&nbsp;&nbsp;&nbsp;&nbsp;[3.4 - Arquivo de valores separados por um delimitador incomum](#delim)
+
+[4 - Importação de dados usando a GUI do Rstudio](#importdata)
 
 ]
 ]
@@ -301,7 +303,7 @@ ls("package:readr") %>%
 ## Pacote readr (tidyverse)
 <br>
 
-### Principais funções
+### Importação usando o readr
 
 - Vamos estudar apenas algumas das principais funções de importação...
 <br><br>

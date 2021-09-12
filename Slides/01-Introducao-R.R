@@ -1,7 +1,7 @@
 #-----------------------------------------------------------------------------------
 # Título: Introdução ao R para Análise de Dados
 #-----------------------------------------------------------------------------------
-# Subtítulo: Introdução à Linguagem de Programação R
+# Subtítulo: Parte 1 - Introdução à Linguagem de Programação R
 # Autor: Prof. Dr. Deivison Venicio Souza
 # Instituto: Universidade Federal do Pará (UFPA)
 #-----------------------------------------------------------------------------------
