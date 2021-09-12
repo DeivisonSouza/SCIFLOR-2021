@@ -45,6 +45,7 @@ ls("package:readr") %>%
 
 #---------------------------------------
 # 3 - Importação de dados usando o readr
+#---------------------------------------
 
 # Vamos estudar apenas algumas das principais funções de importação do readr...
 
@@ -174,6 +175,16 @@ readr::write_file(x = "Tabela de dados\nNome;DAP;H\nAngelim;100;30\nMogno;80;20"
 (fileC <- readr::read_csv2(file="Slides/data/fileC.csv", skip = 1))
 
 
+# Combine Skip + col_names: para mudar nomes das colunas
+
+readr::write_file(x = "Nome;DAP;H\nAngelim;100;30\nMogno;80;20",
+                  path = "Slides/data/file2.csv")
+
+(file2 <- readr::read_csv2(file="Slides/data/file2.csv"))
+
+(file2.mod <- readr::read_csv2(file="Slides/data/file2.csv", skip=1,
+                               col_names = c("Name", "DBH", "H")))
+
 #----------------------------------------------------
 # 3.3 - Arquivo de valores separados por tabulação (\t)
 #----------------------------------------------------
@@ -215,5 +226,94 @@ readr::write_file(x = "Nome|DAP|H\nAngelim|100|30\nMogno|80|20",
 args(read_delim)   # verifique os argumentos disponíveis
 ?read_delim        # consulte a ajuda da função p/ detalhes
 
+#-----------------------------------------------------
+# 4 - Importação de dados usando a GUI do RStudio
+#-----------------------------------------------------
 
+# Use a Interface Gráfica do Usuário (*Graphical User Interface* - GUI) para
+# importar dados rapidamente.
+# RStudio IDE - Environment - Import Dataset - From Text (readr).
+# É possível também usar funções do R-base e de outros pacotes,
+# como **readxl** (para ler arquivos .xlsx).
+
+##############################################
+# Parte 2 - Manipulação de dados com dplyr
+##############################################
+
+#----------------------------------
+# 1 - Importação de dados no R
+#----------------------------------
+
+# Sobre o pacote **dplyr**...
+
+# Um dos principais pacotes do .green[tidyverse].
+# O pacote dplyr é essencialmente um conjunto consistente de funções projetadas para
+# resolver os desafios mais comuns de **manipulação de dados**.
+# Foi projetado para ser simples, intuitivo, amigável e elegante.
+# O encadeamento de comandos é facilitado pelo emprego do operador **%>%** (pipe).
+# Códigos em R que fazem uso dos verbos dplyr são mais elegantes, compeeensíveis e intuitivos.
+# **Cheatsheet do RStudio** (folhas de resumo): Help - Cheatsheets - Data Transformation with dplyr
+# No site da RStudio pode-se encontrar algumas Cheatsheet traduzidas:
+# [cheatsheets-translations](https://www.rstudio.com/resources/cheatsheets/#translations)
+
+#--------------------------------
+### Principais verbos **dplyr**
+
+# O **dplyr** possui diversos verbos (funções). A seguir são listadas algumas das
+# mais usuais:
+
+# mutate()
+# select()
+# filter()
+# arrange()
+# group_by()
+# summarise()
+
+# Lista de funções do pacote **dplyr**:
+ls("package:dplyr")
+length(ls("package:dplyr"))
+lsf.str("package:dplyr")
+
+# Ou simplesmente digite dplyr::.
+
+#-----------------------------------------------------------------
+# 1.1 - Conjunto de dados: uma pequena amostra para praticar...
+
+data <- readr::read_csv("Slides/data/data.csv")
+
+
+# 1.2 - Função select() - selecionar colunas
+#-------------------------------------------------
+# select(.data, ...)
+?select
+
+# 1.2.1 - Selecionando apenas uma coluna...
+# ---------------------------------------
+
+# Alternativa 1:
+select(.data=data, Nome_Especie)
+
+# Alternativa 2:
+data %>%
+  select(Nome_Especie)
+
+# 1.2.2 - Selecionando múltiplas colunas
+# ---------------------------------------
+
+# Alternativa 1 (sem %>%)
+
+select(.data=data, CAP, HC, QF)
+
+# Alternativa 2 (com %>%)
+
+data %>%
+  select(CAP, HC, QF)
+
+# Alternativa 3 (:) - range de colunas
+
+data %>%
+  select(CAP:QF)
+
+# 1.2.3 - Usando funções auxiliares...
+# ---------------------------------------
 
