@@ -343,7 +343,6 @@ knitr::include_graphics("fig/part2/file1.png")
 # Cria o arquivo "file1.csv" e salva em "data"
 readr::write_file(x = "Nome,DAP,H\nAngelim,100,30\nMogno,80,20",
                   path = "data/file1.csv")
-getwd()
 ```
 ]
 ]
@@ -388,48 +387,6 @@ Execute o comando: **args(**read_csv**)**
 knitr::include_graphics("fig/part2/readcsv.png")
 ```
 ]
-
----
-
-## Pacote readr (tidyverse)
-<br>
-
-### Arquivo de valores separados por vírgula .black[(].blue[,].black[)]
-
-- **Função .black[read_csv()]** - Importar arquivos .csv
-.font80[
-Vamos explorar outros argumentos da função read_csv()...(.green[**col_names**])
-]
-
-.pull-left-4[
-.font80[
-```{r file3, echo=T, eval=F}
-# Importa o arquivo "file1"
-(file1 <- readr::read_csv(file="data/file1.csv"))
-```
-
-```{r ref.label="file3", echo=F, eval=T, collapse=T}
-```
-]
-]
-
---
-
-.pull-right-4[
-.font80[
-```{r file4, echo=T, eval=F}
-# Importa o arquivo "file1"
-(file1.mod1 <- readr::read_csv(file="data/file1.csv", 
-                          col_names = c("Name", "DBH", "H")
-                          )
- )
-```
-
-```{r ref.label="file4", echo=F, eval=T, collapse=T}
-```
-]
-]
-
 
 ---
 
@@ -2275,9 +2232,6 @@ data %>%
 ]
 
 
----
-
-
 <!--Slide XX -->
 ---
 layout: false
@@ -2296,3 +2250,41 @@ background-size: cover
 
 .left[.footnote[.white[Créditos: Imagem de ljwong por Pixabay].]]
 
+<!-- ## Pacote readr (tidyverse) -->
+<!-- <br> -->
+
+<!-- ### Arquivo de valores separados por vírgula .black[(].blue[,].black[)] -->
+
+<!-- - **Função .black[read_csv()]** - Importar arquivos .csv -->
+<!-- .font80[ -->
+<!-- Vamos explorar outros argumentos da função read_csv()...(.green[**col_names**]) -->
+<!-- ] -->
+
+<!-- .pull-left-4[ -->
+<!-- .font80[ -->
+<!-- ```{r file3, echo=T, eval=F} -->
+<!-- # Importa o arquivo "file1" -->
+<!-- (file1 <- readr::read_csv(file="data/file1.csv")) -->
+<!-- ``` -->
+
+<!-- ```{r ref.label="file3", echo=F, eval=T, collapse=T} -->
+<!-- ``` -->
+<!-- ] -->
+<!-- ] -->
+
+<!-- -- -->
+
+<!-- .pull-right-4[ -->
+<!-- .font80[ -->
+<!-- ```{r file4, echo=T, eval=F} -->
+<!-- # Importa o arquivo "file1" -->
+<!-- (file1.mod1 <- readr::read_csv(file="data/file1.csv",  -->
+<!--                           col_names = c("Name", "DBH", "H") -->
+<!--                           ) -->
+<!--  ) -->
+<!-- ``` -->
+
+<!-- ```{r ref.label="file4", echo=F, eval=T, collapse=T} -->
+<!-- ``` -->
+<!-- ] -->
+<!-- ] -->

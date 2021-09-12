@@ -69,3 +69,24 @@ ls("package:readr") %>%
 
 readr::write_file(x = "Nome,DAP,H\nAngelim,100,30\nMogno,80,20",
                   path = "Slides/data/file1.csv")
+
+# read_csv(): O único argumento obrigatório (file) é o caminho para o arquivo....
+
+file1 <- readr::read_csv(file="Slides/data/file1.csv")
+
+# A função possui inúmeros argumentos que podem ser especificados.
+
+args(read_csv)   # verifique os argumentos disponíveis
+?read_csv        # consulte a ajuda da função p/ detalhes
+
+# Vamos explorar outros argumentos da função read_csv()...
+
+## col_names...
+
+# Importa o arquivo "file1"
+(file1 <- readr::read_csv(file="Slides/data/file1.csv"))
+
+# Importa o arquivo "file1", e específica nomes para colunas
+(file1.mod1 <- readr::read_csv(file="Slides/data/file1.csv",
+                               col_names = c("Name", "DBH", "H")))
+
