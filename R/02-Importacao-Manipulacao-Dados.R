@@ -81,12 +81,139 @@ args(read_csv)   # verifique os argumentos disponíveis
 
 # Vamos explorar outros argumentos da função read_csv()...
 
-## col_names...
+# Argumento **col_types**
+#-----------------------------------
+# **col_types** = É possível usar strings compactas em que cada caractere
+# representa uma coluna.
+
+# c = character;
+# i = integer;
+# n = number;
+# d = double;
+# l = logical;
+# f = factor;
+# D = date
 
 # Importa o arquivo "file1"
 (file1 <- readr::read_csv(file="Slides/data/file1.csv"))
 
-# Importa o arquivo "file1", e específica nomes para colunas
-(file1.mod1 <- readr::read_csv(file="Slides/data/file1.csv",
-                               col_names = c("Name", "DBH", "H")))
+# Importa o arquivo "file1", e específica o tipo de dado na coluna
+(file1.mod2 <- readr::read_csv(file="Slides/data/file1.csv",
+                               col_types = "fdi"))
+
+#class(file1$DAP)  # qual tipo de objeto? Vetor do tipo "numeric"...
+#typeof(file1$DAP) # modo de armazenar os dados do objeto na memória....
+
+# Função class(): Indica o tipo de objeto no R
+# Função typeof(): Indica o modo de armazenamento na memória
+
+class(file1)
+typeof(file1)
+
+# A função de class() ajuda a entender o tipo de objeto no R. Por exemplo, considere o
+# objeto "file1". Se executar a class(file1) indicará que o objeto é do tipo "data.frame"
+# (e outras). Mas, a execução de typeof(file1) indica que os dados são armazenados na
+# memória como lista (list).
+
+# Argumento **col_select**
+#-----------------------------------
+
+# Importa o arquivo "file1"
+
+(file1 <- readr::read_csv(file="Slides/data/file1.csv"))
+
+# Importa o arquivo "file1", mas apenas colunas especificadas
+
+(file1.mod3 <- readr::read_csv(file = "Slides/data/file1.csv",
+                               col_select = c(Nome, DAP)))
+
+# Argumento **n_max**
+#-----------------------------------
+# n_max: permite controlar o número máximo de linhas a serem lidas...
+
+(file.IF <- readr::read_csv(file="Slides/data/UPA07DVS.csv"))
+
+(file.IF2 <- readr::read_csv(file="Slides/data/UPA07DVS.csv", n_max = 30))
+
+#----------------------------------------------------
+# 3.2 - Arquivo de valores separados por vírgula (;)
+#----------------------------------------------------
+
+# Função read_csv2() - Importar arquivos .csv
+#-------------------------------------------------
+# Os arquivo separados por ponto e vírgula também têm a extensão .csv.
+
+# Cria o arquivo "file2.csv" e salva em "data"
+
+readr::write_file(x = "Nome;DAP;H\nAngelim;100;30\nMogno;80;20",
+                  path = "Slides/data/file2.csv")
+
+# Importa o arquivo "file2"
+# Novamente, o único argumento obrigatório (file) é o caminho para o arquivo.
+
+(file2 <- readr::read_csv2(file="Slides/data/file2.csv"))
+
+# A função possui inúmeros argumentos que podem ser especificados.
+
+args(read_csv2)   # verifique os argumentos disponíveis
+?read_csv2        # consulte a ajuda da função p/ detalhes
+
+
+# Argumento **skip** = pular
+#-----------------------------------
+# Pode ser usado para pular antes de ler os dados (Padrão 0)
+
+# Cria o arquivo "fileC.csv" e salva em "data"
+readr::write_file(x = "Tabela de dados\nNome;DAP;H\nAngelim;100;30\nMogno;80;20",
+                  path = "Slides/data/fileC.csv")
+
+# Importa o arquivo "fileC"
+# Use skip = 1 para pular a primeira linha da planilha...
+
+(fileC <- readr::read_csv2(file="Slides/data/fileC.csv"))
+(fileC <- readr::read_csv2(file="Slides/data/fileC.csv", skip = 1))
+
+
+#----------------------------------------------------
+# 3.3 - Arquivo de valores separados por tabulação (\t)
+#----------------------------------------------------
+
+# Função read_tsv() - Importar arquivos (.tsv, .txt)
+#-------------------------------------------------
+
+# Cria o arquivo "file3.tsv" e salva em "data"
+
+readr::write_file(x = "Nome\tDAP\tH\nAngelim\t100\t30\nMogno\t80\t20",
+                  path = "Slides/data/file3.txt")
+
+# Importa o arquivo "file3"
+
+(file3 <- readr::read_tsv(file="Slides/data/file3.txt"))
+
+args(read_tsv)   # verifique os argumentos disponíveis
+?read_tsv        # consulte a ajuda da função p/ detalhes
+
+#--------------------------------------------------------------
+# 3.4 - Arquivo de valores separados por um delimitador incomum
+#--------------------------------------------------------------
+
+# Função read_delim() - Importar arquivos com
+# delimitator de valores específicos
+#-------------------------------------------------
+
+# Arquivos com valores separados por | (barra vertical)
+
+# Cria o arquivo "file4.txt" e salva em "data"
+
+readr::write_file(x = "Nome|DAP|H\nAngelim|100|30\nMogno|80|20",
+                  path = "Slides/data/file4.txt")
+
+# Importa o arquivo "file4"
+
+(file4 <- readr::read_delim(file="Slides/data/file4.txt", delim = "|"))
+
+args(read_delim)   # verifique os argumentos disponíveis
+?read_delim        # consulte a ajuda da função p/ detalhes
+
+
 
