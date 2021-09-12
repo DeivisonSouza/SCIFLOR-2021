@@ -10,6 +10,10 @@
 # Parte 1 - Importação de dados com readr
 ##############################################
 
+#----------------------------------
+# 1 - Importação de dados no R
+#----------------------------------
+
 # A etapa de importação de dados para o R precede a análise de dados.
 # Os dados podem ser exportados: i) diretamente para a memória (RAM); ou ii) acessados remotamente.
 # O mecanismo de importação depende do formato dos dados.
@@ -17,9 +21,9 @@
 # O R-base possui funções para importação de dados: **read.csv()** e **read.table()** (Pacote **utils**).
 # O tidyverse incorpora o pacote **readr**, que possui várias funções para importação de dados.
 
-########################################
-# 1 - Pacote readr (tidyverse)
-########################################
+#----------------------------------
+# 2 - O pacote readr (tidyverse)
+#----------------------------------
 
 # O pacote **readr** está incorporado no tidyverse.
 # Possui diversas funções para importação e exportação de dados.

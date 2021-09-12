@@ -126,7 +126,7 @@ CustomDT <- function(data){
 ##### Faculdade de Engenharia Florestal
 ##### E-mail: deivisonvs@ufpa.br
 <br>
-##### `r format(Sys.Date(),"%d/%B/%Y")`
+##### 1ª versão: 22/setembro/2021 <br> (Atualizado em: `r format(Sys.Date(),"%d/%B/%Y")`)
 
 ---
 
@@ -175,9 +175,11 @@ knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
 
 [1 - Importação de dados no R](#import)
 
-[2 - O pacote readr](#readr)
+[2 - O pacote readr](#fie)
 
-[3 - Importação usando o readr](#import)
+&nbsp;&nbsp;&nbsp;&nbsp;[2.1 - Funções de importação e exportação](#fie)
+
+[3 - Importação de dados usando o readr](#idur)
 
 &nbsp;&nbsp;&nbsp;&nbsp;[3.1 - Arquivo de valores separados por vírgula](#csv)
 
@@ -266,7 +268,7 @@ name: import
 .center[**O pacote .blue[readr] será o nosso objeto de estudo!**]
 
 ---
-name: readr
+name: fie
 ## Pacote readr (tidyverse)
 <br>
 
@@ -299,11 +301,11 @@ ls("package:readr") %>%
 ]
 
 ---
-
+name: idur
 ## Pacote readr (tidyverse)
 <br>
 
-### Importação usando o readr
+### Importação de dados usando o readr
 
 - Vamos estudar apenas algumas das principais funções de importação...
 <br><br>
