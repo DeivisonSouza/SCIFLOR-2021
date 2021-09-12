@@ -382,3 +382,13 @@ data %>%
 #-------------------------
 # 2 - Função arrange()
 #-------------------------
+# Função usada para ordenar linhas
+
+# 2.1 - Ordem crescente de uma variável
+
+data %>% arrange(HC)
+
+# 2.2 - Ordem decrescente de uma variável
+
+data %>% arrange(desc(HC))
+
