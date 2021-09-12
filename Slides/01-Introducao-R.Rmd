@@ -119,7 +119,7 @@ use_clipboard()
 ##### Faculdade de Engenharia Florestal
 ##### E-mail: deivisonvs@ufpa.br
 <br>
-##### `r format(Sys.Date(),"%d/%B/%Y")`
+##### 1ª versão: 22/setembro/2021 <br> (Atualizado em: `r format(Sys.Date(),"%d/%B/%Y")`)
 
 ---
 
