@@ -240,10 +240,6 @@ args(read_delim)   # verifique os argumentos disponíveis
 # Parte 2 - Manipulação de dados com dplyr
 ##############################################
 
-#----------------------------------
-# 1 - Importação de dados no R
-#----------------------------------
-
 # Sobre o pacote **dplyr**...
 
 # Um dos principais pacotes do .green[tidyverse].
@@ -275,6 +271,10 @@ length(ls("package:dplyr"))
 lsf.str("package:dplyr")
 
 # Ou simplesmente digite dplyr::.
+
+#--------------------------------------
+# 1 - Função select e suas auxiliares
+#--------------------------------------
 
 #-----------------------------------------------------------------
 # 1.1 - Conjunto de dados: uma pequena amostra para praticar...
@@ -317,3 +317,68 @@ data %>%
 # 1.2.3 - Usando funções auxiliares...
 # ---------------------------------------
 
+# starts_with()
+#-------------------
+# Função usada para selecionar colunas cujos nomes iniciam com um texto padrão.
+
+select(data, starts_with("N"))
+
+# ends_with()
+#-------------------
+# Função usada para selecionar colunas cujos nomes terminam com um texto padrão.
+
+select(data, ends_with("e"))
+
+# contains()
+#-------------------
+# Função usada para selecionar colunas cujos nomes tenham algum texto padrão.
+
+select(data, contains("e"))
+
+# matches()
+#-------------------
+# Função usada para selecionar colunas que contenham nomes correspondentes
+# à alguma expressão regular.
+
+select(data, matches('No|cao|F'))
+
+# everything()
+#-------------------
+# Seleciona todas as variáveis. É útil para reordenar algumas colunas,
+# sem se importar com a ordem das demais.
+
+data %>%
+  select(Nome_Especie, Selecao, everything())
+
+# where()
+#-------------------
+# Aplica uma função à todas as variáveis e seleciona aquelas para as quais a
+# resposta é TRUE.
+
+data %>%
+  select(where(is.character))
+
+# Combinando funções auxiliares e operadores lógicos...
+#-------------------
+
+data %>%
+  select(
+    starts_with("N") &
+      !ends_with("Arvore"))
+
+# Função concatenate
+#-------------------
+
+data %>%
+  select(-c(CAP:Selecao))
+
+# Reordenar colunas
+#-------------------
+data %>%
+  select(Nome_Especie,
+         Selecao, CAP,
+         QF, HC)
+
+#-------------------------
+# 2 - Função arrange()
+#-------------------------
