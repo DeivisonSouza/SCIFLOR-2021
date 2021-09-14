@@ -584,8 +584,9 @@ data %>%
                 )
          )
 
+#
 data %>%
-  mutate(across(.cols = where(is.numeric),
+  mutate(across(.cols = where(is.numeric) & !c(QF, N_Arvore),
                 .fns = format,
                 scientific = T
                 )
