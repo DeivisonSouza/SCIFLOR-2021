@@ -765,9 +765,10 @@ filter()
 
 arrange()
 
+summarise()
+
 group_by()
 
-summarise()
 ]
 ]
 

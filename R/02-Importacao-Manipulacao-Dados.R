@@ -69,7 +69,7 @@ ls("package:readr") %>%
 # Cria o arquivo "file1.csv" e salva em "data"
 
 readr::write_file(x = "Nome,DAP,H\nAngelim,100,30\nMogno,80,20",
-                  path = "Slides/data/file1.csv")
+                  file = "Slides/data/file1.csv")
 
 # read_csv(): O único argumento obrigatório (file) é o caminho para o arquivo....
 
@@ -227,7 +227,30 @@ args(read_delim)   # verifique os argumentos disponíveis
 ?read_delim        # consulte a ajuda da função p/ detalhes
 
 #-----------------------------------------------------
-# 4 - Importação de dados usando a GUI do RStudio
+# 4 - Uma base de dados reais...
+#-----------------------------------------------------
+
+# Carrega com argumentos padrões...
+IF <- readr::read_csv(file = "Slides/data/UPA07DVS.csv")
+
+str(IF)
+levels(IF$UT)
+
+# Especifica argumento: col_types
+IF <- readr::read_csv(file = "Slides/data/UPA07DVS.csv",
+                      col_types = "fiiffddff")
+
+# Especifica argumento: n_max
+IF <- readr::read_csv(file = "Slides/data/UPA07DVS.csv",
+                      col_types = "fiiffddff", n_max = 10)
+
+# Especifica argumento: col_select
+IF <- readr::read_csv(file = "Slides/data/UPA07DVS.csv",
+                      col_select = c("Nome_Especie", "CAP"),
+                      col_types = "fd", n_max = 10)
+
+#-----------------------------------------------------
+# 5 - Importação de dados usando a GUI do RStudio
 #-----------------------------------------------------
 
 # Use a Interface Gráfica do Usuário (*Graphical User Interface* - GUI) para
@@ -253,7 +276,8 @@ args(read_delim)   # verifique os argumentos disponíveis
 # [cheatsheets-translations](https://www.rstudio.com/resources/cheatsheets/#translations)
 
 #--------------------------------
-### Principais verbos **dplyr**
+# Principais verbos **dplyr**
+#--------------------------------
 
 # O **dplyr** possui diversos verbos (funções). A seguir são listadas algumas das
 # mais usuais:
@@ -286,6 +310,7 @@ data <- readr::read_csv("Slides/data/data.csv")
 #-------------------------------------------------
 # select(.data, ...)
 ?select
+args(select)
 
 # 1.2.1 - Selecionando apenas uma coluna...
 # ---------------------------------------
@@ -293,7 +318,7 @@ data <- readr::read_csv("Slides/data/data.csv")
 # Alternativa 1:
 select(.data=data, Nome_Especie)
 
-# Alternativa 2:
+# Alternativa 2: Usando o operador piper...
 data %>%
   select(Nome_Especie)
 
@@ -358,37 +383,438 @@ data %>%
 data %>%
   select(where(is.character))
 
+# Testar: is.numeric; is.factor
+
 # Combinando funções auxiliares e operadores lógicos...
 #-------------------
 
 data %>%
-  select(
-    starts_with("N") &
-      !ends_with("Arvore"))
+  select(starts_with("N") & !ends_with("Arvore"))
 
-# Função concatenate
-#-------------------
+# Função concatenate com extração negativa
+#-----------------------------------------
 
 data %>%
   select(-c(CAP:Selecao))
 
-# Reordenar colunas
+# Reordenar colunas: especifique a ordem de seleção...
 #-------------------
+
 data %>%
-  select(Nome_Especie,
-         Selecao, CAP,
-         QF, HC)
+  select(Nome_Especie, Selecao, CAP, QF, HC)
 
 #-------------------------
 # 2 - Função arrange()
 #-------------------------
 # Função usada para ordenar linhas
+# arrange(.data, ..., .by_group = FALSE)
+?arrange
+args(arrange)
 
 # 2.1 - Ordem crescente de uma variável
 
-data %>% arrange(HC)
+data %>%
+  arrange(HC)
 
 # 2.2 - Ordem decrescente de uma variável
 
-data %>% arrange(desc(HC))
+data %>%
+  arrange(desc(HC))
+
+# 2.3 - Ordenar em função de duas ou mais variáveis
+
+data %>%
+  arrange(CAP, HC)
+
+#-------------------------
+# 3 - Função filter()
+#-------------------------
+# A função filter() é usada para filtrar linhas.
+# filter(.data, ..., .preserve = FALSE)
+?filter
+args(filter)
+
+#---------------------------------------
+# 3.1 - Filtrar linhas em função de alguma variável
+
+filter(.data=data, HC > 15)
+
+data %>%
+  filter(HC > 15)
+
+# 3.2 - Filtrar linhas para algum intervalo da variável
+
+data %>%
+  filter(HC > 10 & HC <= 15)
+
+# 3.3 - Filtrar linhas em função de duas ou mais variáveis
+
+data %>%
+  filter(HC > 10, Selecao == "Explorar")
+
+
+# 3.4 - Filtrar linhas usando operador %in% - Variáveis categóricas
+
+data %>%
+  filter(Nome_Especie %in% c('Acapu', 'Tauari'))
+
+
+# 3.5 - Filtrar linhas com várias condições
+
+data %>%
+  filter(Nome_Especie %in% c('Acapu', 'Tauari'),
+         HC >= 12, QF == 1)
+
+# 3.6 - Filtrar linhas baseado na média de uma variável
+# Dados experimento de Pinus oocarpa
+(data.Banz <- labestData::BanzattoQd3.7.1)
+
+data.Banz %>%
+  filter(alt > mean(alt, na.rm = TRUE))
+
+# 3.7 - Usando a base de IF completa
+
+IF <- readr::read_csv(file = "Slides/data/UPA07DVS.csv")
+
+IF %>%
+  filter(Nome_Especie %in% c("Roxinho", "Cedro"))
+
+IF %>%
+  filter(Nome_Especie %in% c("Roxinho", "Cedro") & QF == 1)
+
+IF %>%
+  filter(Nome_Especie %in% c("Roxinho", "Cedro") & QF == 1 &
+           HC >= 17)
+
+#-------------------------
+# 4 - Função mutate()
+#-------------------------
+# A função mutate() é usada para criar (ou modificar) variáveis e
+# manter as existentes.
+# mutate(.data, ...)
+?mutate
+args(mutate)
+
+# 4.1 - Criar uma nova variável e adicioná-la à tabela
+
+mutate(.data = data, DAP = CAP/pi)    # sem pipe
+
+data %>%
+  mutate(DAP = CAP/pi)                # com pipe
+
+# arredondamento
+
+data %>%
+  mutate(DAP = round(CAP/pi, 2))
+
+# 4.2 - Modificar uma variável na tabela
+
+data %>%
+  mutate(CAP = CAP/100)
+
+data %>%
+  mutate(CAP = round(CAP/100, 2))
+
+# 4.3 - Modificar/criar múltiplas variáveis no mesmo mutate()
+
+data %>%
+  mutate(DAP = CAP/pi,
+         CAP = CAP/100,
+         gi = (DAP^2*pi)/40000,
+         vi = gi*HC*0.7)
+
+# 4.4 - Usando funções auxiliares
+
+# 4.4.1 - if_else()
+
+data %>%
+  mutate(Selecao = if_else(
+    CAP >= 600, "Matriz", "Não Matriz"
+  ))
+
+# 4.4.2 - case_when()
+# Permite vetorizar várias instruções if_else().
+# É um equivalente R da instrução SQL CASE WHEN.
+# Criar uma nova coluna por múltiplas condições mutuamente exclusivas.
+
+data %>%
+  mutate(
+    Selecao =
+      case_when(
+        (CAP >= 600) ~ "Matriz",
+        (Nome_Especie == "Acapu") ~ "Protegida",
+        (CAP >= 158 & Nome_Especie != "Acapu") ~ "Explorar"
+        ))
+
+# 4.4.3 - across()
+# A função across() substitui a família de verbos **summarise**
+# com sufixos: _if, _at, _all.
+# Aplicar uma função (ou funções) em várias colunas.
+# across(.cols = everything(), .fns = NULL, ..., .names = NULL)
+
+# Transformação várias variáveis
+
+data %>%
+  mutate(across(.cols = c(Nome_Especie, Selecao),
+                .fns = factor
+                )
+         )
+
+data %>%
+  mutate(across(.cols = QF:Selecao,
+                .fns = factor
+                )
+         )
+
+data %>%
+  mutate(across(.cols = !where(is.numeric),
+                .fns = factor
+                )
+         )
+
+data %>%
+  mutate(across(.cols = !where(is.numeric) | QF,
+                .fns = factor
+                )
+         )
+
+# Arredondamento de várias variáveis
+
+data %>%
+  mutate(across(.cols = where(is.numeric),
+                .fns = round,
+                digits = 2
+                )
+         )
+
+# Efeito não fica evidente, pois as variáveis não têm casas
+# decimais...
+
+df <- tribble(
+  ~Nome,    ~Sexo,     ~Peso,
+  "Joao",    "M",     80.45,
+  "Maria",   "F",     78.83,
+  "Ana",     "F",     50.55
+)
+
+df %>%
+  mutate(across(.cols = where(is.numeric),
+                .fns = round,
+                digits = 1
+  )
+  )
+
+#-------------------------
+# 5 - Função summarise()
+#-------------------------
+# Criar um novo quadro de dados com estatísticas de resumo de
+# variáveis selecionadas
+# summarise(.data, ..., .groups = NULL)
+?summarise
+args(summarise)
+
+# 5.1 - Uma única estatística de sumarização
+
+data %>%
+  summarise(media_HC = mean(HC, na.rm = TRUE))
+
+# 5.2 - Várias estatísticas na mesma summarise()
+
+data %>%
+  summarise(media_HC = mean(HC, na.rm = TRUE),
+            sd_HC = mean(HC, na.rm = TRUE),
+            min_HC = min(HC, na.rm = TRUE),
+            max_HC = max(HC, na.rm = TRUE))
+
+# 5.3 - Sumarizando diversas variáveis
+
+data %>%
+  summarise(media_HC = mean(HC, na.rm = TRUE),
+            sd_HC = sd(HC, na.rm = TRUE),
+            media_CAP = mean(CAP, na.rm = TRUE),
+            sd_CAP = sd(CAP, na.rm = TRUE))
+
+# 5.4 - Sumarizando diversas variáveis - Auxiliar "across"
+# A função across() substitui a família de verbos **summarise**
+# com sufixos: _if, _at, _all.
+# Aplicar uma função (ou funções) em várias colunas.
+# across(.cols = everything(), .fns = NULL, ..., .names = NULL)
+
+
+# Vamos supor que deseja-se calcular a média para HC e CAP...
+
+data %>%
+  summarise(across(
+    .cols = c(HC, CAP),
+    .fns = mean,
+    na.rm = TRUE,
+    .names = "mean_{.col}"
+  )
+  )
+
+# 5.5 - Usando a base de IF completa
+
+IF <- readr::read_csv(file = "Slides/data/UPA07DVS.csv")
+
+IF %>%
+  summarise(across(
+    .cols = c(HC, CAP),
+    .fns = mean,
+    na.rm = TRUE,
+    .names = "mean_{.col}"
+  )
+  )
+
+IF %>%
+  summarise(across(
+    .cols = c(HC, CAP),
+    .fns = list(media=mean, soma=sum),
+    na.rm = TRUE,
+    .names = "{.col}.{.fn}"
+  )
+  )
+
+#-------------------------
+# 5 - Função group_by()
+#-------------------------
+# Função usada para agrupar por uma ou mais variáveis.
+# Portanto, a ideia básica é realizar operações (ex. média)
+# por níveis de uma variável de categórica.
+# group_by(.data, ..., .add = FALSE, .drop = group_by_drop_default(.data))
+?group_by
+
+# Veja que agrupar não muda a aparência dos dados. E também
+# lista os grupos formados...
+
+data %>%
+  group_by(Nome_Especie)
+
+# A próxima etapa é informar que tipo de operação realizar
+# em cada grupo formado.
+
+# 5.1 - Contagem por grupo
+
+# 5.1.1 - Usando n() em summarise() - uma categoria
+
+data %>%
+  group_by(Nome_Especie) %>%
+  summarise(n = n())
+
+# 5.1.1 - Usando n() em summarise() - duas (ou mais) categorias
+
+data %>%
+  group_by(Nome_Especie, Selecao) %>%
+  summarise(n = n())
+
+##################### Experimente! ######################
+# Um outra forma de obter contagens por grupos é usando a
+# função count(). Esta função não exige o uso de group_by
+# antes. A função também possui um argumento de ordenação
+# (sort). Se TRUE, organiza os grupos em ordem decrescente.
+
+data %>%
+  count(Nome_Especie)
+
+data %>%
+  count(Nome_Especie, Selecao)
+
+###############################################################
+
+# 5.2 - Contagem e média da altura por grupo
+
+data %>%
+  group_by(Nome_Especie) %>%
+  summarise(n = n(), media = mean(HC))
+
+# 5.3 - Contagem e média e desvio da altura por grupo
+
+data %>%
+  group_by(Nome_Especie) %>%
+  summarise(n = n(), media = mean(HC), desv = sd(HC))
+
+# 5.3 - Contagem e média e desvio da altura e
+# circunferência por grupo
+
+# Veja que são duas funções (mean e sd) e duas colunas (HC e CAP)!
+# É interessante usar o auxiliar across()
+# Aplicar uma função (ou mais) em várias colunas.
+
+data %>%
+  group_by(Nome_Especie) %>%
+  summarise(across(.cols = c(HC, CAP),
+                   .fns = list(media=mean, desv=sd),
+                   na.rm = TRUE,
+                   .names = "{.col}.{.fn}"
+                   ),
+            n = n()
+            )
+
+# Veja que n() fica fora da across, pois não se aplica às
+# colunas HC e CAP, mas sim à group_by()...
+
+# E se eu tiver muitas colunas numéricas para sumarizar?
+# Pode usar o auxiliar where()...
+# Vamos observar novamente os dados...
+
+data <- readr::read_csv("Slides/data/data.csv")
+str(data)
+
+data %>%
+  group_by(Nome_Especie) %>%
+  summarise(across(.cols = where(is.numeric),
+                   .fns = list(media=mean, desv=sd),
+                   na.rm = TRUE,
+                   .names = "{.col}.{.fn}"
+                   ),
+            n = n()
+            )
+
+# Veja como as variável QF e N_Arvore foram lidas como
+# numericas, foi realizado o calculo da média e desvio
+# padrão para estas. Mas, isso não faz sentido!
+# Aqui, fica bem claro a importância de especificar
+# corretamente o tipo de variável no conjunto
+# de dados.
+
+# Então, vamos carregar novamente e especificar o tipo
+# de variável...
+
+data <- readr::read_csv("Slides/data/data.csv",
+                        col_types = "ifddff")
+str(data)
+
+data %>%
+  group_by(Nome_Especie) %>%
+  summarise(across(.cols = where(is.double),
+                   .fns = list(media=mean, desv=sd),
+                   na.rm = TRUE,
+                   .names = "{.col}.{.fn}"
+                   ), n = n()
+            )
+
+
+# Use a sua função...
+
+mean_sd <- function(x){
+  mean_sd = paste(round(mean(x),2),
+                  paste("(", round(sd(x),2),")", sep = ""))
+}
+
+
+data %>%
+  group_by(Nome_Especie) %>%
+  summarise(across(.cols = where(is.double),
+                   .fns = list(mean_sd=mean_sd),
+                   .names = "{.col}.{.fn}"
+  ), n = n()
+  )
+
+# E tem muito mais!!!!!!!!!!!!!
+
+# Fim............
+
+
+
+
+
 
