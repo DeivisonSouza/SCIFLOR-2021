@@ -2257,8 +2257,9 @@ data %>%
 **.blue[Sumarizando diversas variáveis...]**
 <br><br>
 
-.green[**across()**] - - Múltiplas colunas e uma função
+.green[**across()**] - Múltiplas colunas e uma função
 <br>
+
 .font70[
 Aplicar uma função (ou funções) em várias colunas.
 
@@ -2345,6 +2346,33 @@ data %>%
 ]
 ]
 ]
+
+---
+
+layout: false
+name: groupby
+class: inverse, top, right
+background-image: url(fig/part1/arara2.jpg)
+background-size: cover
+
+
+.font200[**.white[Manipulação de dados <br> com dplyr]**]
+<br><br>
+
+.font150[**.yellow[Função group_by()]**]
+
+.white[Agrupar uma (ou mais) variáveis <br> para aplicar operações (funções) <br> a cada grupo/categoria]
+
+---
+
+layout: true
+class: with-logo logo-ufpa
+<div class="my-header"></div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 2 - Importação e Manipulação de Dados: readr e dplyr</div2> </div>
+
+---
+
+
 
 
 <!--Slide XX -->
