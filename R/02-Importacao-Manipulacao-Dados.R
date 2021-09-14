@@ -547,11 +547,8 @@ data %>%
         ))
 
 # 4.4.3 - across()
-# A função across() substitui a família de verbos **summarise**
-# com sufixos: _if, _at, _all.
 # Aplicar uma função (ou funções) em várias colunas.
 # across(.cols = everything(), .fns = NULL, ..., .names = NULL)
-
 # Transformação várias variáveis
 
 data %>%
@@ -587,6 +584,13 @@ data %>%
                 )
          )
 
+data %>%
+  mutate(across(.cols = where(is.numeric),
+                .fns = format,
+                scientific = T
+                )
+         )
+
 # Efeito não fica evidente, pois as variáveis não têm casas
 # decimais...
 
@@ -603,6 +607,16 @@ df %>%
                 digits = 1
   )
   )
+
+df %>%
+  mutate(across(.cols = where(is.numeric),
+                .fns = format,
+                scientific = T
+  )
+  )
+
+
+
 
 #-------------------------
 # 5 - Função summarise()

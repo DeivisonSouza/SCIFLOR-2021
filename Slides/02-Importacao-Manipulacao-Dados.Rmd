@@ -223,6 +223,8 @@ knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
 
 &nbsp;&nbsp;&nbsp;&nbsp;[4.2 - Função case_when()](#casewhen)
 
+&nbsp;&nbsp;&nbsp;&nbsp;[4.3 - Função across()](#acrossmut)
+
 [5 - Função summarise()](#summarise)
 
 &nbsp;&nbsp;&nbsp;&nbsp;[5.1 - Função across()](#across)
@@ -2042,6 +2044,64 @@ data %>%
 ]
 
 ---
+name: acrossmut
+## Manipulação de dados com dplyr
+<br>
+
+### .font90[Função **mutate()** - .black[Modificar e criar variáveis]]
+
+.pull-left-12[
+```{r echo=F, eval=T}
+data %>%
+  select(-c(N_Arvore, QF, Selecao)) %>%
+  CustomDT
+```
+]
+
+--
+
+.pull-right-12[
+.pull-left-2[
+.font80[
+**.blue[Usando funções auxiliares...]**
+<br><br>
+
+**.green[across()]**
+<br>
+
+Auxiliar a aplicar uma operação (função) em várias colunas.
+
+```{r echo=TRUE, eval=FALSE}
+data %>%
+  mutate(across(.cols = where(is.numeric),
+                .fns = format,
+                scientific = T
+                )
+         )
+```
+
+]
+
+```{r mut6, echo=F, eval=F}
+data %>%
+  select(-c(N_Arvore, QF, Selecao)) %>%
+  mutate(across(.cols = where(is.numeric),
+                .fns = format,
+                scientific = T
+                )
+         ) %>%
+  CustomDT
+```
+]
+
+.pull-right-1[
+```{r ref.label="mut6", echo=FALSE, eval=TRUE, collapse=T}
+```
+]
+]
+
+
+---
 
 layout: false
 name: groupby
@@ -2197,12 +2257,13 @@ data %>%
 **.blue[Sumarizando diversas variáveis...]**
 <br><br>
 
-.green[**across()**]
+.green[**across()**] - - Múltiplas colunas e uma função
 <br>
-
+.font70[
 Aplicar uma função (ou funções) em várias colunas.
 
 A função .green[across()] substitui a família de verbos **summarise** com sufixos:.green[_if, _at, _all].
+]
 
 ```{r echo=TRUE, eval=FALSE}
 data %>%
@@ -2226,6 +2287,59 @@ data %>%
 ```
 
 ```{r ref.label="sumr4", echo=FALSE, eval=TRUE, collapse=T}
+```
+
+]
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+<br>
+
+### .font90[Função **summarise()** - .black[Sumarizar dados]]
+
+.pull-left-10[
+```{r echo=F, eval=T}
+data %>%
+  CustomDT
+```
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**.blue[Sumarizando diversas variáveis...]**
+<br><br>
+
+.green[**across()**] - Múltiplas colunas e funções
+<br>
+
+```{r echo=TRUE, eval=FALSE}
+data %>%
+  summarise(across(.cols = c(HC, CAP),
+                   .fns = list(media=mean, desv=sd),
+                   na.rm = TRUE,
+                   .names = "{.col}.{.fn}"
+                   )
+            )
+```
+
+```{r sumr5, echo=F, eval=F}
+data %>%
+  summarise(across(.cols = c(HC, CAP),
+                   .fns = list(media=mean, desv=sd),
+                   na.rm = TRUE,
+                   .names = "{.col}.{.fn}"
+                   )
+            ) %>%
+  CustomDT
+```
+
+```{r ref.label="sumr5", echo=FALSE, eval=TRUE, collapse=T}
 ```
 
 ]
