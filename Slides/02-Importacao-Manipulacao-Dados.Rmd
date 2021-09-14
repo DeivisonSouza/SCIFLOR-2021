@@ -170,7 +170,7 @@ knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
 ## Conteúdo
 
 .pull-left-10[
-.font80[
+.font70[
 **Parte 1 - Importação de dados com .orange[readr]**
 
 [1 - Importação de dados no R](#import)
@@ -196,7 +196,7 @@ knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
 
 .pull-right-10[
 .pull-down[
-.font80[
+.font70[
 **Parte 2 - Manipulação de dados com .orange[dplyr]**
 
 [1 - Função select() e suas auxiliares](#select)
@@ -228,6 +228,8 @@ knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
 [5 - Função summarise()](#summarise)
 
 &nbsp;&nbsp;&nbsp;&nbsp;[5.1 - Função across()](#across)
+
+[6 - Função group_by()](#groupby)
 
 ]
 ]
@@ -2372,8 +2374,145 @@ class: with-logo logo-ufpa
 
 ---
 
+## Manipulação de dados com dplyr
+<br>
 
+### .font90[Função **group_by()** - .black[Agrupar]]
 
+.pull-left-10[
+```{r echo=F, eval=T}
+data %>%
+  CustomDT
+```
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**.blue[Agrupando e aplicando uma função...]**
+<br><br>
+
+.green[**Contagem por grupo**] - Uma variável
+
+```{r echo=TRUE, eval=FALSE}
+data %>%
+  group_by(Nome_Especie) %>%
+  summarise(n = n())
+```
+
+```{r gby, echo=F, eval=F}
+data %>%
+  group_by(Nome_Especie) %>%
+  summarise(n = n()) %>%
+  CustomDT
+```
+
+```{r ref.label="gby", echo=FALSE, eval=TRUE, collapse=T}
+```
+
+]
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+<br>
+
+### .font90[Função **group_by()** - .black[Agrupar]]
+
+.pull-left-10[
+```{r echo=F, eval=T}
+data %>%
+  CustomDT
+```
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**.blue[Agrupando e aplicando uma função...]**
+<br><br>
+
+.green[**Contagem por grupo**] - Múltiplas variáveis
+
+```{r echo=TRUE, eval=FALSE}
+data %>%
+  group_by(Nome_Especie, Selecao) %>%
+  summarise(n = n())
+```
+
+```{r gby2, echo=F, eval=F}
+data %>%
+  group_by(Nome_Especie, Selecao) %>%
+  summarise(n = n()) %>%
+  CustomDT
+```
+
+```{r ref.label="gby2", echo=FALSE, eval=TRUE, collapse=T}
+```
+]
+]
+]
+
+---
+
+## Manipulação de dados com dplyr
+<br>
+
+### .font90[Função **group_by()** - .black[Agrupar]]
+
+.pull-left-10[
+```{r echo=F, eval=T}
+data %>%
+  CustomDT
+```
+]
+
+--
+
+.pull-right-10[
+.pull-top[
+.font80[
+**.blue[Agrupando e aplicando múltiplas funções...]**
+<br>
+
+.green[**Média e desvio padrão por grupo**] - Múltiplas variáveis 
+
+```{r echo=TRUE, eval=FALSE}
+data %>%
+  group_by(Nome_Especie) %>%
+  summarise(across(.cols = c(HC, CAP),
+                   .fns = list(media=mean, desv=sd),
+                   na.rm = TRUE,
+                   .names = "{.col}.{.fn}"
+                   ),
+            n = n()
+            )
+```
+
+```{r gby3, echo=F, eval=F}
+data %>%
+  group_by(Nome_Especie) %>%
+  summarise(across(.cols = c(HC, CAP),
+                   .fns = list(media=mean, desv=sd),
+                   na.rm = TRUE,
+                   .names = "{.col}.{.fn}"
+                   ),
+            n = n()
+            ) %>%
+  CustomDT
+```
+
+```{r ref.label="gby3", echo=FALSE, eval=TRUE, collapse=T}
+```
+]
+]
+]
 
 <!--Slide XX -->
 ---
@@ -2392,42 +2531,3 @@ background-size: cover
 .white[**Github**:] <a href="https://github.com/DeivisonSouza">.white[@DeivisonSouza]</a>
 
 .left[.footnote[.white[Créditos: Imagem de ljwong por Pixabay].]]
-
-<!-- ## Pacote readr (tidyverse) -->
-<!-- <br> -->
-
-<!-- ### Arquivo de valores separados por vírgula .black[(].blue[,].black[)] -->
-
-<!-- - **Função .black[read_csv()]** - Importar arquivos .csv -->
-<!-- .font80[ -->
-<!-- Vamos explorar outros argumentos da função read_csv()...(.green[**col_names**]) -->
-<!-- ] -->
-
-<!-- .pull-left-4[ -->
-<!-- .font80[ -->
-<!-- ```{r file3, echo=T, eval=F} -->
-<!-- # Importa o arquivo "file1" -->
-<!-- (file1 <- readr::read_csv(file="data/file1.csv")) -->
-<!-- ``` -->
-
-<!-- ```{r ref.label="file3", echo=F, eval=T, collapse=T} -->
-<!-- ``` -->
-<!-- ] -->
-<!-- ] -->
-
-<!-- -- -->
-
-<!-- .pull-right-4[ -->
-<!-- .font80[ -->
-<!-- ```{r file4, echo=T, eval=F} -->
-<!-- # Importa o arquivo "file1" -->
-<!-- (file1.mod1 <- readr::read_csv(file="data/file1.csv",  -->
-<!--                           col_names = c("Name", "DBH", "H") -->
-<!--                           ) -->
-<!--  ) -->
-<!-- ``` -->
-
-<!-- ```{r ref.label="file4", echo=F, eval=T, collapse=T} -->
-<!-- ``` -->
-<!-- ] -->
-<!-- ] -->
