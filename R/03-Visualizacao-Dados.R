@@ -1,14 +1,14 @@
 #-----------------------------------------------------------------------------------
 # Título: Introdução ao R para Análise de Dados
 #-----------------------------------------------------------------------------------
-# Subtítulo: Parte 3 - Visualização de Dados com ggplot2
+# Subtítulo: Parte 3 - Visualização de dados com ggplot2 e extensões
 # Autor: Prof. Dr. Deivison Venicio Souza
 # Instituto: Universidade Federal do Pará (UFPA)
 #-----------------------------------------------------------------------------------
 
-##############################################
-# Parte 1 - Visualização de dados com ggplot2
-##############################################
+###########################################################
+# Parte 1 - Visualização de dados com ggplot2 e extensões
+###########################################################
 
 #----------------------------------
 # 1 - Motivação
@@ -41,8 +41,11 @@
   ## É muito intuitivo, devido a filosofia de camadas.
 
 # Instale o ggplot2
-install.packages(ggplot2)
-install.packages(tidyverse)
+
+install.packages("ggplot2")   # Visualizar dados
+install.packages("dplyr")     # Manipulação de dados
+install.packages("ggpmisc")   # Adicionar equações e estatísticas
+#install.packages("tidyverse")
 
 # instala diversos pacotes, inclusive ggplot2
 
@@ -506,5 +509,531 @@ data_sample %>%
                                     sep = "*plain(\",\")~")),
                         parse = TRUE) +             # 4ª camada
   scale_color_manual(values = c("red", "black"))    # 5ª camada
+
+
+#--------------------------------------------
+# 7 - Gráfico de barras (ou colunas)
+#--------------------------------------------
+
+# - Existem 2 tipos de gráficos de barra:
+# geom_bar() e geom_col()
+
+# Vamos experimentar 2 abordagens usando geom_bar() para
+# construir gráficos de barras com contagens por categorias...
+
+# - Abordagem 1: A partir de um quadro com todos os dados.
+# - Abordagem 2: A partir de um quadro com os dados resumidos.
+
+# Para facilitar a compreensão, vamos usar apenas dados das
+# 3 espécies mais frequentes.
+
+# Filtra os dados de 3 espécies mais frequentes
+data_sample2 <- data %>%
+  filter(Nome_Especie %in% c("Acapu", "Casca seca", "Timborana"))
+
+#----------------------------------------------------------
+# Abordagem 1: Gráfico de contagem por categoria
+# Criando gráfico a partir de um quadro com todos os dados.
+#----------------------------------------------------------
+
+data_sample2 %>%
+  ggplot() +                           # 1ª camada
+  geom_bar(aes(x = Nome_Especie),
+           stat = "count")             # 2ª camada
+
+# 2ª camada
+# - Use stat = "count" na camada geom_bar() para fazer a
+# contagem de casos por categoria em "x".
+# - Neste caso, o argumento "y" é dispensado.
+
+
+#----------------------------------------------------------
+# Abordagem 2: Gráfico de contagem por categoria
+# Criando gráfico a partir de um quadro com os dados resumidos.
+#----------------------------------------------------------
+
+# Neste caso, primeiro cria-se um quadro de contagens e depois
+# usa-se os dados deste quadro para construir o gráfico...
+
+# Uma tabela de contagem das 3 espécies mais frequentes
+
+(data_top <- data %>%
+  filter(Nome_Especie %in% c("Acapu", "Casca seca", "Timborana")) %>%
+  group_by(Nome_Especie) %>%
+  summarise(media_HC = mean(HC), n = n()))
+
+# Obs.: Adicione **arrange(desc(n))** se desejar imprimir a
+# tabela ordenada por "n".
+
+# Cria o gráfico de contagem
+
+data_top %>%
+  ggplot() +                              # 1ª camada
+  geom_bar(aes(x = Nome_Especie, y = n),
+           stat = "identity")             # 2ª camada
+
+# 2ª camada
+# Use stat = "identity" na camada geom_bar(), indicando que
+# os dados devem ser usados como estão.
+# Neste caso, o argumento "y" com os valores de contagem
+# precisa ser informado.
+
+# Veja que dessa vez não mapeamos x e y na função ggplot().
+# Você entenderá o motivo adiante!
+
+#----------------------------------------------------------
+# Abordagem 1: Gráfico de média por categoria
+# Criando gráfico a partir de um quadro com todos os dados.
+#----------------------------------------------------------
+
+data_sample2 %>%
+  ggplot() +                                # 1ª camada
+  geom_bar(aes(x = Nome_Especie, y = HC),
+           stat = "summary",
+           fun = "mean")                    # 2ª camada
+
+# 2ª camada
+# - Use stat = "summary" e fun = "mean" na camada
+# geom_bar().
+# - Ao usar stat = "summary" é possível especificar a
+# estatística de resumo no argumento "fun".
+# - Experimente**: Use fun = "sum" e y = V, para obter
+# o volume total das 3 espécies.
+
+
+#----------------------------------------------------------
+# Abordagem 2: Gráfico de média por categoria
+# Criando gráfico a partir de um quadro com os dados resumidos.
+#----------------------------------------------------------
+
+data_top %>%
+  ggplot() +                                      # 1ª camada
+  geom_bar(aes(x = Nome_Especie, y = media_HC),
+           stat = "identity")                     # 2ª camada
+
+# 2ª camada
+# - Use stat = "identity" na camada geom_bar(), indicando
+# que os dados devem ser usados como estão. Fazendo isso,
+# stat_identity() será invocada.
+# Neste caso, o argumento "y" (Média) precisa ser informado.
+
+
+# 7.1 - Gráfico de barras - Modificando cores das barras
+#-----------------------------------------------------
+
+data_top %>%
+  ggplot() +                                   # 1ª camada
+  geom_bar(mapping = aes(x = Nome_Especie,
+                         y = n,
+                         fill = Nome_Especie),
+           stat = "identity", show.legend = F)  # 2ª camada
+
+# 2ª camada:
+
+# - Em geom_bar() pode-se adicionar elementos estéticos.
+# - Por exemplo, o argumento "fill" recebeu a coluna
+# "Nome_Especie" e mapeou diferentes cores para as categorias.
+
+# 7.2 - Gráfico de barras - Reordenando as barras
+#-----------------------------------------------------
+
+data_top %>%
+  mutate(Nome_Especie =
+           forcats::fct_reorder(Nome_Especie, n, .desc = F)
+  ) %>%
+  ggplot() +                                        # 1ª camada
+  geom_bar(mapping = aes(x = Nome_Especie,
+                         y = n,
+                         fill = Nome_Especie),
+           stat = "identity", show.legend = F)      # 2ª camada
+
+# - Use a função fct_reorder() do pacote **forcats** para
+# reordenar os níveis de fator da variável "Nome_Especie".
+# Repasse o comando dentro da função mutate() do **dplyr**.
+# Faça: as.factor(data_top$Nome_Especie) e veja que os níveis
+# de fator, por padrão, são ordenados por ordem alfabética.
+
+
+# 7.3 - Gráfico de barras - Adicionando rótulos nas barras
+#-----------------------------------------------------
+
+data_top %>%
+  mutate(Nome_Especie =
+           forcats::fct_reorder(
+             Nome_Especie, n, .desc = F)) %>%
+  ggplot() +                                      # 1ª camada
+  geom_bar(mapping = aes(
+    x = Nome_Especie, y = n, fill = Nome_Especie),
+    stat = "identity", show.legend = F) +         # 2ª camada
+  geom_label(aes(x = Nome_Especie,
+                 y = n/2,
+                 label = n),
+             size = 3)                            # 3ª camada
+
+# 3ª camada:
+# - Use a função geom_label() para reordenar adicionar rótulos
+# com os valores de contagem por espécie a cada barra.
+# - **Importante**: perceba que para geom_label() mapeou-se
+# novos pares de valores (x e y), que indicam a posição de
+# impressão dos rótulos no gráfico.
+# - Este é o motivo para não especificar x e y em ggplot()!
+
+
+# 7.4 - Gráfico de barras - Representando duas (ou mais)
+# variáveis
+#-----------------------------------------------------
+
+data_sample %>%
+  filter(Nome_Especie != "Acapu") %>%
+  ggplot() +                                    # 1ª camada
+  geom_bar(aes(x = Nome_Especie, fill = Selecao),
+           position = "dodge",
+           stat = "count")                      # 2ª camada
+
+# 2ª camada:
+# - O gráfico mostra a contagem de árvores remanescente e
+# explorar por espécie.
+# - Use "fill" para mapear diferentes cores para as categorias
+# de "Selecao".
+# - Use position = "dodge" para que as barras sejam
+# posicionadas lado a lado. (Padrão é "stack" = empilhadas)
+
+
+# 7.5 - Gráfico de barras - Represente duas (ou mais)
+# variáveis quantitativas
+#-----------------------------------------------------
+
+data_sample %>%
+  select(c(Nome_Especie, HC, DAP)) %>%
+  tidyr::pivot_longer(cols = !Nome_Especie,
+                      names_to = "Variavel",
+                      values_to = "Valor") %>%    # pivot = "mudar" ou "girar"
+  ggplot() +                                      # 1ª camada
+  geom_bar(mapping = aes(x = Nome_Especie,
+                         y = Valor,
+                         fill = Variavel),
+           position = "dodge",
+           stat = "summary",
+           fun = "mean")                          # 2ª camada
+
+# - Inicialmente, transforme o quadro de dados para o formato
+# longo. Use a função pivot_longer() do pacote **tidyr**.
+# - Use "cols" para informar as colunas que devem sofrer
+# pivotagem.
+# - Use names_to para informar o **nome da coluna** a ser
+# criada a partir dos **nomes das colunas pivotadas**.
+# - Use "values_to" para informar o **nome da coluna** a ser
+# criada a a partir dos **dados das células**.
+
+
+#-----------------------------------------------------------
+# 8 - Histogramas de frequências - Distribuição diamétrica
+#-----------------------------------------------------------
+
+data %>%
+  ggplot() +                                 # 1ª camada
+  geom_histogram(mapping = aes(x = DAP))     # 2ª camada
+
+# 2ª camada:
+# - Gráfico mostra a distribuição de frequência de uma única
+# variável contínua (DAP).
+# - Use geom_histogram() para criar histogramas.
+# - É necessário apenas especificar para "x" ou "y" a
+# variável contínua.
+
+
+# 8.1 - Histogramas de frequências - Controlando a
+# largura das barras
+#-----------------------------------------------------
+
+data %>%
+  ggplot() +                                 # 1ª camada
+  geom_histogram(mapping = aes(x = DAP),
+                 binwidth = 10)              # 2ª camada
+
+# 2ª camada:
+# - Use "binwidth" para controlar a largura das barras.
+# - Explore "binwidth" para encontrar a melhor representação
+# dos dados.
+
+
+#-----------------------------------------------------
+# 9 - Polígono de frequências - Compare distribuições
+# entre categorias
+#-----------------------------------------------------
+
+data_sample2 %>%
+  ggplot() +                                 # 1ª camada
+  geom_freqpoly(mapping = aes(x = DAP,
+                              colour = Nome_Especie),
+                binwidth = 10)              # 2ª camada
+
+# 2ª camada:
+# - Use geom_freqpoly() para criar polígonos de frequências.
+# - Esse tipo de gráfico é recomendado quando deseja-se
+# comparar a distribuição entre os níveis de uma variável
+# categórica.
+
+#-----------------------------------------------------------
+# 10 - BoxPlots - Compare distribuições
+#-----------------------------------------------------------
+
+data_sample2 %>%
+  ggplot() +                                 # 1ª camada
+  geom_boxplot(aes(x = Nome_Especie,
+                   y = DAP))                 # 2ª camada
+
+# 2ª camada:
+
+# - São adequados para comparar distribuições.
+# - Use geom_boxplot() para criar BoxPlots.
+# - Mapeie os valores de "x" e "y" na camada.
+# - No exemplo, os BoxPlots dos DAPs de cada categoria de
+# "Nome_Especie" são mapeados.
+# - É possível visualizar um BoxPlot geral
+# (sem considerar categorias) apenas modificando para "x" = 1.
+
+
+# 10.1 - BoxPlots - Reordenando os BoxPlots
+#-----------------------------------------------------------
+
+data_sample2 %>%
+  mutate(Nome_Especie =
+           forcats::fct_reorder(
+             Nome_Especie,
+             DAP,
+             .desc = T)
+  ) %>%
+  ggplot() +                                 # 1ª camada
+  geom_boxplot(aes(x = Nome_Especie,
+                   y = DAP))                 # 2ª camada
+
+
+# 2ª camada:
+# - Use fct_reorder() do pacote **forcats** para reordenar os
+# níveis de fator da variável "Nome_Especie".
+# - Repasse o comando dentro da função mutate() do **dplyr**.
+
+
+# 10.2 - BoxPlots - Adicione símbolo para representar a média
+#-----------------------------------------------------------
+
+data_sample2 %>%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP)) +             # 1ª camada
+  geom_boxplot() +                   # 2ª camada
+  stat_summary(fun = mean,
+               geom = "point",
+               shape = 20,
+               size = 4,
+               color = "red"
+  )                                   # 3ª camada
+
+# 2ª camada:
+# - Use stat_summary() para adicionar pontos representativos
+# da média para cada categoria de "Nome_Especie".
+# - Use "fun" para informar a estatística desejada.
+
+
+# 10.3 - BoxPlots - Represente vários grupos
+#-----------------------------------------------------------
+
+data_sample %>%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP,
+             color = Selecao)) +      # 1ª camada
+  geom_boxplot()                      # 2ª camada
+
+# 1ª camada:
+# - Use "color" = Selecao para criar BoxPlots de cada categoria
+# de "Selecao" para cada espécie.
+# - Os BoxPlots das categorias serão diferenciados por cores.
+
+
+# 10.4 - BoxPlots - Adicione pontos representativos dos dados
+#-----------------------------------------------------------
+
+data_sample %>%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP)) +                        # 1ª camada
+  geom_boxplot() +                              # 2ª camada
+  geom_jitter(width = 0.1)                      # 3ª camada
+
+# 3ª camada:
+# - Use geom_jitter() para adicionar pontos representativos dos
+# dados.
+# - A geom_jitter() adiciona uma pequena variação aleatória à
+# localização de cada ponto, evitando *overplotting*
+# (dados sobrepostos).
+
+
+# 10.5 - BoxPlots - Adicione cores aos pontos por categoria
+#-----------------------------------------------------------
+
+data_sample %>%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP,
+             color = Selecao)) +                # 1ª camada
+  geom_boxplot(color="black",
+               outlier.shape = NA) +            # 2ª camada
+  geom_jitter(width = 0.1)                      # 3ª camada
+
+# 3ª camada:
+# - Use color = Selecao em ggplot() para mapear cores para os
+# pontos representativos das categorias de "Selecao".
+# - Use color = "black" em geom_boxplot.
+# - Use outlier.shape = NA em geom_boxplot para ignorar os
+# outliers.
+
+
+#-------------------------------------------
+# 11 - Facetas - Matriz de painéis (facet)
+#-------------------------------------------
+
+# - Primeiro, vamos resgatar um gráfico de pontos que
+# fizemos anteriormente.
+# - Neste gráfico, a estética de cor (color) foi usada para
+# diferenciar as categorias da variável "Nome_Especie".
+# - Mas, veja que existe uma razoável sobreposição de grupos.
+# Isso dificulta uma clara e fácil separação destes.
+# - **Alternativa**: Use facet_grid() ou facet_wrap() para
+# diferenciar grupos.
+
+data_sample %>%
+  ggplot() +                    # 1ª camada
+  geom_point(
+    mapping = aes(
+      x = DAP,
+      y = V,
+      color = Nome_Especie))    # 2ª camada
+
+#-------------------------------------------------------
+# 11.1 - Facetas - Represente categorias de uma varíavel
+#-------------------------------------------------------
+
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                      # 2ª camada
+  facet_grid(. ~ Nome_Especie)        # 3ª camada
+
+# 3ª camada:
+# - Use facet_grid() para diferenciar grupos de uma (ou mais)
+# variáveis.
+# - Forneça uma fórmula para facet_grid(), como:
+# **vertical ~ horizontal**
+
+# Experimente:
+# - **Modifique**: facet_grid(Nome_Especie ~ .)
+# - **Adicione**: geom_smooth()
+
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +                # 1ª camada
+  geom_point() +                               # 2ª camada
+  facet_grid(. ~ Nome_Especie) +               # 3ª camada
+  geom_smooth(method='lm', formula=y~x, se=F)  # 4ª camada
+
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +                # 1ª camada
+  geom_point() +                               # 2ª camada
+  facet_grid(. ~ Nome_Especie) +               # 3ª camada
+  geom_smooth(method='lm', color = "red",
+              formula=y~poly(x,2), se=F)       # 4ª camada
+
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +                # 1ª camada
+  geom_point() +                               # 2ª camada
+  facet_grid(. ~ Nome_Especie) +               # 3ª camada
+  geom_smooth(method='lm', color = "red",
+              formula=y~poly(x,2), se=F) +     # 4ª camada
+  ggpmisc::stat_poly_eq(
+    aes(label = paste(..eq.label.., sep = "~~~")),
+               label.x.npc = "left",
+               label.y.npc = .95,
+               eq.with.lhs = "italic(hat(y))~`=`~",
+               eq.x.rhs = "~italic(x)",
+               formula = y~poly(x,2),
+               parse = TRUE,
+               size = 4) +
+  ggpmisc::stat_poly_eq(
+    aes(label = paste(..rr.label.., sep = "~~~")),
+    label.x.npc = "left",
+    label.y.npc = .9,
+    formula = y~poly(x,2),
+    parse = TRUE,
+    size = 4)
+
+
+#-------------------------------------------------------
+# 11.2 - Facetas - Represente categorias de duas (ou mais)
+# variáveis
+#-------------------------------------------------------
+
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                      # 2ª camada
+  facet_grid(Selecao ~ Nome_Especie)  # 3ª camada
+
+# 3ª camada:
+# - Adicione em facet_grid() mais uma variável para mapear.
+# - Um matriz de subgráficos é criada com dados dos
+# níveis/categorias das variáveis “Selecao” e “Nome_Especie”
+
+# Experimente:
+# - **Modifique**: facet_grid(Nome_Especie ~ Selecao)
+# - **Adicione**: geom_smooth()
+
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +                # 1ª camada
+  geom_point() +                               # 2ª camada
+  facet_grid(Selecao ~ Nome_Especie) +         # 3ª camada
+  geom_smooth(method='lm', color = "red",
+              formula=y~poly(x,2), se=F)       # 4ª camada
+
+#-------------------------------------------------------
+# 11.3 - Facetas - Escalas dos eixos livres
+#-------------------------------------------------------
+
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                      # 2ª camada
+  facet_grid(Selecao ~ Nome_Especie,
+             scales="free")           # 3ª camada
+
+# - Por padrão, facet_grid() usa scales="fixed".
+# Isso significa que as escalas dos eixos (x e y)
+# são constantes em todos os subgráficos.
+# - Use scales="free" para permitir que as escalas
+# sejam independentes, ou seja, possam variar para
+# cada subgráfico.
+
+# Experimente
+# - **Modifique**: scales="free_x" e scales="free_y".
+# O que acontece?
+
+
+#----------------------------------------------------------
+# 11.4 - Facetas - Modificando o texto do rótulo da faceta
+#----------------------------------------------------------
+
+labels1 <- c(Remanescente = "Rem.", Explorar = "Exp.")
+labels2 <- c(Acapu = "Vouacapoua", Andiroba = "Carapa",
+             `Goiabão` = "Pouteria", `Maçaranduba` = "Manilkara")
+
+data_sample %>%
+  ggplot(aes(x = DAP, y = V)) +                  # 1ª camada
+  geom_point() +                                 # 2ª camada
+  facet_grid(Selecao ~ Nome_Especie,
+             scales = "free",
+             labeller =
+               labeller(Selecao = labels1,
+                        Nome_Especie = labels2)) # 3ª camada
+
+# 3ª camada:
+# - Use labeller para modificar os rótulos das facetas.
+
+
+###########################################################
+# Parte 2 - Combinação de gráficos com XXXXXX
+###########################################################
 
 
