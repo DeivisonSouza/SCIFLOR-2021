@@ -267,7 +267,7 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
 
 &nbsp;&nbsp;&nbsp;&nbsp;[9.4 - Modificando o texto do rótulo da faceta](#mtrf)
 
-&nbsp;&nbsp;&nbsp;&nbsp;[9.5 - XXXXXXXXXXXXXX](#acpc)
+[10 - Salve um ggplot](#save)
 
 ]
 ]
@@ -2052,6 +2052,50 @@ data_sample %>%
 ```
 ]
 ]
+
+---
+name: save
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Salve um ggplot em diferentes extensões e alta resolução
+]
+<br>
+
+.pull-left-4[
+.font90[
+- Um gráfico produzido com **ggplot2** pode ser salvo em diferentes extensões usando a função .green[ggsave()].
+- Por padrão, o último gráfico produzido e exibido é salvo (last_plot).
+- O gráfico é salvo no diretório corrente, se não houver especificação do diretório.
+]
+]
+
+--
+
+.pull-right-4[
+.font70[
+**Salva último gráfico exibido no diretório corrente**]
+```{r echo = T, eval = F}
+ggsave(filename = "facet.png")
+ggsave(filename = "facet.pdf")
+```
+
+.font70[**Salva último gráfico exibido em outro diretório**]
+```{r echo = T, eval = F}
+ggsave("facet.png", path = "fig/part3")
+```
+
+]
+
+
+
+
+--
+
+
+
+
+
 
 ---
 

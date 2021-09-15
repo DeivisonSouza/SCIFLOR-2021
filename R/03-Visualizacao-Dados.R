@@ -1032,6 +1032,28 @@ data_sample %>%
 # - Use labeller para modificar os rótulos das facetas.
 
 
+#----------------------------------------------------------
+# 12 - Salve um ggplot - Função ggsave()
+#----------------------------------------------------------
+
+# Um gráfico produzido com ggplot2 pode ser salvo em diferentes
+# extensões e resoluções usando a função ggsave().
+# Por padrão, o último gráfico produzido e exibido é salvo
+# (last_plot).
+# O gráfico é salvo no diretório corrente, se não houver
+# especificação do diretório.
+# É possível salvar em várias extensões, como: .png, .jpg,
+# .tiff, .pdf
+
+# Salva último gráfico exibido no diretório corrente
+ggsave(filename = "facet.png")
+ggsave(filename = "facet.pdf")
+
+# Salva último gráfico exibido em outro diretório
+ggsave("facet.png", path = "Slides/fig/part3")
+
+
+
 ###########################################################
 # Parte 2 - Combinação de gráficos com Patchwork
 ###########################################################
