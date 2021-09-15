@@ -1,6 +1,6 @@
 ---
 title: "Minicurso: Introdução ao R para Análise de Dados"
-subtitle: "Visualização de Dados com ggplot2"
+subtitle: "Visualização de dados com ggplot2 e extensões"
 author: "Prof. Dr. Deivison Venicio Souza"
 institute: "Universidade Federal do Pará (UFPA)"
 date: 
@@ -121,7 +121,7 @@ CustomDT <- function(data){
 <!-- title-slide -->
 # Minicurso: Introdução ao R para Análise de Dados
 
-## .font90[Parte 3 - Visualização de Dados <br> com ggplot2] `r anicon::faa("pagelines", animate="horizontal", colour="green")`
+## .font90[Parte 3 - Visualização de dados <br> com ggplot2 e extensões] `r anicon::faa("pagelines", animate="horizontal", colour="green")`
 
 #### **Prof. Dr. Deivison Venicio Souza**
 ##### Universidade Federal do Pará (UFPA) 
@@ -135,14 +135,14 @@ CustomDT <- function(data){
 layout: true
 class: with-logo logo-ufpa
 <div class="my-header"></div>
-<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 3 - Visualização de Dados com ggplot2</div2> </div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 3 - Visualização de dados com ggplot2 e extensões</div2> </div>
 
 ---
 
 <br>
 ## Objetivos
 <br><br>
-Ao final desta terceira parte (.blue[Visualização de Dados com ggplot2]) espera-se que os participantes possam alcançar conhecimentos para...
+Ao final desta terceira parte (.blue[Visualização de dados com ggplot2 e extensões]) espera-se que os participantes possam alcançar conhecimentos para...
 <br><br>
 
 * Construir gráficos no R usando funções do pacote **ggplot2**; e
@@ -295,7 +295,7 @@ background-size: cover
 layout: true
 class: with-logo logo-ufpa
 <div class="my-header"></div>
-<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 3 - Visualização de Dados com ggplot2</div2> </div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 3 - Visualização de dados com ggplot2 e extensões</div2> </div>
 
 ---
 name: mot
@@ -2064,7 +2064,7 @@ background-size: cover
 layout: true
 class: with-logo logo-ufpa
 <div class="my-header"></div>
-<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 3 - Visualização de Dados com ggplot2</div2> </div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 3 - Visualização de dados com ggplot2 e extensões</div2> </div>
 
 <!--Slide XX -->
 ---
