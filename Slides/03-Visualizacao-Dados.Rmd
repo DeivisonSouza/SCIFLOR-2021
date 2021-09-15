@@ -945,7 +945,7 @@ ggplot(data = data_sample %>%
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
-### Gráfico de pontos (dispersão) - .black[Adicione equações e estatísticas]
+### Gráfico de pontos (dispersão) - .black[Uma equação e suas estatísticas]
 ]
 <br>
 
@@ -986,7 +986,7 @@ data_sample %>%
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
-### Gráfico de pontos (dispersão) - .black[Adicione equações e estatísticas]
+### Gráfico de pontos (dispersão) - .black[Uma equação e suas estatísticas]
 ]
 <br>
 
@@ -1024,6 +1024,51 @@ data_sample %>%
 ]
 ]
 
+---
+
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de pontos (dispersão) - .black[Duas equações e suas estatísticas]
+]
+<br>
+
+.pull-left-4[
+.font70[
+
+```{r point14, echo=T, eval=F}
+data_sample %>%
+  filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')) %>%
+  ggplot(mapping =
+           aes(x = DAP, y = V,
+               linetype = Nome_Especie,
+               colour = Nome_Especie)) +           # 1ª camada
+  geom_point() +                                   # 2ª camada
+  geom_smooth(method='lm',
+              formula=y~poly(x,2), se=F) +         # 3ª camada
+  ggpmisc::stat_poly_eq(formula = y~poly(x,2),
+                        eq.with.lhs = "italic(hat(V))~`=`~",
+                        aes(label =
+                              paste(..eq.label..,
+                                    ..adj.rr.label..,
+                                    sep = "*plain(\",\")~")),
+                        parse = TRUE) +             # 4ª camada
+  scale_color_manual(values = c("red", "black"))    # 5ª camada
+```
+
+`r emo::ji("point_right")` **4ª camada**:
+
+- Especifique .brown[linetype] = .blue[Nome_Especie] para que linhas de ajustes para cada categoria de "Nome_Especie" sejam
+mapeadas.
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point14",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
 
 ---
 name: gb

@@ -430,7 +430,7 @@ data_sample %>%
 # - Experimente a função labs() para adicionar títulos.
 
 
-# 6.12 - Gráfico de pontos - Adicione equações e estatísticas
+# 6.12 - Gráfico de pontos - Uma equação e suas estatísticas
 #-----------------------------------------------------
 
 # Uma maneira prática (não a única!) de adicionar um modelo
@@ -458,7 +458,7 @@ data_sample %>%
 #  informações de ajuste de um modelo linear.
 
 
-# 6.13 - Gráfico de pontos - Adicione equações e estatísticas
+# 6.13 - Gráfico de pontos - Uma equação e suas estatísticas
 #-----------------------------------------------------
 
 # Adicione um polinômio de grau 2...
@@ -484,5 +484,27 @@ data_sample %>%
 # - Use poly() no argumento formula para modificar o grau do
 # polinômio.
 
+# 6.14 - Gráfico de pontos - Duas equações e suas estatísticas
+#-----------------------------------------------------
+
+# Adicione duas equações no gráfico...
+
+data_sample %>%
+  filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')) %>%
+  ggplot(mapping =
+           aes(x = DAP, y = V,
+               linetype = Nome_Especie,
+               colour = Nome_Especie)) +           # 1ª camada
+  geom_point() +                                   # 2ª camada
+  geom_smooth(method='lm',
+              formula=y~poly(x,2), se=F) +         # 3ª camada
+  ggpmisc::stat_poly_eq(formula = y~poly(x,2),
+                        eq.with.lhs = "italic(hat(V))~`=`~",
+                        aes(label =
+                              paste(..eq.label..,
+                                    ..adj.rr.label..,
+                                    sep = "*plain(\",\")~")),
+                        parse = TRUE) +             # 4ª camada
+  scale_color_manual(values = c("red", "black"))    # 5ª camada
 
 
