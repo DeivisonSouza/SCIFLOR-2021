@@ -48,6 +48,7 @@ install.packages(tidyverse)
 
 # Carrega pacotes
 library(ggplot2)
+library(dplyr)
 
 # Para tornar todas as funções do pacote disponíveis para uso
 # na sessão corrente do R.
@@ -241,9 +242,21 @@ ggplot(data = data_sample,
 # - **Bubblechart** (gráfico de bolhas): É um gráfico de
 # dispersão, em que uma terceira dimensão é adicionada.
 
+# Vamos usar apenas os dados da "Maçaranduba" para melhor
+# visualização dos efeitos. Mas, para isso é necessário
+# filtrar apenas as linhas de dados da espécie.
+
 ggplot(data = data_sample %>%
          filter(Nome_Especie == 'Maçaranduba'),
        mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(colour = Selecao,
+                           size = HC))            # 2ª camada
+
+# Ou de outro modo...
+
+data_sample %>%
+  filter(Nome_Especie == 'Maçaranduba') %>%
+  ggplot(mapping = aes(x = DAP, y = V)) +         # 1ª camada
   geom_point(mapping = aes(colour = Selecao,
                            size = HC))            # 2ª camada
 
@@ -257,4 +270,219 @@ ggplot(data = data_sample %>%
 # 6.7 - Gráfico de pontos - Modifique tamanho dos pontos
 #---------------------------------------------------
 
-# Linha 717
+# Vamos usar apenas os dados de "Maçaranduba" e "Acapu" para
+# melhor visualização dos efeitos. Mas, para isso é necessário
+# filtrar apenas as linhas de dados da espécie.
+
+ggplot(data = data_sample %>%
+         filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')),
+       mapping = aes(x = DAP, y = V)) +           # 1ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4)                            # 2ª camada
+
+# Ou de outro modo...
+
+data_sample %>%
+  filter(Nome_Especie %in% c('Acapu', 'Maçaranduba')) %>%
+  ggplot(mapping = aes(x = DAP, y = V)) +        # 1ª camada
+  geom_point(mapping =
+               aes(colour = Nome_Especie,
+                           shape = Selecao
+                   ),
+             size = 4)                            # 2ª camada
+
+# 2ª camada:
+
+# - Isso é feito com argumento **size**, porém fora de aes().
+# - Especifique um valor inteiro para o argumento.
+
+
+# 6.8 - Gráfico de pontos - Personalize a forma e a cor dos pontos
+#----------------------------------------------------------------------
+
+ggplot(data = data_sample %>%
+         filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')),
+       mapping = aes(x = DAP, y = V)) +               # 1ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4) +                              # 2ª camada
+  scale_shape_manual(values = c(3, 5)) +              # 3ª camada
+  scale_color_manual(values = c('#F1C40F','#DE3163')) # 4ª camada
+
+# Ou de outro modo...
+
+data_sample %>%
+  filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')) %>%
+  ggplot(mapping = aes(x = DAP, y = V)) +             # 1ª camada
+  geom_point(mapping =
+               aes(colour = Nome_Especie,
+                           shape = Selecao
+                   ),
+             size = 4) +                              # 2ª camada
+  scale_shape_manual(values = c(3, 5)) +              # 3ª camada
+  scale_color_manual(values = c('#F1C40F','#DE3163')) # 4ª camada
+
+# 3ª e 4ª camadas:
+
+# - Use scale_shape_manual() e scale_color_manual() para
+# definir a forma e cor desejada para os pontos (e muito mais),
+# respectivamente.
+
+
+# 6.9 - Gráfico de pontos - Modifique legendas
+#---------------------------------------------
+
+ggplot(data = data_sample %>%
+         filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')),
+       mapping = aes(x = DAP, y = V)) +                 # 1ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4) +                                # 2ª camada
+  scale_shape_manual(values = c(3, 5),
+                     labels = c("Árvore para explorar",
+                                "Árvore remanescente"),
+                     name = "Seleção") +                # 3ª camada
+  scale_color_manual(values = c('#999999','#E69F00'),
+                     labels = c("Carapa guianensis",
+                                "Manilkara elata"),
+                     name = "Espécie")                  # 4ª camada
+
+# Ou de outro modo...
+
+data_sample %>%
+  filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')) %>%
+ggplot(mapping = aes(x = DAP, y = V)) +                 # 1ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4) +                                # 2ª camada
+  scale_shape_manual(values = c(3, 5),
+                     labels = c("Árvore para explorar",
+                                "Árvore remanescente"),
+                     name = "Seleção") +                # 3ª camada
+  scale_color_manual(values = c('#999999','#E69F00'),
+                     labels = c("Carapa guianensis",
+                                "Manilkara elata"),
+                     name = "Espécie")                  # 4ª camada
+
+# 3ª e 4ª camadas:
+
+# - Use scale_shape_manual() e scale_color_manual() para
+# modificar as legendas atribuídas a partir das variáveis
+# mapeadas em "shape" e "color" de geom_point(), respectivamente.
+# - Explore os argumentos "labels" e "name".
+
+
+# 6.10 - Gráfico de pontos - Modifique títulos e escalas
+#------------------------------------------------------
+
+data_sample %>%
+  filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')) %>%
+  ggplot(mapping = aes(x = DAP, y = V)) +             # 1ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4
+             ) +                                       # 2ª camada
+  scale_shape_manual(values = c(3, 5),
+                     labels = c("Árvore para explorar",
+                                "Árvore remanescente"),
+                     name = "Seleção") +               # 3ª camada
+  scale_color_manual(values = c('#999999','#E69F00'),
+                     labels = c("Carapa guianensis",
+                                "Manilkara elata"),
+                     name = "Espécie") +                # 4ª camada
+  scale_x_continuous(name = "Diâmetro (cm)",
+                     limits = c(35, 115),
+                     breaks = seq(35, 115, 10))         # 5ª camada
+
+
+# 5ª camada:
+
+# - Argumentos "name", "limits" e "breaks" na camada de
+# scale_x_continuous().
+# - Experimente: scale_y_continuous().
+
+
+# 6.11 - Gráfico de pontos - Adicione títulos,
+# subtítulos, tags...
+#-----------------------------------------------------
+
+data_sample %>%
+  filter(Nome_Especie %in% c('Andiroba', 'Maçaranduba')) %>%
+  ggplot(mapping = aes(x = DAP, y = V)) +             # 1ª camada
+  geom_point(mapping = aes(colour = Nome_Especie,
+                           shape = Selecao),
+             size = 4) +                              # 2ª camada
+  scale_shape_manual(values = c(3, 5),
+                     labels = c("Árvore para explorar",
+                                "Árvore remanescente"),
+                     name = "Seleção") +               # 3ª camada
+  scale_color_manual(values = c('#999999','#E69F00'),
+                     labels = c("Carapa guianensis",
+                                "Manilkara elata"),
+                     name = "Espécie") +               # 4ª camada
+  labs(title = "Relação Volume-Diâmetro",
+       subtitle = "(IF100% - Amazônia)",
+       tag = "A", x = "Diâmetro (cm)",
+       y = "Volume (m³)")                              # 5ª camada
+
+# 5ª camada:
+# - Experimente a função labs() para adicionar títulos.
+
+
+# 6.12 - Gráfico de pontos - Adicione equações e estatísticas
+#-----------------------------------------------------
+
+# Uma maneira prática (não a única!) de adicionar um modelo
+# ajustado (e suas estatísticas de ajuste) em um gráfico
+# criado com ggplot2 é usar funções do pacote "ggpmisc".
+
+# Vamos ajustar uma RL usando apenas dados da 'Maçaranduba'.
+
+data_sample %>%
+  filter(Nome_Especie %in% 'Maçaranduba') %>%
+  ggplot(mapping = aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                                # 2ª camada
+  geom_smooth(method='lm', formula=y~x, se=F) + # 3ª camada
+  ggpmisc::stat_poly_eq(formula = y~x,
+                        eq.with.lhs = "italic(hat(V))~`=`~",
+                        aes(label =
+                              paste(..eq.label..,
+                                    ..adj.rr.label..,
+                                    ..AIC.label..,
+                                    sep = "*plain(\",\")~")),
+                        parse = TRUE)            # 4ª camada
+
+# 4ª camada:
+# - Use a função stat_poly_eq() do pacote ggpmisc para adicionar
+#  informações de ajuste de um modelo linear.
+
+
+# 6.13 - Gráfico de pontos - Adicione equações e estatísticas
+#-----------------------------------------------------
+
+# Adicione um polinômio de grau 2...
+
+data_sample %>%
+  filter(Nome_Especie %in% 'Maçaranduba') %>%
+  ggplot(mapping = aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                                # 2ª camada
+  geom_smooth(method='lm',
+              formula=y~poly(x,2), se=F) +      # 3ª camada
+  ggpmisc::stat_poly_eq(formula = y~poly(x,2),
+                        eq.with.lhs = "italic(hat(V))~`=`~",
+                        aes(label =
+                              paste(..eq.label..,
+                                    ..adj.rr.label..,
+                                    ..AIC.label..,
+                                    sep = "*plain(\",\")~")),
+                        parse = TRUE)            # 4ª camada
+
+# 4ª camada:
+# - Use a função stat_poly_eq() do pacote **ggpmisc** para
+# adicionar informações de ajuste de um modelo linear.
+# - Use poly() no argumento formula para modificar o grau do
+# polinômio.
+
+
+

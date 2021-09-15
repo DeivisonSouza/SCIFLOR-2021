@@ -192,7 +192,7 @@ knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
 
 &nbsp;&nbsp;&nbsp;&nbsp;[5.4 - Modificando a tamanho dos pontos](#mtp)
 
-&nbsp;&nbsp;&nbsp;&nbsp;[5.5 - Personalisando a forma e a cor dos pontos](#pfcp)
+&nbsp;&nbsp;&nbsp;&nbsp;[5.5 - Personalizando a forma e a cor dos pontos](#pfcp)
 
 ]
 ]
@@ -751,7 +751,7 @@ name: pfcp
 ## Pacote ggplot2 (tidyverse)
 
 .font60[
-### Gráfico de pontos (dispersão) - .black[Personalise a forma e a cor dos pontos]
+### Gráfico de pontos (dispersão) - .black[Personalize a forma e a cor dos pontos]
 ]
 <br>
 
@@ -765,14 +765,13 @@ ggplot(data = data_sample %>%
                            shape = Selecao),
              size = 4) +                              # 2ª camada
   scale_shape_manual(values = c(3, 5)) +              # 3ª camada
-  scale_color_manual(values = c('#999999','#E69F00')) # 4ª camada
+  scale_color_manual(values = c('#F1C40F','#DE3163')) # 4ª camada
 ```
 <br>
 
 `r emo::ji("point_right")` **3ª e 4ª camadas**:
 
-- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para definir a forma e cor desejada para os pontos (e muito mais), respectivamente. 
-- Experimente .green[scale_size_manual()].
+- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para definir a forma e cor desejada para os pontos (e muito mais), respectivamente.
 ]
 ]
 
@@ -809,7 +808,7 @@ ggplot(shapes, aes(x, y)) +
 
 
 ---
-
+name: ml
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
@@ -839,7 +838,8 @@ ggplot(data = data_sample %>%
 
 `r emo::ji("point_right")` **3ª e 4ª camadas**:
 
-- Explore os argumentos .blue[labels] e .blue[name] nas camadas de .green[scale_shape_manual()] e .green[scale_color_manual()].
+- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para modificar as legendas atribuídas a partir das variáveis mapeadas em .blue[shape] e .blue[color] de .green[geom_point()], respectivamente.
+- Explore os argumentos .blue[labels] e .blue[name].
 ]
 ]
 
@@ -939,6 +939,91 @@ ggplot(data = data_sample %>%
 ```
 ]
 ]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de pontos (dispersão) - .black[Adicione equações e estatísticas]
+]
+<br>
+
+.pull-left-4[
+.font70[
+
+```{r point12, echo=T, eval=F}
+data_sample %>%
+  filter(Nome_Especie %in% 'Maçaranduba') %>%
+  ggplot(mapping = aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                                # 2ª camada
+  geom_smooth(method='lm', formula=y~x, se=F) + # 3ª camada
+  ggpmisc::stat_poly_eq(formula = y~x,
+                        eq.with.lhs = "italic(hat(V))~`=`~",
+                        aes(label =
+                              paste(..eq.label..,
+                                    ..adj.rr.label..,
+                                    ..AIC.label..,
+                                    sep = "*plain(\",\")~")),
+                        parse = TRUE)            # 4ª camada
+```
+
+`r emo::ji("point_right")` **4ª camada**:
+
+- Use a função .green[stat_poly_eq()] do pacote **ggpmisc** para adicionar informações de ajuste de um modelo linear.
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point12",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de pontos (dispersão) - .black[Adicione equações e estatísticas]
+]
+<br>
+
+.pull-left-4[
+.font70[
+
+```{r point13, echo=T, eval=F}
+data_sample %>%
+  filter(Nome_Especie %in% 'Maçaranduba') %>%
+  ggplot(mapping = aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                                # 2ª camada
+  geom_smooth(method='lm', 
+              formula=y~poly(x,2), se=F) + # 3ª camada
+  ggpmisc::stat_poly_eq(formula = y~poly(x,2),
+                        eq.with.lhs = "italic(hat(V))~`=`~",
+                        aes(label =
+                              paste(..eq.label..,
+                                    ..adj.rr.label..,
+                                    ..AIC.label..,
+                                    sep = "*plain(\",\")~")),
+                        parse = TRUE)            # 4ª camada
+```
+
+`r emo::ji("point_right")` **4ª camada**:
+
+- Use a função .green[stat_poly_eq()] do pacote **ggpmisc** para adicionar informações de ajuste de um modelo linear.
+- Use .green[poly()] no argumento .brown[formula] para modificar o grau do polinômio.
+]
+]
+
+.pull-right-4[
+.font80[
+```{r ref.label="point13",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
 
 ---
 name: gb

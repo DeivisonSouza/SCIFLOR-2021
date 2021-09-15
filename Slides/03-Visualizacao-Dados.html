@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xebf8af0aaf24faa896489df59b7d2fa","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x144c9bbe51141b5b2ab1e7e2372724e","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -120,7 +120,7 @@ top:1.5em;right:0.6em;
 ##### Faculdade de Engenharia Florestal
 ##### E-mail: deivisonvs@ufpa.br
 &lt;br&gt;
-##### 1ª versão: 22/setembro/2021 &lt;br&gt; (Atualizado em: 14/setembro/2021)
+##### 1ª versão: 22/setembro/2021 &lt;br&gt; (Atualizado em: 15/setembro/2021)
 
 ---
 
@@ -180,7 +180,7 @@ Ao final desta terceira parte (.blue[Visualização de Dados com ggplot2]) esper
 
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.4 - Modificando a tamanho dos pontos](#mtp)
 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.5 - Personalisando a forma e a cor dos pontos](#pfcp)
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[5.5 - Personalizando a forma e a cor dos pontos](#pfcp)
 
 ]
 ]
@@ -353,8 +353,7 @@ data_sample %&gt;% CustomDT # apenas p/ uma saída elegante da tabela
 ```
 &lt;br&gt;
 
-**Vamos usar uma amostra de 4 espécies florestais de um IF100% para construir 
-os gráficos...**
+**Vamos usar uma amostra de 4 espécies florestais de um IF100% para construir os gráficos...**
 
 **A base completa pode ser acessada em**: [IF100%](https://deivisonsouza.github.io/FL03034-EF/Slides/data/UPA07DVS.csv)
 
@@ -740,7 +739,7 @@ name: pfcp
 ## Pacote ggplot2 (tidyverse)
 
 .font60[
-### Gráfico de pontos (dispersão) - .black[Personalise a forma e a cor dos pontos]
+### Gráfico de pontos (dispersão) - .black[Personalize a forma e a cor dos pontos]
 ]
 &lt;br&gt;
 
@@ -755,14 +754,13 @@ ggplot(data = data_sample %&gt;%
                            shape = Selecao),
              size = 4) +                              # 2ª camada
   scale_shape_manual(values = c(3, 5)) +              # 3ª camada
-  scale_color_manual(values = c('#999999','#E69F00')) # 4ª camada
+  scale_color_manual(values = c('#F1C40F','#DE3163')) # 4ª camada
 ```
 &lt;br&gt;
 
 👉 **3ª e 4ª camadas**:
 
-- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para definir a forma e cor desejada para os pontos (e muito mais), respectivamente. 
-- Experimente .green[scale_size_manual()].
+- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para definir a forma e cor desejada para os pontos (e muito mais), respectivamente.
 ]
 ]
 
@@ -785,7 +783,7 @@ ggplot(data = data_sample %&gt;%
 
 
 ---
-
+name: ml
 ## Pacote ggplot2 (tidyverse)
 
 .font70[
@@ -816,7 +814,8 @@ ggplot(data = data_sample %&gt;%
 
 👉 **3ª e 4ª camadas**:
 
-- Explore os argumentos .blue[labels] e .blue[name] nas camadas de .green[scale_shape_manual()] e .green[scale_color_manual()].
+- Use .green[scale_shape_manual()] e .green[scale_color_manual()] para modificar as legendas atribuídas a partir das variáveis mapeadas em .blue[shape] e .blue[color] de .green[geom_point()], respectivamente.
+- Explore os argumentos .blue[labels] e .blue[name].
 ]
 ]
 
@@ -917,6 +916,91 @@ ggplot(data = data_sample %&gt;%
 ]
 
 ---
+
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de pontos (dispersão) - .black[Adicione equações e estatísticas]
+]
+&lt;br&gt;
+
+.pull-left-4[
+.font70[
+
+
+```r
+data_sample %&gt;%
+  filter(Nome_Especie %in% 'Maçaranduba') %&gt;%
+  ggplot(mapping = aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                                # 2ª camada
+  geom_smooth(method='lm', formula=y~x, se=F) + # 3ª camada
+  ggpmisc::stat_poly_eq(formula = y~x,
+                        eq.with.lhs = "italic(hat(V))~`=`~",
+                        aes(label =
+                              paste(..eq.label..,
+                                    ..adj.rr.label..,
+                                    ..AIC.label..,
+                                    sep = "*plain(\",\")~")),
+                        parse = TRUE)            # 4ª camada
+```
+
+👉 **4ª camada**:
+
+- Use a função .green[stat_poly_eq()] do pacote **ggpmisc** para adicionar informações de ajuste de um modelo linear.
+]
+]
+
+.pull-right-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## Pacote ggplot2 (tidyverse)
+
+.font70[
+### Gráfico de pontos (dispersão) - .black[Adicione equações e estatísticas]
+]
+&lt;br&gt;
+
+.pull-left-4[
+.font70[
+
+
+```r
+data_sample %&gt;%
+  filter(Nome_Especie %in% 'Maçaranduba') %&gt;%
+  ggplot(mapping = aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                                # 2ª camada
+  geom_smooth(method='lm', 
+              formula=y~poly(x,2), se=F) + # 3ª camada
+  ggpmisc::stat_poly_eq(formula = y~poly(x,2),
+                        eq.with.lhs = "italic(hat(V))~`=`~",
+                        aes(label =
+                              paste(..eq.label..,
+                                    ..adj.rr.label..,
+                                    ..AIC.label..,
+                                    sep = "*plain(\",\")~")),
+                        parse = TRUE)            # 4ª camada
+```
+
+👉 **4ª camada**:
+
+- Use a função .green[stat_poly_eq()] do pacote **ggpmisc** para adicionar informações de ajuste de um modelo linear.
+- Use .green[poly()] no argumento .brown[formula] para modificar o grau do polinômio.
+]
+]
+
+.pull-right-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+
+---
 name: gb
 ## Pacote ggplot2 (tidyverse)
 
@@ -997,7 +1081,7 @@ ggplot(data = data_sample2) +                # 1ª camada
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1042,7 +1126,7 @@ Você entenderá o motivo mais a frente!].
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1080,7 +1164,7 @@ ggplot(data = data_sample2) +               # 1ª camada
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1116,7 +1200,7 @@ ggplot(data = data_top) +                         # 1ª camada
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1155,7 +1239,7 @@ ggplot(data = data_top) +                           # 1ª camada
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1198,7 +1282,7 @@ data_top %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1246,7 +1330,7 @@ data_top %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1286,7 +1370,7 @@ data_sample %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1330,7 +1414,7 @@ data_sample %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1366,7 +1450,7 @@ data %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1403,7 +1487,7 @@ data %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1440,7 +1524,7 @@ data_sample2 %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1479,7 +1563,7 @@ data_sample2 %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-35-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-37-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1522,7 +1606,7 @@ data_sample2 %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1565,7 +1649,7 @@ data_sample2 %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-37-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1602,7 +1686,7 @@ data_sample %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-38-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1639,7 +1723,7 @@ data_sample %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1680,7 +1764,7 @@ data_sample %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1723,7 +1807,7 @@ data_sample %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1765,7 +1849,7 @@ data_sample %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-42-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1806,7 +1890,7 @@ data_sample %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1847,7 +1931,7 @@ data_sample %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
@@ -1892,7 +1976,7 @@ data_sample %&gt;%
 
 .pull-left-4[
 .font80[
-&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-47-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 
