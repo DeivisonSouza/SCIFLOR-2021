@@ -146,7 +146,7 @@ Ao final desta terceira parte (.blue[Visualização de dados com ggplot2 e exten
 <br><br>
 
 * Construir gráficos no R usando funções do pacote **ggplot2**; e
-* Combinar gráficos usando o pacote **XXXXX**.
+* Combinar gráficos usando o pacote **Patchwork**.
 <br><br>
 
 .pull-left-7[
@@ -158,6 +158,12 @@ knitr::include_graphics("https://tidyverse.tidyverse.org/articles/tidyverse-logo
 .pull-left-7[
 ```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600}
 knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
+```
+]
+
+.pull-left-7[
+```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/logo.png")
 ```
 ]
 
@@ -2055,7 +2061,7 @@ class: inverse, top, right
 background-image: url(fig/part1/arara.jpg)
 background-size: cover
 
-.font200[**.yellow[Parte 2] <br> .white[Combinação de gráficos <br> com .orange[XXXXXX]]**]
+.font200[**.yellow[Parte 2] <br> .white[Combinação de gráficos <br> com .orange[Patchwork]]**]
 
 .left[.footnote[.white[Créditos: Imagem de IvaCastro por Pixabay].]]
 

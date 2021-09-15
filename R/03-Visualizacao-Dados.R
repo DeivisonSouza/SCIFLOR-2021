@@ -1033,7 +1033,10 @@ data_sample %>%
 
 
 ###########################################################
-# Parte 2 - Combinação de gráficos com XXXXXX
+# Parte 2 - Combinação de gráficos com Patchwork
 ###########################################################
+
+
+
 
 
