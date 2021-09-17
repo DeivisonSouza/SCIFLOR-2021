@@ -276,9 +276,9 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
 .pull-right-10[
 .pull-down[
 .font80[
-**Parte 2 - Combinação de gráficos com .orange[XXXXXX]**
+**Parte 2 - Combinação de gráficos com .orange[Patchwork]**
 
-[1 - Função select() e suas auxiliares](#select)
+[1 - Combine gráficos com pacote "patchwork"](#patchwork)
 
 ]
 ]
@@ -2135,6 +2135,18 @@ matemáticos para combinar gráficos, além de possuir funções específicas.
 knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/logo.png")
 ```
 ]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Combine gráficos em uma trama complexa...
+]
+<br>
+
+
+
 
 
 ---
