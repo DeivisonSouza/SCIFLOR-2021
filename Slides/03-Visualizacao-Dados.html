@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xe4298662b6445ecbab5fe1cf252a1e7","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xfe0201fb0cb4cb4ab473defb91ed979","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -2292,7 +2292,7 @@ g1 + g2 + g3 + g4
 ## Pacote Patchwork - Combine gráficos
 
 .font70[
-### Uso de operadores matemáticos - .black[Operador divisão (/) - Empilhar]
+### Uso de operadores matemáticos - .black[Divisão (/) - Empilhar]
 ]
 
 .pull-left-4[
@@ -2318,6 +2318,39 @@ g2/g4/g3
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-62-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font65[
+### Uso de operadores matemáticos - .black[Barra vertical (|) - Lado a Lado]]
+
+.pull-left-4[
+.font70[
+
+```r
+g2 | (g4/g3)
+```
+
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-63-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+--
+
+.pull-right-4[
+.font70[
+
+```r
+(g3/g1) | (g4/g2)
+```
+
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-64-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+
 
 ---
 

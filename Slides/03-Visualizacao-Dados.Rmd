@@ -2309,7 +2309,7 @@ g1 + g2 + g3 + g4
 ## Pacote Patchwork - Combine gráficos
 
 .font70[
-### Uso de operadores matemáticos - .black[Operador divisão (/) - Empilhar]
+### Uso de operadores matemáticos - .black[Divisão (/) - Empilhar]
 ]
 
 .pull-left-4[
@@ -2329,6 +2329,33 @@ g2/g4/g3
 ```
 ]
 ]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font65[
+### Uso de operadores matemáticos - .black[Barra vertical (|) - Lado a Lado]]
+
+.pull-left-4[
+.font70[
+```{r echo=T, eval=T, fig.width=6, fig.height=4.5}
+g2 | (g4/g3)
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font70[
+```{r echo=T, eval=T, fig.width=6, fig.height=4.5}
+(g3/g1) | (g4/g2)
+```
+]
+]
+
+
 
 ---
 
