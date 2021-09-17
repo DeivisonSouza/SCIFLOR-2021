@@ -2306,6 +2306,32 @@ g1 + g2 + g3 + g4
 
 ---
 
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Uso de operadores matemáticos - .black[Operador divisão (/) - Empilhar]
+]
+
+.pull-left-4[
+.font80[
+```{r echo=T, eval=T, fig.width=6, fig.height=4.5}
+g2/g4
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font80[
+```{r echo=T, eval=T, fig.width=7, fig.height=5.5}
+g2/g4/g3
+```
+]
+]
+
+---
+
 layout: true
 class: with-logo logo-ufpa
 <div class="my-header"></div>
