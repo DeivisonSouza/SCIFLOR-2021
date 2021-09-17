@@ -2280,7 +2280,7 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
 ]
 
 .pull-left-4[
-.font80[
+.font70[
 - A abordagem mais simples é usar o operador + (adição) para combinar gráficos.
 <br>
 ```{r echo=T, eval=T, fig.width=6, fig.height=3.5}
@@ -2293,7 +2293,7 @@ g1 + g2
 --
 
 .pull-right-4[
-.font80[
+.font70[
 - No Patchwork, por padrão, busca-se criar uma matriz quadrada,
 cujos subgráficos são dispostos na ordem das linhas.
 <br>
