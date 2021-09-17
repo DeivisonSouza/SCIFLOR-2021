@@ -2158,7 +2158,8 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
   filter(Nome_Especie %in% 'Maçaranduba') %>%
   ggplot(mapping = aes(x = DAP, y = V)) +       # 1ª camada
   geom_point() +                                # 2ª camada
-  geom_smooth(method='lm', formula=y~x, se=F))  # 3ª camada
+  geom_smooth(method='lm', formula=y~x, se=F) + # 3ª camada
+  ggtitle('g1'))  
 ```
 ]
 ]
@@ -2194,7 +2195,8 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
   geom_label(aes(x = Nome_Especie,
                  y = n/2,
                  label = n),
-             size = 3))
+             size = 3) +
+   ggtitle('g2'))
 ```
 ]
 ]
@@ -2224,7 +2226,8 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
                               colour = Nome_Especie),
                 binwidth = 10) +             # 2ª camada
    theme(legend.position = "bottom",
-         legend.title = element_blank()))
+         legend.title = element_blank())+
+   ggtitle('g3'))
 ```
 ]
 ]
@@ -2257,7 +2260,8 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
                outlier.shape = NA) +            # 2ª camada
   geom_jitter(width = 0.1) +                    # 3ª camada
   theme(legend.position = "bottom",
-        legend.title = element_blank()))
+        legend.title = element_blank())+
+   ggtitle('g4'))
 ```
 ]
 ]
@@ -2354,6 +2358,8 @@ g2 | (g4/g3)
 ```
 ]
 ]
+
+---
 
 
 

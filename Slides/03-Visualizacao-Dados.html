@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xfe0201fb0cb4cb4ab473defb91ed979","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"b83815dfea124f149d8f7ef9e9951fbf","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -2136,7 +2136,8 @@ matemáticos para combinar gráficos, além de possuir funções específicas.
   filter(Nome_Especie %in% 'Maçaranduba') %&gt;%
   ggplot(mapping = aes(x = DAP, y = V)) +       # 1ª camada
   geom_point() +                                # 2ª camada
-  geom_smooth(method='lm', formula=y~x, se=F))  # 3ª camada
+  geom_smooth(method='lm', formula=y~x, se=F) + # 3ª camada
+  ggtitle('g1'))  
 ```
 ]
 ]
@@ -2172,7 +2173,8 @@ matemáticos para combinar gráficos, além de possuir funções específicas.
   geom_label(aes(x = Nome_Especie,
                  y = n/2,
                  label = n),
-             size = 3))
+             size = 3) +
+   ggtitle('g2'))
 ```
 ]
 ]
@@ -2202,7 +2204,8 @@ matemáticos para combinar gráficos, além de possuir funções específicas.
                               colour = Nome_Especie),
                 binwidth = 10) +             # 2ª camada
    theme(legend.position = "bottom",
-         legend.title = element_blank()))
+         legend.title = element_blank())+
+   ggtitle('g3'))
 ```
 ]
 ]
@@ -2235,7 +2238,8 @@ matemáticos para combinar gráficos, além de possuir funções específicas.
                outlier.shape = NA) +            # 2ª camada
   geom_jitter(width = 0.1) +                    # 3ª camada
   theme(legend.position = "bottom",
-        legend.title = element_blank()))
+        legend.title = element_blank())+
+   ggtitle('g4'))
 ```
 ]
 ]
@@ -2349,6 +2353,8 @@ g2 | (g4/g3)
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-64-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
+
+---
 
 
 

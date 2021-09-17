@@ -1091,7 +1091,8 @@ ggsave("facet.png", path = "Slides/fig/part3",
                                     ..adj.rr.label..,
                                     ..AIC.label..,
                                     sep = "*plain(\",\")~")),
-                        parse = TRUE))            # 4ª camada
+                        parse = TRUE)+ # 4ª camada
+   ggtitle('g1'))
 
 # Gráfico 2
 # -----------------------
@@ -1106,7 +1107,8 @@ ggsave("facet.png", path = "Slides/fig/part3",
   geom_label(aes(x = Nome_Especie,
                  y = n/2,
                  label = n),
-             size = 3))
+             size = 3)+
+   ggtitle('g2'))
 
 # Gráfico 3
 # -----------------------
@@ -1116,7 +1118,8 @@ ggsave("facet.png", path = "Slides/fig/part3",
                               colour = Nome_Especie),
                 binwidth = 10)+              # 2ª camada
    theme(legend.position = "bottom",
-         legend.title = element_blank()))
+         legend.title = element_blank())+
+   ggtitle('g3'))
 
 # Gráfico 4
 # -----------------------
@@ -1128,7 +1131,8 @@ ggsave("facet.png", path = "Slides/fig/part3",
                outlier.shape = NA) +            # 2ª camada
   geom_jitter(width = 0.1) +                    # 3ª camada
   theme(legend.position = "bottom",
-        legend.title = element_blank()))
+        legend.title = element_blank())+
+   ggtitle('g4'))
 
 
 # 1 - Uso básico - Operador adição (+)
@@ -1149,6 +1153,8 @@ g1 + g2 + g3 + g4
 
 g2/g4
 
+g2/g4/g3
+
 # 1 - Uso básico - Operador barra vertical (|)
 #--------------------------------
 
@@ -1156,6 +1162,12 @@ g2/g4
 # a lado.
 
 g2 | (g4/g3)
+
+(g3/g1) | (g4/g2)
+
+g1/g2/g3 | g4
+
+g1/g2/g3 | g4
 
 # 2 - Controlando a disposição dos gráficos - plot_layout()
 #-----------------------------------
