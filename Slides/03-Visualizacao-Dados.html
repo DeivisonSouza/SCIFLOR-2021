@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"c2747bc65d794063936cd0e39ae1336f","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x2626b1570d94137adebbe197c92fb6e","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -2091,6 +2091,13 @@ background-size: cover
 .left[.footnote[.white[Créditos: Imagem de IvaCastro por Pixabay].]]
 
 ---
+
+layout: true
+class: with-logo logo-ufpa
+&lt;div class="my-header"&gt;&lt;/div&gt;
+&lt;div class="my-footer"&gt;&lt;span&gt;Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp; &lt;div3&gt;Introdução ao R para Análise de Dados&lt;/div3&gt;/ &lt;div2&gt;Parte 3 - Visualização de dados com ggplot2 e extensões&lt;/div2&gt; &lt;/div&gt;
+
+---
 name: patchwork
 ## Pacote Patchwork - Combine gráficos
 
@@ -2194,7 +2201,8 @@ matemáticos para combinar gráficos, além de possuir funções específicas.
   geom_freqpoly(mapping = aes(x = DAP,
                               colour = Nome_Especie),
                 binwidth = 10) +             # 2ª camada
-   theme(legend.position = "bottom"))
+   theme(legend.position = "bottom",
+         legend.title = element_blank()))
 ```
 ]
 ]
@@ -2226,7 +2234,8 @@ matemáticos para combinar gráficos, além de possuir funções específicas.
   geom_boxplot(color="black",
                outlier.shape = NA) +            # 2ª camada
   geom_jitter(width = 0.1) +                    # 3ª camada
-  theme(legend.position = "bottom"))
+  theme(legend.position = "bottom",
+        legend.title = element_blank()))
 ```
 ]
 ]
@@ -2236,6 +2245,45 @@ matemáticos para combinar gráficos, além de possuir funções específicas.
 .pull-left-4[
 .font80[
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-58-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Uso de operadores matemáticos - .black[Operador adição (+)]
+]
+
+.pull-left-4[
+.font80[
+- A abordagem mais simples é usar o operador + (adição) para combinar gráficos.
+&lt;br&gt;
+
+```r
+library(patchwork)
+g1 + g2
+```
+
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-59-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+--
+
+.pull-right-4[
+.font80[
+- No Patchwork, por padrão, busca-se criar uma matriz quadrada,
+cujos subgráficos são dispostos na ordem das linhas.
+&lt;br&gt;
+
+
+```r
+g1 + g2 + g3 + g4
+```
+
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-60-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
 

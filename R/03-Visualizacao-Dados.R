@@ -1070,7 +1070,7 @@ ggsave("facet.png", path = "Slides/fig/part3",
 # - O pacote **patchwork** permite uma composição (simples e complexa)
 # de gráficos.
 # - O pacote é muito intuitivo, pois usa do auxílio de operadores
-# matemáticos (+) para combinar gráficos, além de possuir funções específicas.
+# matemáticos (+, /) para combinar gráficos, além de possuir funções específicas.
 # - Existem outros pacotes empenhados nesta tarefa, por exemplo, gridExtra e cowplot.
 
 # Primeiro, os gráficos devem ser construídos com ggplot e
@@ -1110,11 +1110,13 @@ ggsave("facet.png", path = "Slides/fig/part3",
 
 # Gráfico 3
 # -----------------------
-(gg3 <- data_sample2 %>%
+(g3 <- data_sample2 %>%
   ggplot() +                                 # 1ª camada
   geom_freqpoly(mapping = aes(x = DAP,
                               colour = Nome_Especie),
-                binwidth = 10))              # 2ª camada
+                binwidth = 10)+              # 2ª camada
+   theme(legend.position = "bottom",
+         legend.title = element_blank()))
 
 # Gráfico 4
 # -----------------------
@@ -1124,14 +1126,44 @@ ggsave("facet.png", path = "Slides/fig/part3",
              color = Selecao)) +                # 1ª camada
   geom_boxplot(color="black",
                outlier.shape = NA) +            # 2ª camada
-  geom_jitter(width = 0.1))                     # 3ª camada
+  geom_jitter(width = 0.1) +                    # 3ª camada
+  theme(legend.position = "bottom",
+        legend.title = element_blank()))
+
 
 # 1 - Uso básico - Operador adição (+)
-
+#--------------------------------
 # A abordagem mais simples é usar o operador + (adição)
 # para combinar gráficos.
 
+g1 + g2
 
+# No Patchwork, por padrão, busca-se criar uma matriz quadrada,
+# cujos subgráficos são alocados na ordem das linhas...
+
+g1 + g2 + g3 + g4
+
+# 1 - Uso básico - Operador divisão (/)
+#--------------------------------
+# O operador **/** pode ser usado para empilhar gráficos
+
+g2/g4
+
+# 1 - Uso básico - Operador barra vertical (|)
+#--------------------------------
+
+# O operador **|** pode ser usado para dispor os gráficos lado
+# a lado.
+
+g2 | (g4/g3)
+
+# 2 - Controlando a disposição dos gráficos - plot_layout()
+#-----------------------------------
+
+# Se desejar mais controle sobre a disposição dos
+# subgráficos use a função plot_layout().
+
+g1 + g2 + g3 + g4 + plot_layout(nrow = 3, byrow = F)
 
 
 

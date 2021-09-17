@@ -2112,6 +2112,13 @@ background-size: cover
 .left[.footnote[.white[Créditos: Imagem de IvaCastro por Pixabay].]]
 
 ---
+
+layout: true
+class: with-logo logo-ufpa
+<div class="my-header"></div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Parte 3 - Visualização de dados com ggplot2 e extensões</div2> </div>
+
+---
 name: patchwork
 ## Pacote Patchwork - Combine gráficos
 
@@ -2216,7 +2223,8 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
   geom_freqpoly(mapping = aes(x = DAP,
                               colour = Nome_Especie),
                 binwidth = 10) +             # 2ª camada
-   theme(legend.position = "bottom"))
+   theme(legend.position = "bottom",
+         legend.title = element_blank()))
 ```
 ]
 ]
@@ -2248,7 +2256,8 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
   geom_boxplot(color="black",
                outlier.shape = NA) +            # 2ª camada
   geom_jitter(width = 0.1) +                    # 3ª camada
-  theme(legend.position = "bottom"))
+  theme(legend.position = "bottom",
+        legend.title = element_blank()))
 ```
 ]
 ]
@@ -2258,6 +2267,39 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
 .pull-left-4[
 .font80[
 ```{r ref.label="g4",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Uso de operadores matemáticos - .black[Operador adição (+)]
+]
+
+.pull-left-4[
+.font80[
+- A abordagem mais simples é usar o operador + (adição) para combinar gráficos.
+<br>
+```{r echo=T, eval=T, fig.width=6, fig.height=3.5}
+library(patchwork)
+g1 + g2
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font80[
+- No Patchwork, por padrão, busca-se criar uma matriz quadrada,
+cujos subgráficos são dispostos na ordem das linhas.
+<br>
+
+```{r echo=T, eval=T, fig.width=7, fig.height=4}
+g1 + g2 + g3 + g4
 ```
 ]
 ]
