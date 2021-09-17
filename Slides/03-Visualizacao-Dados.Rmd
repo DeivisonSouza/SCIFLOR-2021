@@ -2073,29 +2073,31 @@ name: save
 --
 
 .pull-right-4[
-.font70[
-**Salva último gráfico exibido no diretório corrente**]
+.font80[
+**Salva último gráfico exibido no diretório corrente**
 ```{r echo = T, eval = F}
 ggsave(filename = "facet.png")
 ggsave(filename = "facet.pdf")
 ```
 
-.font70[**Salva último gráfico exibido em outro diretório**]
+**Salva último gráfico exibido em outro diretório**
 ```{r echo = T, eval = F}
 ggsave("facet.png", path = "fig/part3")
 ```
 
+**Salva especificando resolução (dpi)**
+```{r echo = T, eval = F}
+ggsave("facet.png", path = "fig/part3", dpi = 600)
+```
+
+**Salva especificando resolução, largura e altura**
+```{r echo = T, eval = F}
+ggsave("facet.png", path = "fig/part3",
+       dpi = 600, width = 8, height = 8,
+       units = "cm")
+```
 ]
-
-
-
-
---
-
-
-
-
-
+]
 
 ---
 
@@ -2108,6 +2110,32 @@ background-size: cover
 .font200[**.yellow[Parte 2] <br> .white[Combinação de gráficos <br> com .orange[Patchwork]]**]
 
 .left[.footnote[.white[Créditos: Imagem de IvaCastro por Pixabay].]]
+
+---
+name: patchwork
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Combine gráficos em uma trama complexa...
+]
+<br>
+
+.pull-left-4[
+.font80[
+- O pacote .blue[ggplot2] não possui funções para combinar gráficos.
+- O pacote .blue[patchwork] permite uma composição (simples e complexa) de gráficos.
+- O pacote é muito intuitivo, pois usa do auxílio de operadores
+matemáticos para combinar gráficos, além de possuir funções específicas.
+- Existem outros pacotes empenhados nesta tarefa, por exemplo, .blue[gridExtra] e .blue[cowplot].
+]
+]
+
+.pull-right-4[
+```{r echo=FALSE, out.width='50%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/logo.png")
+```
+]
+
 
 ---
 

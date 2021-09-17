@@ -45,13 +45,14 @@
 install.packages("ggplot2")   # Visualizar dados
 install.packages("dplyr")     # Manipulação de dados
 install.packages("ggpmisc")   # Adicionar equações e estatísticas
+install.packages("patchwork") # Combinar gráficos ggplot
 #install.packages("tidyverse")
-
 # instala diversos pacotes, inclusive ggplot2
 
 # Carrega pacotes
 library(ggplot2)
 library(dplyr)
+library(patchwork)
 
 # Para tornar todas as funções do pacote disponíveis para uso
 # na sessão corrente do R.
@@ -1052,13 +1053,26 @@ ggsave(filename = "facet.pdf")
 # Salva último gráfico exibido em outro diretório
 ggsave("facet.png", path = "Slides/fig/part3")
 
+# Salva especificando resolução (dpi)
+ggsave("facet.png", path = "Slides/fig/part3",
+       dpi = 600)
 
+# Salva especificando resolução, largura e altura
+ggsave("facet.png", path = "Slides/fig/part3",
+       width = 8, height = 8, dpi = 600, units = "cm")
 
 ###########################################################
-# Parte 2 - Combinação de gráficos com Patchwork
+# Parte 2 - Combinação de gráficos ggplot com Patchwork
 ###########################################################
 
+# O pacote **ggplot2** não possui funções para combinar gráficos
+# sob um layout complexo.
+# O pacote **patchwork** permite uma composição complexa de
+# gráficos, que pode ser realizada com auxílio de operadores
+# matemáticos e/ou funções.
+
+library(patchwork)
 
 
-
+?plot_layout
 
