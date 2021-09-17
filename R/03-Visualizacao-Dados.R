@@ -52,6 +52,7 @@ install.packages("patchwork") # Combinar gráficos ggplot
 # Carrega pacotes
 library(ggplot2)
 library(dplyr)
+library(ggpmisc)
 library(patchwork)
 
 # Para tornar todas as funções do pacote disponíveis para uso
@@ -1065,14 +1066,72 @@ ggsave("facet.png", path = "Slides/fig/part3",
 # Parte 2 - Combinação de gráficos ggplot com Patchwork
 ###########################################################
 
-# O pacote **ggplot2** não possui funções para combinar gráficos
-# sob um layout complexo.
-# O pacote **patchwork** permite uma composição complexa de
-# gráficos, que pode ser realizada com auxílio de operadores
-# matemáticos e/ou funções.
+# - O pacote **ggplot2** não possui funções para combinar gráficos.
+# - O pacote **patchwork** permite uma composição (simples e complexa)
+# de gráficos.
+# - O pacote é muito intuitivo, pois usa do auxílio de operadores
+# matemáticos (+) para combinar gráficos, além de possuir funções específicas.
+# - Existem outros pacotes empenhados nesta tarefa, por exemplo, gridExtra e cowplot.
 
-library(patchwork)
+# Primeiro, os gráficos devem ser construídos com ggplot e
+# atribuídos a algum objeto no R...
+# Vamos resgatar 4 gráficos elaborados anteriormente...
+
+# Gráfico 1
+# -----------------------
+(g1 <- data_sample %>%
+  filter(Nome_Especie %in% 'Maçaranduba') %>%
+  ggplot(mapping = aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                                # 2ª camada
+  geom_smooth(method='lm', formula=y~x, se=F) + # 3ª camada
+  ggpmisc::stat_poly_eq(formula = y~x,
+                        eq.with.lhs = "italic(hat(V))~`=`~",
+                        aes(label =
+                              paste(..eq.label..,
+                                    ..adj.rr.label..,
+                                    ..AIC.label..,
+                                    sep = "*plain(\",\")~")),
+                        parse = TRUE))            # 4ª camada
+
+# Gráfico 2
+# -----------------------
+(g2 <- data_top %>%
+  mutate(Nome_Especie =
+           forcats::fct_reorder(
+             Nome_Especie, n, .desc = F)) %>%
+  ggplot() +                                      # 1ª camada
+  geom_bar(mapping = aes(
+    x = Nome_Especie, y = n, fill = Nome_Especie),
+    stat = "identity", show.legend = F) +         # 2ª camada
+  geom_label(aes(x = Nome_Especie,
+                 y = n/2,
+                 label = n),
+             size = 3))
+
+# Gráfico 3
+# -----------------------
+(gg3 <- data_sample2 %>%
+  ggplot() +                                 # 1ª camada
+  geom_freqpoly(mapping = aes(x = DAP,
+                              colour = Nome_Especie),
+                binwidth = 10))              # 2ª camada
+
+# Gráfico 4
+# -----------------------
+(g4 <- data_sample %>%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP,
+             color = Selecao)) +                # 1ª camada
+  geom_boxplot(color="black",
+               outlier.shape = NA) +            # 2ª camada
+  geom_jitter(width = 0.1))                     # 3ª camada
+
+# 1 - Uso básico - Operador adição (+)
+
+# A abordagem mais simples é usar o operador + (adição)
+# para combinar gráficos.
 
 
-?plot_layout
+
+
 

@@ -2141,13 +2141,126 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
 ## Pacote Patchwork - Combine gráficos
 
 .font70[
-### Combine gráficos em uma trama complexa...
+### Primeiro, vamos resgatar 4 gráficos elaborados anteriormente...
 ]
-<br>
 
+.pull-right-4[
+.font80[
+```{r g1, echo=T, eval=F,  out.width="50%"}
+(g1 <- data_sample %>%
+  filter(Nome_Especie %in% 'Maçaranduba') %>%
+  ggplot(mapping = aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                                # 2ª camada
+  geom_smooth(method='lm', formula=y~x, se=F))  # 3ª camada
+```
+]
+]
 
+--
 
+.pull-left-4[
+.font80[
+```{r ref.label="g1",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
 
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Primeiro, vamos resgatar 4 gráficos elaborados anteriormente...
+]
+
+.pull-right-4[
+.font80[
+```{r g2, echo=T, eval=F,  out.width="50%"}
+(g2 <- data_top %>%
+  mutate(Nome_Especie =
+           forcats::fct_reorder(
+             Nome_Especie, n, .desc = F)) %>%
+  ggplot() +                                      # 1ª camada
+  geom_bar(mapping = aes(
+    x = Nome_Especie, y = n, fill = Nome_Especie),
+    stat = "identity", show.legend = F) +         # 2ª camada
+  geom_label(aes(x = Nome_Especie,
+                 y = n/2,
+                 label = n),
+             size = 3))
+```
+]
+]
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="g2",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Primeiro, vamos resgatar 4 gráficos elaborados anteriormente...
+]
+
+.pull-right-4[
+.font80[
+```{r g3, echo=T, eval=F,  out.width="50%"}
+(g3 <- data_sample2 %>%
+  ggplot() +                                 # 1ª camada
+  geom_freqpoly(mapping = aes(x = DAP,
+                              colour = Nome_Especie),
+                binwidth = 10) +             # 2ª camada
+   theme(legend.position = "bottom"))
+```
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="g3",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Primeiro, vamos resgatar 4 gráficos elaborados anteriormente...
+]
+
+.pull-right-4[
+.font80[
+```{r g4, echo=T, eval=F,  out.width="50%"}
+(g4 <- data_sample %>%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP,
+             color = Selecao)) +                # 1ª camada
+  geom_boxplot(color="black",
+               outlier.shape = NA) +            # 2ª camada
+  geom_jitter(width = 0.1) +                    # 3ª camada
+  theme(legend.position = "bottom"))
+```
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r ref.label="g4",fig.width=6, fig.height=5, echo=F, eval=T}
+```
+]
+]
 
 ---
 

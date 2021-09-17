@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"d4370a92be5542dea16118e5104fa71f","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"c2747bc65d794063936cd0e39ae1336f","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -2118,13 +2118,126 @@ matemáticos para combinar gráficos, além de possuir funções específicas.
 ## Pacote Patchwork - Combine gráficos
 
 .font70[
-### Combine gráficos em uma trama complexa...
+### Primeiro, vamos resgatar 4 gráficos elaborados anteriormente...
 ]
-&lt;br&gt;
 
+.pull-right-4[
+.font80[
 
+```r
+(g1 &lt;- data_sample %&gt;%
+  filter(Nome_Especie %in% 'Maçaranduba') %&gt;%
+  ggplot(mapping = aes(x = DAP, y = V)) +       # 1ª camada
+  geom_point() +                                # 2ª camada
+  geom_smooth(method='lm', formula=y~x, se=F))  # 3ª camada
+```
+]
+]
 
+--
 
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-55-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Primeiro, vamos resgatar 4 gráficos elaborados anteriormente...
+]
+
+.pull-right-4[
+.font80[
+
+```r
+(g2 &lt;- data_top %&gt;%
+  mutate(Nome_Especie =
+           forcats::fct_reorder(
+             Nome_Especie, n, .desc = F)) %&gt;%
+  ggplot() +                                      # 1ª camada
+  geom_bar(mapping = aes(
+    x = Nome_Especie, y = n, fill = Nome_Especie),
+    stat = "identity", show.legend = F) +         # 2ª camada
+  geom_label(aes(x = Nome_Especie,
+                 y = n/2,
+                 label = n),
+             size = 3))
+```
+]
+]
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-56-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Primeiro, vamos resgatar 4 gráficos elaborados anteriormente...
+]
+
+.pull-right-4[
+.font80[
+
+```r
+(g3 &lt;- data_sample2 %&gt;%
+  ggplot() +                                 # 1ª camada
+  geom_freqpoly(mapping = aes(x = DAP,
+                              colour = Nome_Especie),
+                binwidth = 10) +             # 2ª camada
+   theme(legend.position = "bottom"))
+```
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-57-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Primeiro, vamos resgatar 4 gráficos elaborados anteriormente...
+]
+
+.pull-right-4[
+.font80[
+
+```r
+(g4 &lt;- data_sample %&gt;%
+  ggplot(aes(x = Nome_Especie,
+             y = DAP,
+             color = Selecao)) +                # 1ª camada
+  geom_boxplot(color="black",
+               outlier.shape = NA) +            # 2ª camada
+  geom_jitter(width = 0.1) +                    # 3ª camada
+  theme(legend.position = "bottom"))
+```
+]
+]
+
+--
+
+.pull-left-4[
+.font80[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-58-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
 
 ---
 
