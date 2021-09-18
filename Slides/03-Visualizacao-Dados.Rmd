@@ -2225,8 +2225,11 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
   geom_freqpoly(mapping = aes(x = DAP,
                               colour = Nome_Especie),
                 binwidth = 10) +             # 2ª camada
-   theme(legend.position = "bottom",
-         legend.title = element_blank())+
+   theme(legend.position = c(.7,.5),
+        legend.direction="vertical",
+        legend.key.size = unit(0.2, "cm"),
+        legend.key = element_rect(colour = NA, fill = NA),
+        legend.title = element_blank())+
    ggtitle('g3'))
 ```
 ]
@@ -2253,13 +2256,17 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
 .font80[
 ```{r g4, echo=T, eval=F,  out.width="50%"}
 (g4 <- data_sample %>%
+   filter(Nome_Especie != "Acapu") %>% 
   ggplot(aes(x = Nome_Especie,
              y = DAP,
              color = Selecao)) +                # 1ª camada
   geom_boxplot(color="black",
                outlier.shape = NA) +            # 2ª camada
   geom_jitter(width = 0.1) +                    # 3ª camada
-  theme(legend.position = "bottom",
+  theme(legend.position = c(.3,.8),
+        legend.direction = "vertical",
+        legend.key.size = unit(0.2, "cm"),
+        legend.key = element_rect(colour = NA, fill = NA),
         legend.title = element_blank())+
    ggtitle('g4'))
 ```
@@ -2360,6 +2367,29 @@ g2 | (g4/g3)
 ]
 
 ---
+
+## Pacote Patchwork - Combine gráficos
+
+.font65[
+### Uso de operadores matemáticos - .black[Barra vertical (|) - Lado a Lado]]
+
+.pull-left-4[
+.font70[
+```{r echo=T, eval=T, fig.width=6, fig.height=4.5}
+(g4 / g2 /g3) | g1
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font70[
+```{r echo=T, eval=T, fig.width=6, fig.height=4.5}
+(g1 | g2 | g3)/g4
+```
+]
+]
 
 
 

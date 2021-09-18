@@ -1089,7 +1089,6 @@ ggsave("facet.png", path = "Slides/fig/part3",
                         aes(label =
                               paste(..eq.label..,
                                     ..adj.rr.label..,
-                                    ..AIC.label..,
                                     sep = "*plain(\",\")~")),
                         parse = TRUE)+ # 4ª camada
    ggtitle('g1'))
@@ -1113,26 +1112,34 @@ ggsave("facet.png", path = "Slides/fig/part3",
 # Gráfico 3
 # -----------------------
 (g3 <- data_sample2 %>%
-  ggplot() +                                 # 1ª camada
-  geom_freqpoly(mapping = aes(x = DAP,
-                              colour = Nome_Especie),
-                binwidth = 10)+              # 2ª camada
-   theme(legend.position = "bottom",
+   ggplot() +                                 # 1ª camada
+   geom_freqpoly(mapping = aes(x = DAP,
+                               colour = Nome_Especie),
+                 binwidth = 10) +             # 2ª camada
+   theme(legend.position = c(.7,.5),
+         legend.direction="vertical",
+         legend.key.size = unit(0.2, "cm"),
+         legend.key = element_rect(colour = NA, fill = NA),
          legend.title = element_blank())+
    ggtitle('g3'))
 
 # Gráfico 4
 # -----------------------
+
 (g4 <- data_sample %>%
-  ggplot(aes(x = Nome_Especie,
-             y = DAP,
-             color = Selecao)) +                # 1ª camada
-  geom_boxplot(color="black",
-               outlier.shape = NA) +            # 2ª camada
-  geom_jitter(width = 0.1) +                    # 3ª camada
-  theme(legend.position = "bottom",
-        legend.title = element_blank())+
-   ggtitle('g4'))
+    filter(Nome_Especie != "Acapu") %>%
+    ggplot(aes(x = Nome_Especie,
+               y = DAP,
+               color = Selecao)) +                # 1ª camada
+    geom_boxplot(color="black",
+                 outlier.shape = NA) +            # 2ª camada
+    geom_jitter(width = 0.1) +                    # 3ª camada
+    theme(legend.position = c(.3,.8),
+          legend.direction = "vertical",
+          legend.key.size = unit(0.2, "cm"),
+          legend.key = element_rect(colour = NA, fill = NA),
+          legend.title = element_blank())+
+    ggtitle('g4'))
 
 
 # 1 - Uso básico - Operador adição (+)
@@ -1165,9 +1172,9 @@ g2 | (g4/g3)
 
 (g3/g1) | (g4/g2)
 
-g1/g2/g3 | g4
+(g1 | g2 | g3)/g4
 
-g1/g2/g3 | g4
+(g4 / g2 /g3) | g1
 
 # 2 - Controlando a disposição dos gráficos - plot_layout()
 #-----------------------------------
