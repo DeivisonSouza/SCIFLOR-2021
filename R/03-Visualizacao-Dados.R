@@ -1194,6 +1194,9 @@ g2 + g1 + g3 + g4 + plot_layout(widths = c(1, 2))
 # Especificando uma altura relativa para os subgráficos
 g2 + g1 + g3 + g4 + plot_layout(heights = c(1, 2))
 
+# Especificando uma largura e altura relativas para os subgráficos
+g1 + g2 + g3 + g4 + plot_layout(widths = c(1, 2), heights = c(1, 2))
+
 # Posição de legendas no painel
 # A função plot_layout() possui o argumento "guide" para tratar da disposição
 # das legendas no painel de subgráficos. Este argumento também ajuda a remover
@@ -1201,18 +1204,17 @@ g2 + g1 + g3 + g4 + plot_layout(heights = c(1, 2))
 
 # Legendas posicionadas no lado direito
 
-g2 + g1 + g3 + g4
+g3 + g4                               # Sem especificar "guides"
 
-g2 + g1 + g3 + g4 +
-  plot_layout(guides = 'collect')
+g3 + g4 +
+  plot_layout(guides = 'collect')     # guides = 'collect'
 
 # Removendo legendas duplicadas
 
-g3 + g1 + g3 + g4
+g3 + g3
 
-g3 + g1 + g3 + g4 +
+g3 + g3 +
   plot_layout(guides = 'collect')
-
 
 # Modifica posição e direção da legenda
 
@@ -1220,6 +1222,8 @@ g3 + g1 + g3 + g4 +
   plot_layout(guides = 'collect') &
   theme(legend.position='bottom',
         legend.direction = "horizontal")
+
+
 
 # 3 - Gráfico dentro de outro gráfico - inset_element()
 #-----------------------------------

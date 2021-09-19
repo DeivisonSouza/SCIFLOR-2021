@@ -2445,7 +2445,7 @@ g2 | (g4/g3)
 
 ## Pacote Patchwork - Combine gráficos
 
-.font70[### Disposição e área ocupada pelos subgráficos - .black[plot_layout()]
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
 ]
 
 .pull-right-4[
@@ -2472,7 +2472,7 @@ g1 + g2 + g3 + g4 + plot_layout(nrow = 3, byrow = F)
 
 ## Pacote Patchwork - Combine gráficos
 
-.font70[### Disposição e área ocupada pelos subgráficos - .black[plot_layout()]
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
 ]
 
 --
@@ -2498,9 +2498,157 @@ g2 + g1 + g3 + g4 + plot_layout(widths = c(1, 2))
 
 ---
 
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
+]
+
+--
+
+.pull-right-4[
+
+.font90[
+```{r pat3, echo=T, eval=F}
+g2 + g1 + g3 + g4 + plot_layout(heights = c(1, 2))
+```
+
+- Especifique uma altura relativa para os subgráficos com argumento .brown[heights].
+- No exemplo, a área destinada aos subgráficos da segunda linha é o dobro da primeira linha.
+]
+]
+
+--
+
+.pull-left-4[
+```{r ref.label="pat3", echo=FALSE, eval=TRUE, collapse=T, fig.width=6, fig.height=5.5}
+```
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
+]
+
+--
+
+.pull-right-4[
+
+.font90[
+```{r pat4, echo=T, eval=F}
+g1 + g2 + g3 + g4 + 
+  plot_layout(widths = c(1, 2), heights = c(1, 2))
+```
+
+- Especifique .brown[widths] e .brown[heights] simultaneamente para maior controle das áreas ocupadas por cada subgráfico.
+]
+]
+
+--
+
+.pull-left-4[
+```{r ref.label="pat4", echo=FALSE, eval=TRUE, collapse=T, fig.width=6, fig.height=5.5}
+```
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
+]
+
+.font70[
+A função .green[plot_layout()] possui o argumento .brown[guides] para tratar da disposição das legendas no painel de subgráficos.
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r pat5, echo=T, eval=T, fig.width=6, fig.height=4}
+g3 + g4 # sem especificar "guides"
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font80[
+```{r pat6, echo=T, eval=T, fig.width=6, fig.height=4}
+g3 + g4 + plot_layout(guides = 'collect') # legenda ao lado
+```
+]
+]
 
 
+---
 
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
+]
+
+.font70[
+- O argumento .brown[guides] = 'collect' também remove legendas duplicadas.
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r pat7, echo=T, eval=T, fig.width=6, fig.height=4}
+g3 + g3     # sem especificar "guides"
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font80[
+```{r pat8, echo=T, eval=T, fig.width=6, fig.height=4}
+g3 + g3 + plot_layout(guides = 'collect') # legenda ao lado
+```
+]
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Posição e direção da legenda
+]
+
+.font70[
+- Modifique a posição e a direção da legenda alterando os argumentos de .green[theme()] do ggplot2. Adicione esta camada ao **Patchwork** usando o operador .red[&].
+]
+
+--
+
+.pull-left-4[
+.font80[
+```{r pat9, echo=T, eval=T, fig.width=6, fig.height=3}
+g3 + g4 +
+  plot_layout(guides = 'collect')
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font80[
+```{r pat10, echo=T, eval=T, fig.width=6, fig.height=3}
+g3 + g4 +
+  plot_layout(guides = 'collect') &
+  theme(legend.position='bottom',
+        legend.direction = "horizontal")
+```
+]
+]
 
 ---
 

@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x912810a92e9441bbd3216c7b90b06cb","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x98b0f082ac74befb51ff81e4377b76c","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -2428,7 +2428,7 @@ g2 | (g4/g3)
 
 ## Pacote Patchwork - Combine gráficos
 
-.font70[### Disposição e área ocupada pelos subgráficos - .black[plot_layout()]
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
 ]
 
 .pull-right-4[
@@ -2455,7 +2455,7 @@ g1 + g2 + g3 + g4 + plot_layout(nrow = 3, byrow = F)
 
 ## Pacote Patchwork - Combine gráficos
 
-.font70[### Disposição e área ocupada pelos subgráficos - .black[plot_layout()]
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
 ]
 
 --
@@ -2481,9 +2481,175 @@ g2 + g1 + g3 + g4 + plot_layout(widths = c(1, 2))
 
 ---
 
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
+]
+
+--
+
+.pull-right-4[
+
+.font90[
+
+```r
+g2 + g1 + g3 + g4 + plot_layout(heights = c(1, 2))
+```
+
+- Especifique uma altura relativa para os subgráficos com argumento .brown[heights].
+- No exemplo, a área destinada aos subgráficos da segunda linha é o dobro da primeira linha.
+]
+]
+
+--
+
+.pull-left-4[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-69-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
+]
+
+--
+
+.pull-right-4[
+
+.font90[
+
+```r
+g1 + g2 + g3 + g4 + 
+  plot_layout(widths = c(1, 2), heights = c(1, 2))
+```
+
+- Especifique .brown[widths] e .brown[heights] simultaneamente para maior controle das áreas ocupadas por cada subgráfico.
+]
+]
+
+--
+
+.pull-left-4[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-70-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
+]
+
+.font70[
+A função .green[plot_layout()] possui o argumento .brown[guides] para tratar da disposição das legendas no painel de subgráficos.
+]
+
+--
+
+.pull-left-4[
+.font80[
+
+```r
+g3 + g4 # sem especificar "guides"
+```
+
+&lt;img src="03-Visualizacao-Dados_files/figure-html/pat5-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+--
+
+.pull-right-4[
+.font80[
+
+```r
+g3 + g4 + plot_layout(guides = 'collect') # legenda ao lado
+```
+
+&lt;img src="03-Visualizacao-Dados_files/figure-html/pat6-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
 
 
+---
 
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
+]
+
+.font70[
+- O argumento .brown[guides] = 'collect' também remove legendas duplicadas.
+]
+
+--
+
+.pull-left-4[
+.font80[
+
+```r
+g3 + g3     # sem especificar "guides"
+```
+
+&lt;img src="03-Visualizacao-Dados_files/figure-html/pat7-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+--
+
+.pull-right-4[
+.font80[
+
+```r
+g3 + g3 + plot_layout(guides = 'collect') # legenda ao lado
+```
+
+&lt;img src="03-Visualizacao-Dados_files/figure-html/pat8-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Posição e direção da legenda
+]
+
+.font70[
+- Modifique a posição e a direção da legenda alterando os argumentos de .green[theme()] do ggplot2. Adicione esta camada ao **Patchwork** usando o operador .red[&amp;].
+]
+
+--
+
+.pull-left-4[
+.font80[
+
+```r
+g3 + g4 +
+  plot_layout(guides = 'collect')
+```
+
+&lt;img src="03-Visualizacao-Dados_files/figure-html/pat9-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
+
+--
+
+.pull-right-4[
+.font80[
+
+```r
+g3 + g4 +
+  plot_layout(guides = 'collect') &amp;
+  theme(legend.position='bottom',
+        legend.direction = "horizontal")
+```
+
+&lt;img src="03-Visualizacao-Dados_files/figure-html/pat10-1.png" style="display: block; margin: auto;" /&gt;
+]
+]
 
 ---
 
