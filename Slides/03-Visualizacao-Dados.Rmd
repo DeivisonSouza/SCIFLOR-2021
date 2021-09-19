@@ -280,6 +280,28 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
 
 [1 - Combine gráficos com pacote "patchwork"](#patchwork)
 
+[2 - Uso de operadores matemáticos](#adicao)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[2.1 - Operador adição](#adicao)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2 - Operador divisão (empilhar)](#divisao)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[2.2 - Operador barra vertical (lado a lado)](#barra)
+
+[3 - Disposição, área e legenda de subgráficos](#plotlayout)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[3.1 - Número de linhas e ordenação](#plotlayout)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[3.2 - Largura relativa dos subgráficos](#widths)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[3.3 - Altura relativa dos subgráficos](#heights)
+
+&nbsp;&nbsp;&nbsp;&nbsp;[3.4 - Posição e remoção de legendas duplicadas](#guides)
+
+[4 - Gráfico dentro de outro gráfico](#inset)
+
+[5 - Adicione textos, títulos, tags](#annotation)
+
 ]
 ]
 ]
@@ -2283,7 +2305,7 @@ knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/
 ]
 
 ---
-
+name: adicao
 ## Pacote Patchwork - Combine gráficos
 
 .font70[
@@ -2316,7 +2338,7 @@ g1 + g2 + g3 + g4
 ]
 
 ---
-
+name: divisao
 ## Pacote Patchwork - Combine gráficos
 
 .font70[
@@ -2359,7 +2381,7 @@ g2/g4/g3
 
 
 ---
-
+name: barra
 ## Pacote Patchwork - Combine gráficos
 
 .font65[
@@ -2440,9 +2462,8 @@ g2 | (g4/g3)
 ```
 ]
 
-
 ---
-
+name: plotlayout
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
@@ -2468,8 +2489,9 @@ g1 + g2 + g3 + g4 + plot_layout(nrow = 3, byrow = F)
 ```
 ]
 
----
 
+---
+name: widths
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
@@ -2496,8 +2518,9 @@ g2 + g1 + g3 + g4 + plot_layout(widths = c(1, 2))
 ```
 ]
 
----
 
+---
+name: heights
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
@@ -2552,8 +2575,9 @@ g1 + g2 + g3 + g4 +
 ```
 ]
 
----
 
+---
+name: guides
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
@@ -2650,8 +2674,9 @@ g3 + g4 +
 ]
 ]
 
----
 
+---
+name: inset
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Gráfico dentro de outro gráfico - .black[inset_element()]
@@ -2680,8 +2705,9 @@ g3 + inset_element(g2,
 ```
 ]
 
----
 
+---
+name: annotation
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Adicione textos, títulos, tags... - .black[plot_annotation()]
@@ -2748,12 +2774,9 @@ g3 + g1 +
 --
 
 .pull-left-4[
-```{r ref.label="pat13", echo=FALSE, eval=TRUE, collapse=T, fig.width=6, fig.height=5}
+```{r ref.label="pat13", echo=FALSE, eval=TRUE, collapse=T, fig.width=6, fig.height=4.5}
 ```
 ]
-
-
-
 
 ---
 

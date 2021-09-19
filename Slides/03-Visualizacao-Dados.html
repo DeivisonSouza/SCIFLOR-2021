@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"ac6462a47f6249b5b61eb0b1b0544687","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x898258447d041bbb66714aa32b33664","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -265,6 +265,28 @@ Ao final desta terceira parte (.blue[Visualização de dados com ggplot2 e exten
 **Parte 2 - Combinação de gráficos com .orange[Patchwork]**
 
 [1 - Combine gráficos com pacote "patchwork"](#patchwork)
+
+[2 - Uso de operadores matemáticos](#adicao)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[2.1 - Operador adição](#adicao)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[2.2 - Operador divisão (empilhar)](#divisao)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[2.2 - Operador barra vertical (lado a lado)](#barra)
+
+[3 - Disposição, área e legenda de subgráficos](#plotlayout)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[3.1 - Número de linhas e ordenação](#plotlayout)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[3.2 - Largura relativa dos subgráficos](#widths)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[3.3 - Altura relativa dos subgráficos](#heights)
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;[3.4 - Posição e remoção de legendas duplicadas](#guides)
+
+[4 - Gráfico dentro de outro gráfico](#inset)
+
+[5 - Adicione textos, títulos, tags](#annotation)
 
 ]
 ]
@@ -2260,7 +2282,7 @@ matemáticos para combinar gráficos, além de possuir funções específicas.
 ]
 
 ---
-
+name: adicao
 ## Pacote Patchwork - Combine gráficos
 
 .font70[
@@ -2299,7 +2321,7 @@ g1 + g2 + g3 + g4
 ]
 
 ---
-
+name: divisao
 ## Pacote Patchwork - Combine gráficos
 
 .font70[
@@ -2342,7 +2364,7 @@ g2/g4/g3
 
 
 ---
-
+name: barra
 ## Pacote Patchwork - Combine gráficos
 
 .font65[
@@ -2423,9 +2445,8 @@ g2 | (g4/g3)
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-66-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 ]
 
-
 ---
-
+name: plotlayout
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
@@ -2451,8 +2472,9 @@ g1 + g2 + g3 + g4 + plot_layout(nrow = 3, byrow = F)
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-67-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
----
 
+---
+name: widths
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
@@ -2479,8 +2501,9 @@ g2 + g1 + g3 + g4 + plot_layout(widths = c(1, 2))
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-68-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
----
 
+---
+name: heights
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
@@ -2535,8 +2558,9 @@ g1 + g2 + g3 + g4 +
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-70-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
----
 
+---
+name: guides
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Disposição, área e legenda de subgráficos - .black[plot_layout()]
@@ -2651,8 +2675,9 @@ g3 + g4 +
 ]
 ]
 
----
 
+---
+name: inset
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Gráfico dentro de outro gráfico - .black[inset_element()]
@@ -2681,8 +2706,9 @@ g3 + inset_element(g2,
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-71-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
----
 
+---
+name: annotation
 ## Pacote Patchwork - Combine gráficos
 
 .font70[### Adicione textos, títulos, tags... - .black[plot_annotation()]
@@ -2752,9 +2778,6 @@ g3 + g1 +
 .pull-left-4[
 &lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-73-1.png" style="display: block; margin: auto;" /&gt;
 ]
-
-
-
 
 ---
 
