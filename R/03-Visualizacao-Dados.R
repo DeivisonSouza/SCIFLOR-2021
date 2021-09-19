@@ -1224,24 +1224,26 @@ g3 + g1 + g3 + g4 +
         legend.direction = "horizontal")
 
 
-
 # 3 - Gráfico dentro de outro gráfico - inset_element()
 #-----------------------------------
 # A função inset_element() permite inserir um gráfico dentro de um
 # um gráfico anteriormente especificado. A localização de inserção
 # é dada por coordenadas das bordas esquerda, inferior, direita e superior.
 
-g3 + inset_element(g2, left = 0.4, bottom = 0.3, right = 0.95, top = 0.9)
+g3 + inset_element(g2,
+                   left = 0.4, bottom = 0.3,
+                   right = 0.95, top = 0.9)
 
 
-# 4 - Adicionando textos, títulos, tags, legendas - plot_annotation()
+# 4 - Adicionando textos, títulos, tags... - plot_annotation()
 #-----------------------------------
-# A função plot_annotation() pode ser usada para adicionar textos descritivos ao painel de
-# gráficos. Pode-se adicionar: títulos, subtítulos, legendas, tags (etiquetas de
-# subgráficos).
-# Em **tag_levels** experimente: '1', 'a', 'I', 'i'
+# - Use a função plot_annotation() para adicionar textos descritivos
+# ao painel de gráficos.
+# - No exemplo, são usados os argumentos: title, subtitle,
+# caption e tag_levels (etiquetas de subgráficos).
+# - Modifique tag_levels: '1', 'a', 'I', 'i'
 
-g2 + g1 + g3 + g4 +
+g3 + g1 +
   plot_layout(guides = 'collect') +
   plot_annotation(
   title = 'Inventário Florestal 100%',
@@ -1262,11 +1264,6 @@ g2 + g1 + g3 + g4 +
     tag_suffix = ':'
   )
 
+# Têm muito mais...:)
 
-
-
-
-
-
-
-
+# Fim--------------------

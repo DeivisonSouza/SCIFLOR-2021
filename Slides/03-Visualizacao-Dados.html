@@ -7,7 +7,7 @@
     <script src="03-Visualizacao-Dados_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="03-Visualizacao-Dados_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="03-Visualizacao-Dados_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x98b0f082ac74befb51ff81e4377b76c","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"ac6462a47f6249b5b61eb0b1b0544687","expires":1}</script>
     <script src="03-Visualizacao-Dados_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="03-Visualizacao-Dados_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="03-Visualizacao-Dados_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -2650,6 +2650,111 @@ g3 + g4 +
 &lt;img src="03-Visualizacao-Dados_files/figure-html/pat10-1.png" style="display: block; margin: auto;" /&gt;
 ]
 ]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Gráfico dentro de outro gráfico - .black[inset_element()]
+]
+
+--
+
+.pull-right-4[
+
+.font90[
+
+```r
+g3 + inset_element(g2, 
+                   left = 0.4, bottom = 0.3, 
+                   right = 0.95, top = 0.9)
+```
+
+- Use a função .green[inset_element()] para inserir um gráfico dentro de outro gráfico anteriormente especificado.
+- Use coordenadas relativas nos argumentos .brown[left] (esquerda), .brown[bottom] (inferior), .brown[right] (direita), .brown[top] = (superior), para informar a posição de inserção.
+]
+]
+
+--
+
+.pull-left-4[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-71-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Adicione textos, títulos, tags... - .black[plot_annotation()]
+]
+
+--
+
+.pull-right-4[
+
+.font90[
+
+```r
+g3 + g1 +
+  plot_layout(guides = 'collect') +
+  plot_annotation(
+  title = 'Inventário Florestal 100%',
+  subtitle = 'Explorando dados de algumas espécies',
+  caption = 'Fonte: O Autor',
+  tag_levels = 'A'
+)
+```
+
+- Use a função .green[plot_annotation()] para adicionar textos descritivos ao painel de gráficos. 
+- No exemplo, são usados os argumentos: .brown[title], .brown[subtitle], .brown[caption] e .brown[tag_levels] (etiquetas de subgráficos).
+- Modifique .brown[tag_levels]: '1', 'a', 'I', 'i'
+]
+]
+
+--
+
+.pull-left-4[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-72-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Adicione um prefixo e sufixo na etiqueta (tag) - .black[plot_annotation()]
+]
+
+--
+
+.pull-right-4[
+
+.font90[
+
+```r
+g3 + g1 +
+  plot_layout(guides = 'collect') +
+  plot_annotation(
+    title = 'Inventário Florestal 100%',
+    subtitle = 'Explorando dados de algumas espécies',
+    caption = 'Fonte: O Autor',
+    tag_levels = 'A',
+    tag_prefix = 'Fig. ',
+    tag_suffix = ':'
+  )
+```
+
+- Use os argumentos .brown[tag_prefix] e .brown[tag_suffix] para adicionar prefixos e sufixos, respectivamente, à etiqueta dos subgráficos.
+]
+]
+
+--
+
+.pull-left-4[
+&lt;img src="03-Visualizacao-Dados_files/figure-html/unnamed-chunk-73-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+
+
 
 ---
 

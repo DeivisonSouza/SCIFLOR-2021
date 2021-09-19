@@ -2652,6 +2652,111 @@ g3 + g4 +
 
 ---
 
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Gráfico dentro de outro gráfico - .black[inset_element()]
+]
+
+--
+
+.pull-right-4[
+
+.font90[
+```{r pat11, echo=T, eval=F}
+g3 + inset_element(g2, 
+                   left = 0.4, bottom = 0.3, 
+                   right = 0.95, top = 0.9)
+```
+
+- Use a função .green[inset_element()] para inserir um gráfico dentro de outro gráfico anteriormente especificado.
+- Use coordenadas relativas nos argumentos .brown[left] (esquerda), .brown[bottom] (inferior), .brown[right] (direita), .brown[top] = (superior), para informar a posição de inserção.
+]
+]
+
+--
+
+.pull-left-4[
+```{r ref.label="pat11", echo=FALSE, eval=TRUE, collapse=T, fig.width=6, fig.height=5}
+```
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Adicione textos, títulos, tags... - .black[plot_annotation()]
+]
+
+--
+
+.pull-right-4[
+
+.font90[
+```{r pat12, echo=T, eval=F}
+g3 + g1 +
+  plot_layout(guides = 'collect') +
+  plot_annotation(
+  title = 'Inventário Florestal 100%',
+  subtitle = 'Explorando dados de algumas espécies',
+  caption = 'Fonte: O Autor',
+  tag_levels = 'A'
+)
+```
+
+- Use a função .green[plot_annotation()] para adicionar textos descritivos ao painel de gráficos. 
+- No exemplo, são usados os argumentos: .brown[title], .brown[subtitle], .brown[caption] e .brown[tag_levels] (etiquetas de subgráficos).
+- Modifique .brown[tag_levels]: '1', 'a', 'I', 'i'
+]
+]
+
+--
+
+.pull-left-4[
+```{r ref.label="pat12", echo=FALSE, eval=TRUE, collapse=T, fig.width=6, fig.height=5}
+```
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Adicione um prefixo e sufixo na etiqueta (tag) - .black[plot_annotation()]
+]
+
+--
+
+.pull-right-4[
+
+.font90[
+```{r pat13, echo=T, eval=F}
+g3 + g1 +
+  plot_layout(guides = 'collect') +
+  plot_annotation(
+    title = 'Inventário Florestal 100%',
+    subtitle = 'Explorando dados de algumas espécies',
+    caption = 'Fonte: O Autor',
+    tag_levels = 'A',
+    tag_prefix = 'Fig. ',
+    tag_suffix = ':'
+  )
+```
+
+- Use os argumentos .brown[tag_prefix] e .brown[tag_suffix] para adicionar prefixos e sufixos, respectivamente, à etiqueta dos subgráficos.
+]
+]
+
+--
+
+.pull-left-4[
+```{r ref.label="pat13", echo=FALSE, eval=TRUE, collapse=T, fig.width=6, fig.height=5}
+```
+]
+
+
+
+
+---
+
 layout: true
 class: with-logo logo-ufpa
 <div class="my-header"></div>
