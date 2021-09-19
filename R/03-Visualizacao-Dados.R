@@ -1176,13 +1176,93 @@ g2 | (g4/g3)
 
 (g4 / g2 /g3) | g1
 
-# 2 - Controlando a disposição dos gráficos - plot_layout()
+# 2 - Disposição e área ocupada pelos subgráficos - plot_layout()
 #-----------------------------------
 
-# Se desejar mais controle sobre a disposição dos
-# subgráficos use a função plot_layout().
+# Se desejar mais controle sobre a disposição e o espaço ocupado por
+# cada subgráficos use a função plot_layout().
+?plot_layout
 
+# Especificando o número de linhas e a ordenação dos subgráficos
 g1 + g2 + g3 + g4 + plot_layout(nrow = 3, byrow = F)
+
+# Especificando uma largura relativa para os subgráficos
+# No exemplo, a área destinada aos subgráficos da segunda coluna é o dobro
+# da primeira coluna.
+g2 + g1 + g3 + g4 + plot_layout(widths = c(1, 2))
+
+# Especificando uma altura relativa para os subgráficos
+g2 + g1 + g3 + g4 + plot_layout(heights = c(1, 2))
+
+# Posição de legendas no painel
+# A função plot_layout() possui o argumento "guide" para tratar da disposição
+# das legendas no painel de subgráficos. Este argumento também ajuda a remover
+# legendas duplicadas.
+
+# Legendas posicionadas no lado direito
+
+g2 + g1 + g3 + g4
+
+g2 + g1 + g3 + g4 +
+  plot_layout(guides = 'collect')
+
+# Removendo legendas duplicadas
+
+g3 + g1 + g3 + g4
+
+g3 + g1 + g3 + g4 +
+  plot_layout(guides = 'collect')
+
+
+# Modifica posição e direção da legenda
+
+g3 + g1 + g3 + g4 +
+  plot_layout(guides = 'collect') &
+  theme(legend.position='bottom',
+        legend.direction = "horizontal")
+
+# 3 - Gráfico dentro de outro gráfico - inset_element()
+#-----------------------------------
+# A função inset_element() permite inserir um gráfico dentro de um
+# um gráfico anteriormente especificado. A localização de inserção
+# é dada por coordenadas das bordas esquerda, inferior, direita e superior.
+
+g3 + inset_element(g2, left = 0.4, bottom = 0.3, right = 0.95, top = 0.9)
+
+
+# 4 - Adicionando textos, títulos, tags, legendas - plot_annotation()
+#-----------------------------------
+# A função plot_annotation() pode ser usada para adicionar textos descritivos ao painel de
+# gráficos. Pode-se adicionar: títulos, subtítulos, legendas, tags (etiquetas de
+# subgráficos).
+# Em **tag_levels** experimente: '1', 'a', 'I', 'i'
+
+g2 + g1 + g3 + g4 +
+  plot_layout(guides = 'collect') +
+  plot_annotation(
+  title = 'Inventário Florestal 100%',
+  subtitle = 'Explorando dados de algumas espécies',
+  caption = 'Fonte: O Autor',
+  tag_levels = 'A'
+)
+
+# Adicionando prefixo e sufixo na etiqueta (tag)
+g2 + g1 + g3 + g4 +
+  plot_layout(guides = 'collect') +
+  plot_annotation(
+    title = 'Inventário Florestal 100%',
+    subtitle = 'Explorando dados de algumas espécies',
+    caption = 'Fonte: O Autor',
+    tag_levels = 'A',
+    tag_prefix = 'Fig. ',
+    tag_suffix = ':'
+  )
+
+
+
+
+
+
 
 
 

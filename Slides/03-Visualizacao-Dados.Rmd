@@ -2323,23 +2323,40 @@ g1 + g2 + g3 + g4
 ### Uso de operadores matemáticos - .black[Divisão (/) - Empilhar]
 ]
 
-.pull-left-4[
-.font80[
-```{r echo=T, eval=T, fig.width=6, fig.height=4.5}
+.pull-right-1[
+```{r patdiv, echo=T, eval=F}
 g2/g4
 ```
 ]
-]
 
 --
 
-.pull-right-4[
-.font80[
-```{r echo=T, eval=T, fig.width=7, fig.height=5.5}
+.pull-left-2[
+```{r ref.label="patdiv", echo=FALSE, eval=TRUE, collapse=T, out.width='70%'}
+```
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Uso de operadores matemáticos - .black[Divisão (/) - Empilhar]
+]
+
+.pull-right-1[
+```{r patdiv2, echo=T, eval=F}
 g2/g4/g3
 ```
 ]
+
+--
+
+.pull-left-2[
+```{r ref.label="patdiv2", echo=FALSE, eval=TRUE, out.width='70%'}
+```
 ]
+
 
 ---
 
@@ -2348,23 +2365,19 @@ g2/g4/g3
 .font65[
 ### Uso de operadores matemáticos - .black[Barra vertical (|) - Lado a Lado]]
 
-.pull-left-4[
-.font70[
-```{r echo=T, eval=T, fig.width=6, fig.height=4.5}
+.pull-right-1[
+```{r patlad, echo=T, eval=F}
 g2 | (g4/g3)
 ```
 ]
-]
 
 --
 
-.pull-right-4[
-.font70[
-```{r echo=T, eval=T, fig.width=6, fig.height=4.5}
-(g3/g1) | (g4/g2)
+.pull-left-2[
+```{r ref.label="patlad", echo=FALSE, eval=TRUE, out.width='70%'}
 ```
 ]
-]
+
 
 ---
 
@@ -2373,23 +2386,119 @@ g2 | (g4/g3)
 .font65[
 ### Uso de operadores matemáticos - .black[Barra vertical (|) - Lado a Lado]]
 
-.pull-left-4[
-.font70[
-```{r echo=T, eval=T, fig.width=6, fig.height=4.5}
+.pull-right-1[
+```{r patlad2, echo=T, eval=F}
+(g3/g1) | (g4/g2)
+```
+]
+
+--
+
+.pull-left-2[
+```{r ref.label="patlad2", echo=FALSE, eval=TRUE, collapse=T, out.width='70%'}
+```
+]
+
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font65[
+### Uso de operadores matemáticos - .black[Barra vertical (|) - Lado a Lado]]
+
+.pull-right-1[
+```{r patlad3, echo=T, eval=F}
 (g4 / g2 /g3) | g1
 ```
+]
+
+--
+
+.pull-left-2[
+```{r ref.label="patlad3", echo=FALSE, eval=TRUE, collapse=T, out.width='70%'}
+```
+]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[
+### Uso de operadores matemáticos - .black[Barra vertical (|) - Lado a Lado]]
+
+.pull-right-1[
+```{r patlad4, echo=T, eval=F}
+(g1 | g2 | g3)/g4
+```
+]
+
+--
+
+.pull-left-2[
+```{r ref.label="patlad4", echo=FALSE, eval=TRUE, collapse=T, out.width='70%'}
+```
+]
+
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Disposição e área ocupada pelos subgráficos - .black[plot_layout()]
+]
+
+.pull-right-4[
+
+.font90[
+```{r pat, echo=T, eval=F}
+g1 + g2 + g3 + g4 + plot_layout(nrow = 3, byrow = F)
+```
+<br>
+
+- Se desejar mais controle sobre a disposição e o espaço ocupado por cada subgráficos use a função .green[plot_layout()].
+- No exemplo, foi especificado que o painel deve ter 3 linhas (.brown[nrow] = 3), e os subgráficos ordenados em função das colunas (.brown[byrow] = F).
 ]
 ]
 
 --
 
-.pull-right-4[
-.font70[
-```{r echo=T, eval=T, fig.width=6, fig.height=4.5}
-(g1 | g2 | g3)/g4
+.pull-left-4[
+```{r ref.label="pat", echo=FALSE, eval=TRUE, collapse=T, fig.width=6, fig.height=5.5}
 ```
 ]
+
+---
+
+## Pacote Patchwork - Combine gráficos
+
+.font70[### Disposição e área ocupada pelos subgráficos - .black[plot_layout()]
 ]
+
+--
+
+.pull-right-4[
+
+.font90[
+```{r pat2, echo=T, eval=F}
+g2 + g1 + g3 + g4 + plot_layout(widths = c(1, 2))
+```
+
+- Especifique uma largura relativa para os subgráficos com argumento .brown[widths].
+- No exemplo, a área destinada aos subgráficos da segunda coluna é o dobro da primeira coluna.
+]
+]
+
+--
+
+.pull-left-4[
+```{r ref.label="pat2", echo=FALSE, eval=TRUE, collapse=T, fig.width=6, fig.height=5.5}
+```
+]
+
+---
+
+
 
 
 
