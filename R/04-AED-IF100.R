@@ -32,9 +32,10 @@
 #install.packages("dplyr")
 
 # 2: Carregar os pacotes necessários -----------------------------------
-library(readr)
-library(dplyr)
-library(ggplot2)
+library(readr)     # importação e exportação de dados
+library(dplyr)     # manipulação de dados
+library(ggplot2)   # visualização de dados
+library(patchwork) # combinar gráficos em painel
 
 # 3: Carregar o conjunto de dados --------------------------------------
 data <- readr::read_csv("Slides/data/UPA07DVS.csv")
@@ -278,16 +279,20 @@ data %>%
 # Parte 2 - Visualização de dados do IF100%
 ##########################################################################
 
-# 1: Gráficos de contagem ------------------------------------------
+#-----------------------------------------
+## 1: Gráficos para Espécies
+#-----------------------------------------
+# Temos uma dificuldade aqui! São muitas categorias...
 
 #------------
 # 1.1 - Número de árvores por espécie
-# Temos um grande problema aqui! São muitas categorias...
-# Uma alternativa pode ser um gráfico "lollipop" (pirulito)
-# Um gráfico por família talvez fosse mais eficiente!
-# Por enquanto, a nossa tabela é melhor!
+# Para o fator "Nome_Especie" existem muitas categorias (155).
+# Portanto, representar quantidades por categoria é mais difícil.
 
-data %>%
+# Mas, vamos tentar fazer mesmo assim...
+# Uma alternativa pode ser um gráfico "lollipop" (pirulito)
+
+(g1 <- data %>%
   group_by(Nome_Especie) %>%
   summarise(n = n()) %>%
   mutate(Nome_Especie =
@@ -303,87 +308,137 @@ data %>%
     panel.grid.major.y = element_blank(),
     panel.border = element_blank(),
     axis.ticks.y = element_blank()
-  )
+  ))
+
+# Um gráfico por família talvez fosse mais eficiente!
+# Uma tabela é bem melhor!
 
 ggsave("lollipop.pdf", path = "R/Output/Figure",
        width = 20, height = 30, dpi = 600, units = "cm")
 
+#-----------------------------------------
+## 2: Gráficos para Unidades de Trabalho
+#-----------------------------------------
 
-# Parei aqui!
+#----------------
+# 2.1 - Número de árvores por UT
+# Experimente mudar fill = UT para camada de geom_bar.
 
-
-
-
-
-
-#------------
-# 2: Gráficos de barras (volume) -----------------------------------
-
-
-
-
-# 1: Gráficos de barras -----------------------------------
-
-# 6.1. Gráficos de barras
-
-# Número de árvores por UT?
-g1 <- data %>%
+(g2 <- data %>%
   group_by(UT) %>%
-  summarise(n = n(), Soma = sum(VEq)) %>%
-  ggplot(aes(x = forcats::fct_reorder(UT, n),
-             y = n, fill = UT)) +
+  summarise(n = n()) %>%
+   # mutate(UT =
+   #          forcats::fct_reorder(UT, n, .desc = F)
+   # ) %>%
+  ggplot(mapping = aes(x = UT, y = n, fill = UT)) +
   geom_bar(stat = "identity", position = "dodge") +
-  labs(x = "Unidades de Trabalho", y = "Número de árvores") +
+  geom_label(mapping =
+                aes(x = UT, y = n,
+                    label = round(n, 3)),
+              size = 3) +
   coord_flip() +
-  geom_text(aes(label = paste(n)),
-            position=position_dodge(width=0.9),
-            vjust=.5, hjust=-.3) +
-  scale_y_continuous(breaks = seq(0, 3700, 200),
+  scale_y_continuous(breaks = seq(0, 3700, 400),
                      limits = c(0, 3700)) +
   scale_x_discrete(breaks = 1:8,
                    labels = c("UT1", "UT2", "UT3", "UT4",
                               "UT6", "UT6", "UT7", "UT8")) +
+  labs(x = "Unidades de Trabalho",
+        y = "Número de árvores") +
   theme_bw() +
   theme(panel.border=element_rect(color="black"),
         legend.position="none",
-        legend.title = element_blank())
+        legend.title = element_blank()))
 
-ggsave("Output/Figure/Fig-Cont-UT.png", dpi=600, width=8, height=5, units="in")
+#----------------
+# 2.2 - Volume total de madeira por UT
 
-#---------
-# Volume por UT?
-
-g2 <- data %>%
+(g3 <- data %>%
   group_by(UT) %>%
   summarise(n = n(), Soma = sum(VEq)) %>%
-  ggplot(aes(x = forcats::fct_reorder(UT, Soma),
-             y = Soma, fill = UT)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(x = "Unidades de Trabalho", y = "Volume Total (m³)") +
+  # mutate(UT =
+  #          forcats::fct_reorder(UT, Soma, .desc = F)
+  # ) %>%
+  ggplot(mapping = aes(x = UT, y = Soma)) +
+  geom_bar(mapping = aes(fill = UT),
+           stat = "identity", position = "dodge") +
+  geom_label(mapping =
+               aes(x = UT, y = Soma,
+                   label = round(Soma, 3)),
+             size = 3) +
   coord_flip() +
-  geom_text(aes(label = paste(round(Soma, 3))),
-            position=position_dodge(width=0.9),
-            vjust=.5, hjust=-.3) +
   scale_y_continuous(breaks = seq(0, 15000, 2000),
                      limits = c(0, 15000)) +
   scale_x_discrete(breaks = 1:8,
                    labels = c("UT1", "UT2", "UT3", "UT4",
                               "UT6", "UT6", "UT7", "UT8")) +
+  labs(x = "Unidades de Trabalho",
+       y = "Volume Total (m³)") +
   theme_bw() +
   theme(panel.border=element_rect(color="black"),
         legend.position="none",
-        legend.title = element_blank())
+        legend.title = element_blank()))
 
-ggsave("Output/Figure/Fig-Vol-UT.png", dpi=600, width=8, height=5, units="in")
 
-# Combina gráficos ---------------------------------------------------------
+#----------------
+# 2.3 - Número de árvores para explorar e remanescente por UT
 
-ggpubr::ggarrange(g1, g2,
-                  nrow = 1, font.label = list(family ='Times',size = 12),
-                  labels = c("(A)", "(B)")
-)
+(g4 <- data %>%
+  group_by(UT, Selecao) %>%
+  summarise(n = n(), .groups = 'drop') %>%
+  ggplot(aes(x = UT, y = n, group = Selecao)) +
+  geom_bar(aes(fill = Selecao),
+           stat = "identity", position = "dodge") +
+  geom_label(mapping =
+                aes(y = n, label = n),
+              size = 3,
+             position = position_dodge(0.9)) +
+  coord_flip() +
+  scale_y_continuous(breaks = seq(0, 3700, 400),
+                      limits = c(0, 3700)) +
+  scale_x_discrete(breaks = 1:8,
+                    labels = c("UT1", "UT2", "UT3", "UT4",
+                               "UT6", "UT6", "UT7", "UT8")) +
+  labs(x = "Unidades de Trabalho",
+        y = "Número de árvores") +
+  theme_bw() +
+  theme(panel.border=element_rect(color="black"),
+         legend.position="none",
+         legend.title = element_blank()))
 
-ggsave("Output/Figure/Fig-Comb.png", dpi=600, width=16, height=5, units="in")
+#----------------
+# 2.4 - Volume para explorar e remanescente por UT
 
-# End ---------
+(g5 <- data %>%
+   group_by(UT, Selecao) %>%
+   summarise(Soma = sum(VEq), .groups = 'drop') %>%
+   ggplot(aes(x = UT, y = Soma, group = Selecao)) +
+   geom_bar(aes(fill = Selecao),
+            stat = "identity", position = "dodge") +
+   geom_label(mapping =
+                aes(y = Soma, label = round(Soma,3)),
+              size = 3,
+              position = position_dodge(0.9)) +
+   coord_flip() +
+   scale_y_continuous(breaks = seq(0, 15000, 2000),
+                      limits = c(0, 15000)) +
+   scale_x_discrete(breaks = 1:8,
+                    labels = c("UT1", "UT2", "UT3", "UT4",
+                               "UT6", "UT6", "UT7", "UT8")) +
+   labs(x = "Unidades de Trabalho",
+        y = "Volume Total (m³)") +
+   theme_bw() +
+   theme(panel.border=element_rect(color="black"),
+         legend.position="none",
+         legend.title = element_blank()))
+
+#-------------
+# Combinando gráficos
+g2 + g3 + g4 + g5
+
+ggsave("comb.png", path = "R/Output/Figure",
+       width = 12, height = 8, dpi = 600)
+
+
+
+# Fim ---------
 
