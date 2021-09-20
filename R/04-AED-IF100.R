@@ -1,7 +1,7 @@
 #-----------------------------------------------------------------------------------
 # Título: Introdução ao R para Análise de Dados
 #-----------------------------------------------------------------------------------
-# Subtítulo: Parte 3 - Análise Exploratória de Dados de IF 100%
+# Subtítulo: Parte 4 - Análise Exploratória de Dados de IF 100%
 # Autor: Prof. Dr. Deivison Venicio Souza
 # Instituto: Universidade Federal do Pará (UFPA)
 #-----------------------------------------------------------------------------------
@@ -30,6 +30,8 @@
 # 1: Instalar os pacotes necessários -----------------------------------
 #install.packages("readr")
 #install.packages("dplyr")
+#install.packages("ggplot2")
+#install.packages("patchwork")
 
 # 2: Carregar os pacotes necessários -----------------------------------
 library(readr)     # importação e exportação de dados
