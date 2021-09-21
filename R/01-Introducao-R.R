@@ -526,6 +526,18 @@ arr[ , , -1]   # extrai matriz, exceto a primeira
 arr[1, , -1]   # extrai primeira linha, exceto a primeira
 arr[1, -2, -2] # extrai primeira linhas, exceto coluna 2 e matriz 2
 
+
+# 3.2 - Substituição de elementos no array
+#--------------------------------------------
+
+# Substitui o elemento da linha 1 e coluna 1 da matriz 1
+arr[ , , ]
+arr[1, 1, 1] <- 0; print(arr)
+
+# Substitui todos os elementos da linha 1 da matriz 2
+arr[1, , 2] <- c(50,60,70); print(arr)
+
+
 #---------------------------------------
 # 4 - Indexação de data frames
 #---------------------------------------

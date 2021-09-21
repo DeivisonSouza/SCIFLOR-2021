@@ -1749,11 +1749,60 @@ arr[1, -2, -2]
 ]
 ]
 
+---
+
+## Indexação no R
+<br>
+
+### Indexação de arrays - Substituição
+
+.pull-left-4[
+.font90[
+**Substituição de elementos**
+```{r arext4, echo=T, eval=F}
+# Substitui o elemento da 1ª linha e 1ª coluna 
+# da matriz 1
+arr[1, 1, 1] <- 0; print(arr)
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font90[
+```{r ref.label="arext4", echo=FALSE, eval=TRUE, collapse=F}
+```
+]
+]
+
+---
 
 
+## Indexação no R
+<br>
 
+### Indexação de arrays - Substituição
 
+.pull-left-4[
+.font90[
+**Substituição de elementos**
+```{r arext5, echo=T, eval=F}
+# Substitui todos os elementos da 1ª linha 
+# da matriz 2
+arr[1, , 2] <- c(50,60,70); print(arr)
+```
+]
+]
 
+--
+
+.pull-right-4[
+.font90[
+```{r ref.label="arext5", echo=FALSE, eval=TRUE, collapse=F}
+```
+]
+]
 
 ---
 name: IndDF
