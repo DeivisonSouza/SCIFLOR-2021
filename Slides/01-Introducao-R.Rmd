@@ -202,6 +202,10 @@ Ao final desta primeira parte (Introdução à Linguagem de Programação R) esp
 .pull-down[
 **Parte 4 - Funções no R**
 
+[1 - Sintaxe](#yyy)
+
+[2 - Criando funções no R](#xxx)
+
 ]
 ]
 
@@ -2164,6 +2168,150 @@ list$Inventario[diametro > 50 & cortar == "Sim", ]
 ```
 ]
 ]
+
+---
+name: func
+## Funções no R
+<br>
+
+### Criando funções no R
+
+.pull-left-4[
+.font80[
+- O R-base possui muitas funções **interativas** e **prontas**.
+- Não obstante, em algumas situações pode-se desejar ou ser obrigado a criar a própria função.
+- No R-base [@R-base], pode-se usar a função .green[function()\{\}] para criar funções.
+- Dentro de .green[()] ficam os argumento(s) da função. O código fica dentro
+das chaves .green[\{\}], e este irá trabalhar sobre os argumentos da função.
+- Opcionalmente, no escopo da função pode-se usar a função .green[return()], e especificar entre os parênteses a(s) saída(s) desejada(s) ao se aplicar a função.
+
+]
+]
+
+--
+
+.pull-right-4[
+
+.blockquote[
+.font90[
+
+.center[.blue[function(]arglist = **arg1**, **arg2**, ..., **argn**.blue[)].magenta[\{] <br>
+**expr** <br>
+.blue[return(]value.blue[)]<br>
+.magenta[\}]]
+<br>
+
+**arglist** = um argumento ou lista de argumentos sobre o(s) qual(is) irá atuar o código **expr**;
+
+**expr** = uma expressão ou código a ser usado sobre os argumentos da função;
+
+**return** = função que específica o retorno da função; e
+
+**value** = uma expressão que representa a saída desejada.
+
+]
+]
+]
+
+---
+
+## Funções no R
+<br>
+
+### Criando funções no R
+
+.pull-left-4[
+.font80[
+.blue[**1. Função para calcular a média aritmética de um vetor x**].
+
+```{r "func", echo=T, eval=T}
+# Criando uma função
+
+Media <- function(x){
+  n = length(x)
+  Soma = sum(x)
+  Media = Soma/n
+  
+  return(Media)                                
+}
+
+```
+<br><br>
+
+**Lembre-se**: O R-base já possui a função .green[mean()].
+<br>
+
+**É claro que esta função não está em um nível profissional! :)**
+
+]
+]
+
+--
+
+.pull-right-4[
+<br>
+.font90[
+
+**Dado um vetor de diâmetros de árvores pode-se calcular a média usando a função:**
+
+```{r, echo=T, eval=T, collapse=T}
+diametro <- c(23.4, 54.3, 45.1, 67.1, 34.7)
+Media(diametro)
+
+mean(diametro) # R-base
+```
+
+
+
+]
+]
+
+---
+
+## Funções no R
+<br>
+
+### Criando funções no R
+
+.pull-left-4[
+.font80[
+.blue[**2. Função para calcular o coeficiente de variação de um vetor x**].
+
+```{r echo=T, eval=T}
+# Criando uma função para CV
+
+CV <- function(x){
+  Media = sum(x)/length(x)
+  DP = sqrt(sum((x-mean(x))^2)/(length(x)-1))
+  CV = (DP/Media)*100
+  
+  return(CV)                                                                            
+}
+
+```
+<br>
+
+**Nota**: O R-base **NÃO possui** uma função para o calcular coeficiente de variação. No entanto, possui as funções .green[sd()] e .green[mean()], para calcular o **desvio padrão** e a **média**, respectivamente.
+
+]
+]
+
+--
+
+.pull-right-4[
+<br>
+.font90[
+
+**Dado um vetor de diâmetros de árvores pode-se calcular o CV usando a função:**
+
+```{r, echo=T, eval=T, collapse=T}
+diametro <- c(23.4, 54.3, 45.1, 67.1, 34.7)
+CV(diametro)
+```
+
+]
+]
+
 
 ---
 layout: false
