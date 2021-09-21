@@ -215,6 +215,7 @@ mat.6 <- matrix(1:6, nrow=3, ncol=3, byrow = TRUE,
 # Array com elementos
 (ar2 <- array(data = 1:12, dim = c(3, 2, 2)))
 # Cria 2 matrizes de dimensões 3 (linhas) x 2 (colunas)
+dim(ar2)
 
 # Array a partir de vetores de tamanhos diferentes
 
@@ -495,7 +496,27 @@ mat[c(1,5)] <- c(0,0); print(mat)
 # 3 - Indexação de arrays
 #--------------------------------------
 
+# A ideia de indexação de arrays é similar ao aprendido para matrizes.
+# No caso de arrays, deve-se apenas considerar que existe mais dimensões.
+# Portanto, a indexação pode ser realizada usando o comando [i, j, z].
+# Assim, i = linhas, j = colunas, z = matrizes.
 
+(arr <- array(1:18,
+      dim = c(3, 3, 2),
+      dimnames = list(c("L1", "L2", "L3"),
+                      c("C1", "C2", "C3"),
+                      c("M1", "M2"))))
+
+# 3.1 - Extração
+# 3.1.1 - Extração por indexação positiva
+#--------------------------------------------
+
+arr[ , , ]
+arr[ , , 1]   # acessando a matriz 1
+arr[ , , 2]   # acessando a matriz 2
+arr[1, , 1]   # primeira linha da "M1"
+arr[ , 2, 2]  # segunda coluna da "M2"
+arr[1, 2, 1]  # acessar elemento da primeira linha e segunda coluna de "M1"
 
 #---------------------------------------
 # 4 - Indexação de data frames

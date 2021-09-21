@@ -168,9 +168,11 @@ Ao final desta primeira parte (Introdução à Linguagem de Programação R) esp
 
 [2 - Matrizes](#mat)
 
-[3 - Data Frames](#df)
+[3 - Arrays](#arrays)
 
-[4 - Listas](#list)
+[4 - Data Frames](#df)
+
+[5 - Listas](#list)
 
 ]
 ]
@@ -188,9 +190,11 @@ Ao final desta primeira parte (Introdução à Linguagem de Programação R) esp
 
 [3 - Indexação de matrizes](#IndM)
 
-[4 - Indexação de data frames](#IndDF)
+[4 - Indexação de arrays](#iae)
 
-[5 - Indexação de listas](#IndL)
+[5 - Indexação de data frames](#IndDF)
+
+[6 - Indexação de listas](#IndL)
 ]
 
 
@@ -960,7 +964,7 @@ colnames(mat1) <- c("C1","C2","C3"); print(mat1)
 2 - **Regra da Reciclagem**: Quando a quantidade de linhas e colunas (ncol x nrow) for maior do que a quantidade de elementos (n).
 
 ---
-
+name: arrays
 ## Estrutura de dados na linguagem R
 <br>
 
@@ -1625,6 +1629,95 @@ mat[c(1,5)] <- c(0,0); print(mat)
 ```
 ]
 ]
+
+---
+name: iae
+## Indexação no R
+<br>
+
+### Indexação de arrays
+
+- A ideia de indexação de **arrays** é **similar** ao aprendido para **matrizes**.
+- No caso de arrays, deve-se apenas considerar que existe mais dimensões.
+- Portanto, a indexação pode ser realizada usando o comando [ $i$, $j$, $z$ ].
+- Então: $i$ = linha, $j$ = coluna, $z$ = matriz.
+- Se o número da linha, coluna e matriz não é informado [ , , ]: o array é acessado por completo.
+
+---
+
+## Indexação no R
+<br>
+
+### Indexação de arrays - Extração
+
+.pull-left-4[
+.font90[
+**Extração por indexação positiva**
+```{r arext, echo=T, eval=F}
+# Cria um array
+arr <- array(1:18,
+      dim = c(3, 3, 2),
+      dimnames = list(c("L1", "L2", "L3"),
+                      c("C1", "C2", "C3"),
+                      c("M1", "M2")))
+
+
+# extrai a matriz "M1" do array
+arr[ , , 1]
+
+# extrai a matriz "M2" do array
+arr[ , , 2] 
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font90[
+```{r ref.label="arext", echo=FALSE, eval=TRUE, collapse=F}
+```
+]
+]
+
+---
+
+## Indexação no R
+<br>
+
+### Indexação de arrays - Extração
+
+.pull-left-4[
+.font90[
+**Extração por indexação positiva**
+```{r arext2, echo=T, eval=F}
+
+# extrai 1ª linha da matriz "M1"
+arr[1, , 1]
+
+# extrai 2ª coluna da matriz "M2"
+arr[ , 2, 2]
+
+# extrai elemento da 1ª linha e 2ª coluna de "M1"
+arr[1, 2, 1]
+
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font90[
+```{r ref.label="arext2", echo=FALSE, eval=TRUE, collapse=F}
+```
+]
+]
+
+
+
+
+
 
 ---
 name: IndDF
