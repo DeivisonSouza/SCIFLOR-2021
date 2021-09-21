@@ -1,0 +1,194 @@
+---
+title: "Minicurso: Introdução ao R para Análise de Dados"
+subtitle: "Programação e Orientações"
+author: "Prof. Dr. Deivison Venicio Souza"
+institute: "Universidade Federal do Pará (UFPA)"
+date: 
+encoding: "UTF-8"
+header-includes: 
+   - \usepackage{xcolor}
+output:
+  xaringan::moon_reader:
+    css:
+      - default
+      - assets/sydney-fonts.css
+      - assets/slide-title/sydney-title.css
+    self_contained: false
+    seal: false
+    includes:
+      in_header: "assets/mathjax-equation-numbers.html"
+    nature:
+      beforeInit: ["assets/remark-zoom.js", "https://platform.twitter.com/widgets.js"]
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
+      countIncrementalSlides: false
+      highlightLanguage: ["r", "css", "yaml"]
+      ratio: '16:9'
+      navigation:
+        scroll: false
+---
+class: title-slide, center, middle
+background-image: url(fig/slide-title/ufpa2.png), url(fig/slide-title/sciflor.png), url(fig/slide-title/ufes.png), url(fig/slide-title/img3.png)
+background-position: 90% 90%, 50% 10%, 10% 90%
+background-size: 250px, 300px, 100px, cover
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	error = FALSE,
+	fig.align = "center",
+	fig.showtext = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	cache = FALSE,
+	collapse = TRUE,
+	dpi = 600
+)
+```
+
+```{r packages, include=FALSE}
+# remotes::install_github("dill/emoGG")
+# remotes::install_github("hadley/emo")
+library(ggplot2)
+library(dplyr)
+library(ggimage)
+library(kableExtra)
+library(readr)
+library(emo)
+```
+
+```{css, echo=FALSE}
+.with-logo::before {
+	content: '';
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	bottom: 1.3em;
+	right: -0.3em;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.logo-ufpa::before {
+	background-image: url(fig/slide-title/ufpa.png);
+}
+```
+
+```{r xaringan-logo, echo=FALSE}
+library(xaringanExtra)
+use_logo(
+  image_url = "fig/slide-title/sciflor.png",
+  position = css_position(top = "1.5em", right = "0.6em"),
+  width = "210px",
+  height = "210px"
+)
+
+use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+xaringanExtra::use_editable(expires = 1)
+#.can-edit[Você pode editar este título de slide]
+#.can-edit.key-firstSlideTitle[Change this title and then reload the page]
+use_clipboard()
+```
+
+
+
+
+<!-- title-slide -->
+# Minicurso: Introdução ao R para Análise de Dados
+<br>
+## .font90[Programação e Orientações] `r anicon::faa("pagelines", animate="horizontal", colour="green")`
+<br>
+
+#### **Prof. Dr. Deivison Venicio Souza**
+##### Universidade Federal do Pará (UFPA) 
+##### Faculdade de Engenharia Florestal
+##### E-mail: deivisonvs@ufpa.br
+<br>
+##### 1ª versão: 22/setembro/2021 <br> (Atualizado em: `r format(Sys.Date(),"%d/%B/%Y")`)
+
+---
+
+layout: true
+class: with-logo logo-ufpa
+<div class="my-header"></div>
+<div class="my-footer"><span>Prof. Dr. Deivison Venicio Souza (E-mail: deivisonvs@ufpa.br)&emsp;&emsp;&emsp;&emsp;&emsp; <div3>Introdução ao R para Análise de Dados</div3>/ <div2>Programação e Orientações</div2> </div>
+
+---
+
+<br>
+## Programação
+<br>
+O minicurso .blue["Introdução ao R para Análise de Dados"] possui a seguinte programação:
+<br>
+
+.pull-left-4[
+.font80[
+- Introdução ao R-base;
+- Importação de dados com pacote readr;
+- Manipulação de dados com dplyr;
+- Visualização de dados com ggplot2 e extensões;
+- Código com Análise Exploratória de Dados de Inventário Florestal 100%
+- Uma aplicação de Regressão Linear (Se der tempo!)
+- Uma base de Inventário Florestal 100% será usada de brinquedo🌳
+]
+]
+
+.pull-right-4[
+
+.pull-left-4[
+```{r echo=FALSE, out.width='40%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://tidyverse.tidyverse.org/articles/tidyverse-logo.png")
+```
+
+```{r echo=FALSE, out.width='40%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://patchwork.data-imaginist.com/reference/figures/logo.png")
+```
+
+]
+
+
+.pull-right-4[
+```{r echo=FALSE, out.width='40%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://ggplot2.tidyverse.org/logo.png")
+```
+
+```{r echo=FALSE, out.width='40%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://readr.tidyverse.org/logo.png")
+```
+]
+
+.pull-down[
+```{r echo=FALSE, out.width='40%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("https://dplyr.tidyverse.org/logo.png")
+```
+]
+
+
+]
+
+
+---
+
+<br>
+## Orientações e materias do minicurso
+<br>
+
+.font90[
+- Todo material do minicurso está disponível gratuitamente no repositório GitHub
+do facilitador. 
+<br><br>
+- Link para acesso ao repositório: https://github.com/DeivisonSouza/SCIFLOR-2021
+<br><br>
+- Esta é a primeira versão deste material. Mas, a ideia é continuar melhorando continuamente, e ajudar mais e mais pessoas...
+<br><br><br>
+]
+
+.blue[**Se alguém tiver sugestões de melhorias, ficarei feliz em recebê-las!**]
+<br><br>
+
+**Email**: deivisonvs@ufpa.br
+
+
