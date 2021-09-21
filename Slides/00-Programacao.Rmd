@@ -83,7 +83,10 @@ use_logo(
   height = "210px"
 )
 
-use_scribble()
+use_scribble() # para escrever nos slides
+use_share_again()
+use_progress_bar()
+#use_animate_all(style = c("slide_down"))
 
 use_extra_styles(
   hover_code_line = TRUE,         #<<
