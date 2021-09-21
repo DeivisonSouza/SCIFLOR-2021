@@ -1736,7 +1736,6 @@ arr[1, , -1]
 
 # extrai 1ª linha, exceto da 2ª e incluindo a 2ª matriz
 arr[1, -2, -2] 
-
 ```
 ]
 ]
