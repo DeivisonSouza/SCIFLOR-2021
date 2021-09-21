@@ -698,8 +698,77 @@ list$Inventario$especie
 # extrai as árvores para corte com DAP > 50
 list$Inventario[diametro > 50 & cortar == "Sim", ]
 
+
 ##############################################
-# Parte 4 - Um pouco mais sobre o R
+# Parte 4 - Funções no R
+##############################################
+
+# - O R-base possui muitas funções **interativas** e **prontas**.
+# - Não obstante, em algumas situações pode-se desejar ou ser obrigado a
+# criar a própria função.
+# - No R-base [@R-base], pode-se usar a função function(){} para
+# criar funções.
+# - Dentro de () ficam os argumento(s) da função. O código fica
+# dentro das chaves {}, e este irá trabalhar sobre os argumentos
+# da função.
+# - Opcionalmente, no escopo da função pode-se usar a função return(), e
+# especificar entre os parênteses a(s) saída(s) desejada(s) ao se aplicar
+# a função.
+
+# Sintaxe
+#function( arglist ) expr
+#return(value)
+
+#-----------------
+# 1. Função para calcular a média aritmética de um vetor x
+
+
+Media <- function(x){
+  n = length(x)
+  Soma = sum(x)
+  Media = Soma/n
+
+  return(Media)
+}
+
+# Lembre-se: O R-base já possui a função mean().
+# É claro que esta função não está em um nível profissional! :)
+
+# Dado um vetor de diâmetros de árvores pode-se calcular a média
+# usando a função:
+
+diametro <- c(23.4, 54.3, 45.1, 67.1, 34.7)
+Media(diametro)
+mean(diametro) # R-base
+
+#---------------
+# 2. Função para calcular o coeficiente de variação de um vetor x
+
+CV <- function(x){
+  Media = sum(x)/length(x)
+  DP = sqrt(sum((x-mean(x))^2)/(length(x)-1))
+  CV = (DP/Media)*100
+
+  return(CV)
+}
+
+
+# Nota: O R-base **NÃO possui** uma função para o calcular
+# coeficiente de variação. No entanto, possui as funções
+# sd() e mean(), para calcular o **desvio padrão** e a
+# **média**, respectivamente.
+
+# Dado um vetor de diâmetros de árvores pode-se calcular o CV
+# usando a função:
+
+diametro <- c(23.4, 54.3, 45.1, 67.1, 34.7)
+CV(diametro)
+
+# Aplicar em uma base....
+
+
+##############################################
+# Parte 5 - Um pouco mais sobre o R
 ##############################################
 
 # 1 - Operadores no R
