@@ -504,6 +504,22 @@ knitr::include_graphics("fig/part1/EstrDados.png")
 <!-- ] -->
 
 ---
+
+## Estrutura de dados na linguagem R
+
+- O R pode armazenar dados em diferentes estruturas
+
+```{r echo=FALSE, out.width='80%', fig.align='center', fig.cap='', dpi=600}
+knitr::include_graphics("http://venus.ifca.unican.es/Rintro/_images/dataStructuresNew.png")
+```
+.font70[
+**Fonte**: http://venus.ifca.unican.es/Rintro/dataStruct.html]
+
+
+
+
+
+---
 name: vet
 ## Estrutura de dados na linguagem R
 <br>
@@ -942,6 +958,163 @@ colnames(mat1) <- c("C1","C2","C3"); print(mat1)
 1 - **Descarte de elementos**: Quando a quantidade de elementos (n) for maior que a quantidade de linhas e colunas (ncol x nrow).
 
 2 - **Regra da Reciclagem**: Quando a quantidade de linhas e colunas (ncol x nrow) for maior do que a quantidade de elementos (n).
+
+---
+
+## Estrutura de dados na linguagem R
+<br>
+
+### Arrays - .black[Propriedades]
+
+.pull-left-4[
+.font80[
+- Os arrays generalizam a noção de matriz. Veja que:
+
+**Matrizes**: Os elementos são organizados em duas dimensões (linhas e colunas).
+
+**Array**: Os elementos podem ser armazenados em mais de duas dimensões.
+
+- No R-base, um array pode ser criando com a função .green[array()].
+- Os arrays podem armazenar apenas um tipo de dados.
+]
+]
+
+--
+
+.pull-right-4[
+
+.blockquote[
+.font80[
+.center[.blue[array(]**data** = NA, **dim** = length(data), **dimnames** = NULL.blue[)]]
+<br>
+
+**data** = um vetor (incluindo uma lista) que fornecerá dados para preencher a matriz.
+
+**dim** = um vetor de inteiros indicando as dimensões máximas do array.
+
+**dimnames** = Insere rótulos para as dimensões do array. Deve ser uma lista com nomes para as dimensões. Padrão é NULL.
+]
+]
+]
+
+---
+
+## Estrutura de dados na linguagem R
+<br>
+
+### Arrays - .black[Função array()]
+
+.pull-top[
+.pull-left-4[
+.font90[
+```{r array, echo=T, eval=F}
+# Cria um array sem elementos
+(ar1 <- array(dim = c(3, 2, 2)))
+
+# 3: número de linhas
+# 2: número de colunas
+# 2: número de matrizes
+```
+
+]
+]
+]
+
+.pull-right-4[
+```{r ref.label="array", echo=FALSE, eval=TRUE, collapse=TRUE}
+```
+]
+
+
+---
+
+## Estrutura de dados na linguagem R
+<br>
+
+### Arrays - .black[Função array()]
+
+.pull-top[
+.pull-left-4[
+.font90[
+```{r array2, echo=T, eval=F}
+# Cria um array com elementos
+(ar2 <- array(data = 1:12, dim = c(3, 2, 2)))
+```
+<br>
+
+- Veja que os valores do vetor .blue[1:12] foram distribuídos nas 2 matrizes na ordem dos elementos e por colunas das matrizes.
+
+
+]
+]
+]
+
+.pull-right-4[
+```{r ref.label="array2", echo=FALSE, eval=TRUE, collapse=F}
+```
+]
+
+---
+
+## Estrutura de dados na linguagem R
+<br>
+
+### Arrays - .black[Função array()]
+
+.pull-top[
+.pull-left-4[
+.font90[
+```{r array3, echo=T, eval=F}
+# Cria um array a partir de vetores de 
+# tamanhos diferentes
+vect1 <- c(3, 6, 1)
+vect2 <- c(15, 18, 13, 11, 17, 16)
+
+(ar3 <- array(c(vect1, vect2), dim = c(3, 3, 2)))
+```
+<br>
+
+]
+]
+]
+
+.pull-right-4[
+```{r ref.label="array3", echo=FALSE, eval=TRUE, collapse=F}
+```
+]
+
+---
+
+## Estrutura de dados na linguagem R
+<br>
+
+### Arrays - .black[Função array()] - Nomeando dimensões
+
+.pull-top[
+.pull-left-4[
+.font90[
+```{r array4, echo=T, eval=F}
+# Nomeando linhas, colunas e matrizes do array
+array(c(vect1, vect2),
+      dim = c(3, 3, 2),
+      dimnames = list(c("L1", "L2", "L3"),
+                      c("C1", "C2", "C3"),
+                      c("M1", "M2")))
+```
+<br>
+
+- Use o argumento **dimnames** para nomear as linhas, colunas e
+matrizes do array.
+
+]
+]
+]
+
+.pull-right-4[
+```{r ref.label="array4", echo=FALSE, eval=TRUE, collapse=F}
+```
+]
+
 
 ---
 name: df

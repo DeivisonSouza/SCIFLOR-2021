@@ -170,6 +170,7 @@ colnames(mat.3) <- c("C1","C2","C3"); print(mat1)
 # Outra forma de atribuir nomes às linhas e colunas é usar o
 # parâmetro dimnames da própria função matrix().
 
+#---------------
 # Situações especiais ao criar matrizes
 # a) Descarte de elementos (Número de elementos > ncol x nrow)
 # Quando a quantidade de elementos (n) for maior que a quantidade de
@@ -187,8 +188,54 @@ mat.6 <- matrix(1:6, nrow=3, ncol=3, byrow = TRUE,
                 dimnames = list(c("L1", "L2", "L3"),
                                 c("C1", "C2", "C3")))
 
+
 #---------------------------------------
-# 3 - Data Frames
+# 3 - Arrays
+#---------------------------------------
+
+# - Os arrays generalizam a noção de matriz. Veja que:
+  # **Matrizes**: Os elementos são organizados em duas
+  # dimensões (linhas e colunas).
+  # **Array**: Os elementos podem ser armazenados
+  # em mais de duas dimensões.
+
+# - No R-base, um array pode ser criando com a função array().
+
+# - Os arrays podem armazenar apenas o tipo de dados.
+
+# array(data = NA, dim = length(data), dimnames = NULL)
+
+# Cria um array sem elementos
+(ar1 <- array(dim = c(3, 2, 2)))
+
+# 3: número de linhas
+# 2: número de colunas
+# 2: número de matrizes
+
+# Array com elementos
+(ar2 <- array(data = 1:12, dim = c(3, 2, 2)))
+# Cria 2 matrizes de dimensões 3 (linhas) x 2 (colunas)
+
+# Array a partir de vetores de tamanhos diferentes
+
+vect1 <- c(3, 6, 1)
+vect2 <- c(15, 18, 13, 11, 17, 16)
+
+array(c(vect1, vect2), dim = c(3, 3, 2))
+
+#----------------------
+# Nomeando linhas, colunas e matrizes do array
+# Use o argumento **dimnames** para nomear as linhas, colunas e
+# matrizes do array
+
+array(c(vect1, vect2),
+      dim = c(3, 3, 2),
+      dimnames = list(c("L1", "L2", "L3"),
+                      c("C1", "C2", "C3"),
+                      c("M1", "M2")))
+
+#---------------------------------------
+# 4 - Data Frames
 #---------------------------------------
 # São caracterizados por possuírem duas dimensões (linhas e colunas).
 # Pode-se reunir vetores de diferentes classes, com a condição de possuírem
@@ -196,7 +243,7 @@ mat.6 <- matrix(1:6, nrow=3, ncol=3, byrow = TRUE,
 # O R-base possui a função data.frame().
 
 #---------------------------------------
-# 3.1 - Função data.frame()
+# 4.1 - Função data.frame()
 
 # Cria um data frame a partir de vetores existentes
 especie <- c("Acapu", "Araucaria", "Cedro", "Tauari")
@@ -221,7 +268,7 @@ cortar <- c("Não", "Não", "Não", "Sim")
 # Explore as funções dim() e str().
 
 #---------------------------------------
-# 3.2 - Função edit()
+# 4.2 - Função edit()
 
 # A edição de um data frame pode ser feita usando a função edit().
 # Use o comando x <- edit(data.frame()) e crie a tabela a seguir:
@@ -237,14 +284,14 @@ x <- edit(data.frame())
 
 
 #---------------------------------------
-# 3.3 - Importação de dados
+# 4.3 - Importação de dados
 # Em geral, dados importados (.csv e .txt) são armazenados como data.frame.
 
 data <- read.csv("Slides/data/UPA07DVS.csv")
 class(data)
 
 #---------------------------------------
-# 4 - Listas
+# 5 - Listas
 #---------------------------------------
 
 # Pode reunir diferentes estruturas de dados (vetores, matrizes,
@@ -253,9 +300,9 @@ class(data)
 # Se os objetos já existem pode-se simplesmente adicioná-los à função list().
 
 #---------------------------------------
-# 4.1 - Função list()
+# 5.1 - Função list()
 
-## 4.1.1 - Cria uma lista a partir de vetores já existentes
+## 5.1.1 - Cria uma lista a partir de vetores já existentes
 
 especie <- c("Acapu", "Mogno", "Cedro", "Ipe")
 diametro <- c(23.0, 27.0, 33.6, 52.6)
@@ -268,7 +315,7 @@ list1 <- list(especie, diametro, altura)
 # Nomear os componentes da lista facilita a identificação e a indexação.
 list2 <- list(Esp = especie, DAP = diametro, H = altura)
 
-# 4.1.2 - Uma lista com diferentes estruturas de dados
+# 5.1.2 - Uma lista com diferentes estruturas de dados
 diametro <- c(23.0, 27.0, 33.6, 52.6)
 
 mat <-
@@ -289,7 +336,7 @@ list3 <- list(Vetor = diametro,
 
 # Explore as funções length() e names().
 
-# 4.1.3 - Coagindo lista para data frame
+# 5.1.3 - Coagindo lista para data frame
 # Uma lista pode ser transformada em um data frame usando a
 # função as.data.frame().
 # Mas, para isso a lista a ser transformada deve possuir vetores de
@@ -443,8 +490,15 @@ mat[1, 1] <- 0; print(mat)
 # Substitui os elementos das posições 1 e 5 por zero.
 mat[c(1,5)] <- c(0,0); print(mat)
 
+
 #---------------------------------------
-# 3 - Indexação de data frames
+# 3 - Indexação de arrays
+#--------------------------------------
+
+
+
+#---------------------------------------
+# 4 - Indexação de data frames
 #---------------------------------------
 # A **extração**, **inclusão** ou **substituição** de vetores em um data frame
 # pode ser feita usando os comandos: [i, j] e $.
@@ -456,7 +510,7 @@ mat[c(1,5)] <- c(0,0); print(mat)
 # facilitar o acesso à colunas de data frames.
 
 
-# 3.1 - Extração usando o comando [i, j]
+# 4.1 - Extração usando o comando [i, j]
 #--------------------------------------------
 
 invFlor <-
@@ -485,7 +539,7 @@ invFlor[, "especie"]
 invFlor[, c(4,3)]
 invFlor[, c("cortar", "especie")]
 
-# 3.2 - Extração usando o comando $
+# 4.2 - Extração usando o comando $
 #--------------------------------------------
 
 # extrai a coluna “diâmetro”
@@ -495,7 +549,7 @@ invFlor$diametro
 # e extrai os elementos da posição [4, 5]
 invFlor$altura[c(3,4)]
 
-# 3.3 - Extração usando o comandos $ + Operadores de comparação
+# 4.3 - Extração usando o comandos $ + Operadores de comparação
 #--------------------------------------------
 # Operadores de comparação (<, >, >=, <=, !=, ==, %in%)
 
@@ -521,7 +575,7 @@ invFlor$cortar == "Sim"
 # No entanto, na maioria das vezes deseja-se extrair os elementos.
 ############################################################################
 
-# 3.4 - Extração usando os comandos: [i, j] + $ + Operadores (lógicos e comparação)
+# 4.4 - Extração usando os comandos: [i, j] + $ + Operadores (lógicos e comparação)
 #--------------------------------------------
 
 # Quais árvores têm mais de 14 m?
@@ -537,7 +591,7 @@ invFlor[invFlor$cortar == "Sim", ]
 # e não estão previstas para corte?
 invFlor[invFlor$diametro < 50 & invFlor$cortar == "Não", ]
 
-# 3.5 - Adição de linhas e colunas
+# 4.5 - Adição de linhas e colunas
 #--------------------------------------------
 
 # Cria um vetor sobre proteção
@@ -552,13 +606,13 @@ invFlor[1,] <- c("Acapu", 50.9, 15.6, "Não", "Sim")
 print(invFlor)
 
 #---------------------------------------
-# 4 - Indexação de listas
+# 5 - Indexação de listas
 #---------------------------------------
 # A indexação de lista pode ser feita com uso dos comandos [[ ]] e $ .
 # Para acessar subíndices dos componentes da lista pode-se fazer: [[ ]][ ] .
 # O comando $ poderá ser usado quando a lista tiver seus componentes nomeados.
 
-# 4.1 - Lista com níveis superiores não nomeados
+# 5.1 - Lista com níveis superiores não nomeados
 #--------------------------------------------
 
 diametro <- c(23.0, 27.0, 33.6, 52.6)
@@ -580,7 +634,7 @@ list[[2]][1]
 list[[2]]$especie
 #list[[2]]["especie"]
 
-# 4.2 - Lista com níveis superiores nomeados
+# 5.2 - Lista com níveis superiores nomeados
 #--------------------------------------------
 
 diametro <- c(23.0, 27.0, 33.6, 52.6)

@@ -7,7 +7,7 @@
     <script src="01-Introducao-R_files/header-attrs-2.7/header-attrs.js"></script>
     <link href="01-Introducao-R_files/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="01-Introducao-R_files/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"xec05c3ff7ad41daa2c4556b69cf91f4","expires":1}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x61c3b575eb348dbb0e03daf32476cfe","expires":1}</script>
     <script src="01-Introducao-R_files/himalaya-1.1.0/himalaya.js"></script>
     <script src="01-Introducao-R_files/js-cookie-3.0.0/js.cookie.js"></script>
     <link href="01-Introducao-R_files/editable-0.2.6/editable.css" rel="stylesheet" />
@@ -130,7 +130,7 @@ top:1.5em;right:0.6em;
 ##### Faculdade de Engenharia Florestal
 ##### E-mail: deivisonvs@ufpa.br
 &lt;br&gt;
-##### 1ª versão: 22/setembro/2021 &lt;br&gt; (Atualizado em: 14/setembro/2021)
+##### 1ª versão: 22/setembro/2021 &lt;br&gt; (Atualizado em: 21/setembro/2021)
 
 ---
 
@@ -317,8 +317,8 @@ Veja na tabela a seguir os principais espelhos disponíveis no Brasil.
 &lt;br&gt;&lt;br&gt;
 
 .center2[
-<div id="htmlwidget-60c70457942a716c0677" style="width:750px;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-60c70457942a716c0677">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["http://cran-r.c3sl.ufpr.br/","http://nbcgib.uesc.br/mirrors/cran/","https://cran.fiocruz.br/","https://vps.fmvz.usp.br/CRAN/","http://brieger.esalq.usp.br/CRAN/"],["Universidade Federal do Paraná - UFPR","Center for Comp Biol at Universidade Estadual de Santa Cruz","Oswaldo Cruz Foundation, Rio de Janeiro","University of São Paulo, São Paulo","University of São Paulo, Piracicaba"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Link<\/th>\n      <th>Instituição<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"tip","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '12pt'});\n}","order":[],"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+<div id="htmlwidget-29efe9acc82aac5707e9" style="width:750px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-29efe9acc82aac5707e9">{"x":{"filter":"none","caption":"<caption><\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["http://cran-r.c3sl.ufpr.br/","http://nbcgib.uesc.br/mirrors/cran/","https://cran.fiocruz.br/","https://vps.fmvz.usp.br/CRAN/","http://brieger.esalq.usp.br/CRAN/"],["Universidade Federal do Paraná - UFPR","Center for Comp Biol at Universidade Estadual de Santa Cruz","Oswaldo Cruz Foundation, Rio de Janeiro","University of São Paulo, São Paulo","University of São Paulo, Piracicaba"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Link<\/th>\n      <th>Instituição<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"tip","autoWidth":false,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '12pt'});\n}","order":[],"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
 ]
 
 ---
@@ -471,6 +471,20 @@ class: with-logo logo-ufpa
 
 &lt;!-- ] --&gt;
 &lt;!-- ] --&gt;
+
+---
+
+## Estrutura de dados na linguagem R
+
+- O R pode armazenar dados em diferentes estruturas
+
+&lt;img src="http://venus.ifca.unican.es/Rintro/_images/dataStructuresNew.png" width="80%" style="display: block; margin: auto;" /&gt;
+.font70[
+**Fonte**: http://venus.ifca.unican.es/Rintro/dataStruct.html]
+
+
+
+
 
 ---
 name: vet
@@ -967,6 +981,223 @@ colnames(mat1) &lt;- c("C1","C2","C3"); print(mat1)
 1 - **Descarte de elementos**: Quando a quantidade de elementos (n) for maior que a quantidade de linhas e colunas (ncol x nrow).
 
 2 - **Regra da Reciclagem**: Quando a quantidade de linhas e colunas (ncol x nrow) for maior do que a quantidade de elementos (n).
+
+---
+
+## Estrutura de dados na linguagem R
+&lt;br&gt;
+
+### Arrays - .black[Propriedades]
+
+.pull-left-4[
+.font80[
+- Os arrays generalizam a noção de matriz. Veja que:
+
+**Matrizes**: Os elementos são organizados em duas dimensões (linhas e colunas).
+
+**Array**: Os elementos podem ser armazenados em mais de duas dimensões.
+
+- No R-base, um array pode ser criando com a função .green[array()].
+- Os arrays podem armazenar apenas um tipo de dados.
+]
+]
+
+--
+
+.pull-right-4[
+
+.blockquote[
+.font80[
+.center[.blue[array(]**data** = NA, **dim** = length(data), **dimnames** = NULL.blue[)]]
+&lt;br&gt;
+
+**data** = um vetor (incluindo uma lista) que fornecerá dados para preencher a matriz.
+
+**dim** = um vetor de inteiros indicando as dimensões máximas do array.
+
+**dimnames** = Insere rótulos para as dimensões do array. Deve ser uma lista com nomes para as dimensões. Padrão é NULL.
+]
+]
+]
+
+---
+
+## Estrutura de dados na linguagem R
+&lt;br&gt;
+
+### Arrays - .black[Função array()]
+
+.pull-top[
+.pull-left-4[
+.font90[
+
+```r
+# Cria um array sem elementos
+(ar1 &lt;- array(dim = c(3, 2, 2)))
+
+# 3: número de linhas
+# 2: número de colunas
+# 2: número de matrizes
+```
+
+]
+]
+]
+
+.pull-right-4[
+
+```
+## , , 1
+## 
+##      [,1] [,2]
+## [1,]   NA   NA
+## [2,]   NA   NA
+## [3,]   NA   NA
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]   NA   NA
+## [2,]   NA   NA
+## [3,]   NA   NA
+```
+]
+
+
+---
+
+## Estrutura de dados na linguagem R
+&lt;br&gt;
+
+### Arrays - .black[Função array()]
+
+.pull-top[
+.pull-left-4[
+.font90[
+
+```r
+# Cria um array com elementos
+(ar2 &lt;- array(data = 1:12, dim = c(3, 2, 2)))
+```
+&lt;br&gt;
+
+- Veja que os valores do vetor .blue[1:12] foram distribuídos nas 2 matrizes na ordem dos elementos e por colunas das matrizes.
+
+
+]
+]
+]
+
+.pull-right-4[
+
+```
+## , , 1
+## 
+##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6
+## 
+## , , 2
+## 
+##      [,1] [,2]
+## [1,]    7   10
+## [2,]    8   11
+## [3,]    9   12
+```
+]
+
+---
+
+## Estrutura de dados na linguagem R
+&lt;br&gt;
+
+### Arrays - .black[Função array()]
+
+.pull-top[
+.pull-left-4[
+.font90[
+
+```r
+# Cria um array a partir de vetores de 
+# tamanhos diferentes
+vect1 &lt;- c(3, 6, 1)
+vect2 &lt;- c(15, 18, 13, 11, 17, 16)
+
+(ar3 &lt;- array(c(vect1, vect2), dim = c(3, 3, 2)))
+```
+&lt;br&gt;
+
+]
+]
+]
+
+.pull-right-4[
+
+```
+## , , 1
+## 
+##      [,1] [,2] [,3]
+## [1,]    3   15   11
+## [2,]    6   18   17
+## [3,]    1   13   16
+## 
+## , , 2
+## 
+##      [,1] [,2] [,3]
+## [1,]    3   15   11
+## [2,]    6   18   17
+## [3,]    1   13   16
+```
+]
+
+---
+
+## Estrutura de dados na linguagem R
+&lt;br&gt;
+
+### Arrays - .black[Função array()] - Nomeando dimensões
+
+.pull-top[
+.pull-left-4[
+.font90[
+
+```r
+# Nomeando linhas, colunas e matrizes do array
+array(c(vect1, vect2),
+      dim = c(3, 3, 2),
+      dimnames = list(c("L1", "L2", "L3"),
+                      c("C1", "C2", "C3"),
+                      c("M1", "M2")))
+```
+&lt;br&gt;
+
+- Use o argumento **dimnames** para nomear as linhas, colunas e
+matrizes do array.
+
+]
+]
+]
+
+.pull-right-4[
+
+```
+## , , M1
+## 
+##    C1 C2 C3
+## L1  3 15 11
+## L2  6 18 17
+## L3  1 13 16
+## 
+## , , M2
+## 
+##    C1 C2 C3
+## L1  3 15 11
+## L2  6 18 17
+## L3  1 13 16
+```
+]
+
 
 ---
 name: df
@@ -2636,8 +2867,8 @@ name: log
 ]
 
 .pull-right-5[
-<div id="htmlwidget-e4149917f68b1db6c982" style="width:800px;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e4149917f68b1db6c982">{"x":{"filter":"none","caption":"<caption>Dados fictícios para 10 árvores de duas espécies florestais.<\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Swietenia macrophylla","Swietenia macrophylla","Swietenia macrophylla","Hymenolobium petraeum","Hymenolobium petraeum","Hymenolobium petraeum","Hymenolobium petraeum","Hymenolobium petraeum","Swietenia macrophylla","Swietenia macrophylla"],[33.6,42.6,52.1,80.3,90.8,49.4,70.5,100.5,60.7,27.1],[9.1,13.2,15.4,18.6,19.5,16.8,17.9,22.4,15.3,8.7],["Sim","Não","Sim","Não","Sim","Não","Sim","Não","Sim","Sim"],[2,1,3,1,2,1,2,3,1,3],["Protegida","Protegida","Protegida","Explorar","Explorar","Remanescente","Explorar","Remanescente","Protegida","Protegida"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Especie<\/th>\n      <th>DAP<\/th>\n      <th>H<\/th>\n      <th>Cipo<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"tip","autoWidth":true,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '12pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2,4]}],"order":[],"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
+<div id="htmlwidget-0c3d7d59ae7959849330" style="width:800px;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0c3d7d59ae7959849330">{"x":{"filter":"none","caption":"<caption>Dados fictícios para 10 árvores de duas espécies florestais.<\/caption>","editable":{"target":"cell","disable":{"columns":null}},"data":[["Swietenia macrophylla","Swietenia macrophylla","Swietenia macrophylla","Hymenolobium petraeum","Hymenolobium petraeum","Hymenolobium petraeum","Hymenolobium petraeum","Hymenolobium petraeum","Swietenia macrophylla","Swietenia macrophylla"],[33.6,42.6,52.1,80.3,90.8,49.4,70.5,100.5,60.7,27.1],[9.1,13.2,15.4,18.6,19.5,16.8,17.9,22.4,15.3,8.7],["Sim","Não","Sim","Não","Sim","Não","Sim","Não","Sim","Sim"],[2,1,3,1,2,1,2,3,1,3],["Protegida","Protegida","Protegida","Explorar","Explorar","Remanescente","Explorar","Remanescente","Protegida","Protegida"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Especie<\/th>\n      <th>DAP<\/th>\n      <th>H<\/th>\n      <th>Cipo<\/th>\n      <th>QF<\/th>\n      <th>Selecao<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"tip","autoWidth":true,"initComplete":"function(settings, json) {\n$(this.api().table().container()).css({'font-size': '12pt'});\n}","columnDefs":[{"className":"dt-right","targets":[1,2,4]}],"order":[],"orderClasses":false}},"evals":["options.initComplete"],"jsHooks":[]}</script>
 
 ]
 
