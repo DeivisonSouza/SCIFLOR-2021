@@ -1698,9 +1698,11 @@ arr[1, , 1]
 # extrai 2ª coluna da matriz "M2"
 arr[ , 2, 2]
 
+# extrai 1ª linha das duas matrizes
+arr[1, , ]
+
 # extrai elemento da 1ª linha e 2ª coluna de "M1"
 arr[1, 2, 1]
-
 ```
 ]
 ]
@@ -1713,6 +1715,41 @@ arr[1, 2, 1]
 ```
 ]
 ]
+
+---
+
+## Indexação no R
+<br>
+
+### Indexação de arrays - Extração
+
+.pull-left-4[
+.font90[
+**Extração por indexação negativa**
+```{r arext3, echo=T, eval=F}
+
+# extrai matriz, exceto a 1ª
+arr[ , , -1]   
+
+# extrai 1ª linha, exceto da 1ª matriz
+arr[1, , -1]
+
+# extrai 1ª linha, exceto da 2ª e incluindo a 2ª matriz
+arr[1, -2, -2] 
+
+```
+]
+]
+
+--
+
+.pull-right-4[
+.font90[
+```{r ref.label="arext3", echo=FALSE, eval=TRUE, collapse=F}
+```
+]
+]
+
 
 
 

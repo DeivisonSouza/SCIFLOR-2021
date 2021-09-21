@@ -517,6 +517,14 @@ arr[ , , 2]   # acessando a matriz 2
 arr[1, , 1]   # primeira linha da "M1"
 arr[ , 2, 2]  # segunda coluna da "M2"
 arr[1, 2, 1]  # acessar elemento da primeira linha e segunda coluna de "M1"
+arr[1, , ]    # primeira de ambas matrizes
+
+# 3.1.2 - Extração por indexação negativa
+#--------------------------------------------
+
+arr[ , , -1]   # extrai matriz, exceto a primeira
+arr[1, , -1]   # extrai primeira linha, exceto a primeira
+arr[1, -2, -2] # extrai primeira linhas, exceto coluna 2 e matriz 2
 
 #---------------------------------------
 # 4 - Indexação de data frames
